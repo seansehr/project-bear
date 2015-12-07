@@ -1,0 +1,81 @@
+<?php
+/**
+ * @file
+ * Code for the Marquee feature.
+ */
+
+include_once 'marquee.features.inc';
+
+/**
+ * Implements hook_theme().
+ */
+function marquee_theme($existing, $type, $theme, $path) {
+  return array(
+    'marquee_section' => array(
+      'variables' => array(
+        'title' => NULL,
+        'image' => NULL,
+      ),
+      'path' => $path . '/templates',
+      'template' => 'section',
+    ),
+  );
+}
+
+/**
+ * Implements hook_node_view_alter().
+ */
+function marquee_node_view_alter(&$build) {
+  if ($build['#bundle'] == "marquee") {
+    $slides = field_get_items('node', $build['#node'], 'field_slides');
+    $flexslider_slides = array();
+    foreach ($slides as $slide) {
+
+      $sections = field_get_items('node', $slide['entity'], 'field_slide_section');
+      $sections = entity_load('field_collection_item', array_map(function($n) {
+        return $n['value'];
+      }, field_get_items('node', $slide['entity'], 'field_slide_section')));
+
+      $count = count($sections);
+      $section_class = $count > 2 ? 'sections--small' : 'sections--large';
+      // Merge the sections into a slide.
+      $markup = '<div class="slide__wrapper ' . $section_class . '">' . join('', array_map('_marquee_section_mapping', $sections)) . "</div>";
+      $flexslider_slides[] = array('slide' => $markup);
+    }
+    // Output a Flexslider.
+    $build['field_slides'] = array(
+      '#theme' => 'flexslider',
+      '#items' => $flexslider_slides,
+      '#settings' => array(
+        'optionset' => 'marquee',
+      ),
+    );
+  }
+}
+
+/**
+ * Build the markup for the Marquee Slide Sections.
+ *
+ * @param $section
+ *   The section to create the render array for.
+ *
+ * @return string
+ */
+function _marquee_section_mapping($section) {
+  $wrapper = entity_metadata_wrapper('field_collection_item', $section);
+  $image = $wrapper->field_section_image->value();
+  if (isset($image['fid'])) {
+    $file = entity_metadata_wrapper('file', file_load($image['fid']));
+    $ret = theme('marquee_section', array(
+      'title' => $wrapper->field_title->value(),
+      'color' => $wrapper->field_title_color->value(),
+      'image' => array(
+        '#theme' => 'image',
+        '#path' => $file->url->value(),
+        '#alt'=> $file->field_file_image_alt_text->value(),
+        '#title'=> $file->field_file_image_title_text->value(),
+      ),
+    ));
+  }
+  return $ret;
+}

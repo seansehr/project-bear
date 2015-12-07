@@ -1,0 +1,45 @@
+// Non-modular or client styles for .l-footer region.
+
+.l-footer {
+  background: $black;
+  color: $white;
+  font-family: $font-family-open-sans;
+  font-size: rem-calc(16);
+  padding: 20px 0;
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: darken($white, 25);
+    }
+  }
+}
+
+.l-footer-columns {
+  margin-bottom: 20px;
+
+  .block-title {
+    color: $white;
+    font-family: $font-family-open-sans;
+    font-size: rem-calc(16);
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+
+  .menu {
+    line-height: 1.2;
+    list-style: none;
+    margin: 0;
+  }
+}
+
+.footer__border {
+  border-top: 1px solid $white;
+  margin: 10px 3%;
+}
+
+.copyright {
+  font-size: rem-calc(12);
+  text-transform: uppercase;
+}

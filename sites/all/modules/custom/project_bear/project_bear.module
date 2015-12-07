@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Project Bear feature.
+ */
+
+include_once 'project_bear.features.inc';

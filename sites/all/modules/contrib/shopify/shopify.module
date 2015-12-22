@@ -94,7 +94,7 @@ function shopify_permission() {
 function shopify_menu() {
 
   // Create nice shortcut links for shopify admin pages.
-  $store_url = 'https://' . shopify_store_info()->myshopify_domain;
+  $store_url = 'https://' . shopify_store_info()->domain;
   $items['admin/shopify/store'] = array(
     'title' => 'Admin',
     'page callback' => 'drupal_goto',
@@ -605,7 +605,7 @@ function shopify_menu_alter(&$items) {
 
   // Products are added on Shopify, not in Drupal.
   $items['admin/shopify/products/add']['page callback'] = 'drupal_goto';
-  $items['admin/shopify/products/add']['page arguments'] = array('https://' . shopify_store_info()->myshopify_domain . '/admin/products/new');
+  $items['admin/shopify/products/add']['page arguments'] = array('https://' . shopify_store_info()->domain . '/admin/products/new');
   $items['admin/shopify/products/add']['options'] = array('attributes' => array('target' => '_blank'));
 }
 
@@ -701,7 +701,7 @@ function shopify_added_to_cart() {
     '@parent' => $parent->label(),
     '@title' => $title,
     '@price' => shopify_money_format() . $product->wrapper()->price->value(),
-    '!cart_link' => l(t('your cart'), 'https://' . shopify_store_info()->myshopify_domain . '/cart'),
+    '!cart_link' => l(t('your cart'), 'https://' . shopify_store_info()->domain . '/cart'),
     '@quantity' => $quantity,
   )));
   print '';
@@ -932,14 +932,12 @@ function shopify_product_update($product_id, $variant_id = 0, array $new_values 
  *   Returns the loaded Shopify Product entity.
  */
 function shopify_product_load_single($product_id, $variant_id = 0) {
-  dd(debug_backtrace());
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'shopify_product')
     ->propertyCondition('product_id', $product_id)
     ->propertyCondition('variant_id', $variant_id)
     ->addMetaData('account', user_load(1)); // Run the query as user 1.
   $result = $query->execute();
-  dd($result);
   if (isset($result['shopify_product'])) {
     $ids = array_keys($result['shopify_product']);
     $shopify_product = entity_load_single('shopify_product', reset($ids));
@@ -1639,7 +1637,7 @@ function shopify_block_view($delta = '') {
   $block = array();
   switch ($delta) {
     case 'cart':
-      $domain = shopify_store_info()->myshopify_domain;
+      $domain = shopify_store_info()->domain;
       $cart = t('Cart');
       $block['subject'] = $cart;
       $block['content'] = array(
@@ -1652,7 +1650,6 @@ function shopify_block_view($delta = '') {
             dataType: 'jsonp',
             success: function(data) {
                 var total = 0;
-                console.log(data.items);
                 for(i=0;i<data.items.length;i++){
                   total += data.items[i].quantity;
                 }

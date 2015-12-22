@@ -37,8 +37,6 @@ function shopify_shopify_webhook($hook, $payload) {
  * Implements hook_shopify_webhook_WEBHOOK().
  */
 function shopify_shopify_webhook_products_create($product) {
-  dd('create');
-  dd($product);
   shopify_shopify_webhook_products_update($product);
   if (module_exists('rules')) {
     $product_entity = shopify_product_load_single($product['id']);
@@ -108,11 +106,8 @@ function shopify_shopify_webhook_collections_create($collection) {
  * Implements hook_shopify_webhook_WEBHOOK().
  */
 function shopify_shopify_webhook_products_update($product) {
-  // dd($product);
   $product_entity = shopify_product_update($product['id'], 0, $product);
   $product_entity->save();
-  // dd('update');
-  // dd($product_entity);
   foreach ($product['variants'] as $v) {
     $variant = shopify_product_update($product['id'], $v['id'], $v);
     $variant->save();

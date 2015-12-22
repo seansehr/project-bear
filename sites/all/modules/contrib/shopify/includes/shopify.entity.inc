@@ -288,20 +288,14 @@ class ShopifyProduct extends Entity {
    * Saves the entity.
    */
   public function save() {
-    dd('save');
     // Ensure that we are saving serialized array data.
     if (is_array($this->options)) {
-      dd('options');
-      dd($this->options);
       $this->options = serialize($this->options);
     }
     if (is_array($this->option_values)) {
-      dd('options_values');
-      dd($this->options_values);
       $this->option_values = serialize($this->option_values);
     }
     $this->formatTimestamps();
-    dd($this);
     return parent::save();
   }
 

@@ -451,6 +451,14 @@ class ShopifyProductMetadataController extends EntityDefaultMetadataController {
    * Defines entity property info.
    */
   public function entityPropertyInfo() {
+    $info[$this->type]['properties']['id'] = array(
+      'label' => t('Entity ID'),
+      'type' => 'integer',
+      'description' => t('Unique product identifier from Drupal.'),
+      'schema field' => 'id',
+      'setter callback' => 'entity_property_verbatim_set',
+      'getter callback' => 'entity_property_verbatim_get',
+    );
     $info[$this->type]['properties']['updated_at'] = array(
       'label' => t('Updated Date'),
       'type' => 'date',
@@ -479,7 +487,7 @@ class ShopifyProductMetadataController extends EntityDefaultMetadataController {
       'label' => t('Product ID'),
       'type' => 'integer',
       'description' => t('Unique product identifier from Shopify.'),
-      'schema field' => 'id',
+      'schema field' => 'product_id',
       'setter callback' => 'entity_property_verbatim_set',
       'getter callback' => 'entity_property_verbatim_get',
     );

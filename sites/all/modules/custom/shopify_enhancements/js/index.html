@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="./app/libraries/jquery-2.2.1.min.js"></script>
+  <script src="./app/libraries/browser.min.js"></script>
+  <style media="screen">
+    .filter-list {
+      margin-bottom: 10px;
+    }
+    .filter-options {
+      margin-bottom: 10px;
+    }
+    .filter-list__category, .filter-options__option {
+      margin-right: 5px;
+    }
+    .filter-list__category.active, .filter-options__option.active {
+      color: red;
+    }
+    .product_thumb__name {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="example"></div>
+  <div id="products"></div>
+  <script src="./app/bundle.js"></script>
+</body>
+</html>

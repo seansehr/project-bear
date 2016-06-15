@@ -1,0 +1,6 @@
+name = Shopify Enhancements
+core = 7.x
+package = Project Bear
+dependencies[] = shopify
+dependencies[] = shopify_api
+features[features_api][] = api:2

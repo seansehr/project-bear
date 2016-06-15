@@ -1,0 +1,394 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+/**
+ * @file
+ * Implements hook_ctools_plugin_directory().
+ *
+ * It simply tells panels where to find the .inc files that define various
+ * args, contexts, content_types.
+ */
+function shopify_enhancements_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && $plugin == 'content_types') {
+    return 'plugins/content_types';
+  }
+}
+
+
+/**
+ * Implements hook_library().
+ */
+function shopify_enhancements_library() {
+  $module_path = drupal_get_path('module', 'shopify_enhancements');
+  $libraries['shopify_enhancements'] = array(
+    'title' => 'Settings',
+    'version' => '1.0',
+    'js' => array(
+      libraries_get_path('money_js') . '/money.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
+      libraries_get_path('shopify_buy') . '/shopify-buy.polyfilled.globals.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
+      $module_path . '/js/app/bundle.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
+      $module_path . '/js/shopify_enhancements.stores.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
+      $module_path . '/js/shopify_enhancements.currency.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
+      $module_path . '/js/shopify_enhancements.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
+      array(
+        'type' => 'setting',
+        'data' => array(
+          'shopify_enhancements' => array(
+            'domain' => str_replace('.myshopify.com', '', shopify_store_info()->myshopify_domain),
+            'apiKey' => '56fdbbc3dc59ed0919f4338740a2cca2',
+          ),
+        ),
+      ),
+    ),
+  );
+
+  $libraries['shopify_enhancements_cart'] = array(
+    'title' => 'Gigya Accounts',
+    'version' => '1.0',
+    'js' => array(
+      // libraries_get_path('bower_components') . '/angular/angular.min.js' => array(
+      //   'scope' => 'footer',
+      // ),
+      // $module_path . '/js/app/main.js' => array(
+      //   'defer' => 'true',
+      //   'scope' => 'footer',
+      // ),
+      // $module_path . '/js/app/factories.js' => array(
+      //   'defer' => 'true',
+      //   'scope' => 'footer',
+      // ),
+      // $module_path . '/js/app/services.js' => array(
+      //   'defer' => 'true',
+      //   'scope' => 'footer',
+      // ),
+      // $module_path . '/js/app/controllers.js' => array(
+      //   'defer' => 'true',
+      //   'scope' => 'footer',
+      // ),
+      'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js' => array(
+        'external' => true,
+      ),
+      $module_path . '/js/app/bundle.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
+    ),
+    'dependencies' => array(
+      array('shopify_enhancements', 'shopify_enhancements'),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function shopify_enhancements_theme($existing, $type, $theme, $path) {
+  return array(
+    'cart' => array(
+      'variables' => array(
+        'cart' => NULL,
+        'domain' => NULL,
+      ),
+      'path' => $path . '/templates',
+      'template' => 'cart',
+    ),
+    'currency' => array(
+      'variables' => array(
+        'currencies' => array(),
+      ),
+      'path' => $path . '/templates',
+      'template' => 'currency',
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function shopify_enhancements_block_info() {
+  $blocks['currency'] = array(
+    'info' => t('Shopify Currency'),
+    // 'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function shopify_enhancements_block_view($delta = '') {
+  $block = array();
+  $module_path = drupal_get_path('module', 'shopify_enhancements');
+  switch ($delta) {
+    case 'currency':
+      $currencies = array(
+        'USD' => '$',
+        'CAD' => '🍁',
+        'GBP' => '£',
+        'EUR' => '€',
+        'JPY' => '¥',
+        'INR' => '₹',
+        'TRY' => '₺',
+      );
+      $block['content'] = array(
+        '#theme' => 'currency',
+        '#currencies' => $currencies,
+        '#attached' => array(
+          'library' => array(
+            array('shopify_enhancements', 'shopify_enhancements_cart'),
+          ),
+          'js' => array(
+            array(
+              'type' => 'setting',
+              'data' => array(
+                'shopify_enhancements' => array(
+                  'currencies' => $currencies,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function shopify_enhancements_block_view_alter(&$data, $block) {
+  if ($block->module == 'shopify' && $block->delta == 'cart') {
+    $domain = shopify_store_info()->myshopify_domain;
+    $cart_string = t('Cart');
+    $cart = "<i class='fa fa-shopping-cart'></i> <span id='shopify-cart-text'>$cart_string<span> (<span id='shopify-cart-total'></span>)";
+    $data['content'] = array(
+      '#theme' => 'cart',
+      '#cart' => $cart_string,
+      '#domain' => $domain,
+      '#attached' => array(
+        'library' => array(
+          array('shopify_enhancements', 'shopify_enhancements_cart'),
+        ),
+      ),
+    );
+  }
+}
+
+function shopify_enhancements_entity_view_alter(&$build, $type) {
+  if ($type == 'shopify_product') {
+    // dpm($build);
+    // dpm($build['#entity']);
+    drupal_add_js(array('shopify_enhancements' => array('productID' => $build['#entity']->product_id)), 'setting');
+    // $options = array(
+    //   'metafield[owner_id]' => '3926111942',
+    //   'metafield[owner_resource]' => 'product',
+    // );
+
+    // shopify_metafield_delete_orphaned_metafields();
+    // dpm(shopify_metafield_get_orphaned_metafields());
+    // $items = shopify_metafield_api_get_metafields($options);
+    // dpm($items);
+    // dpm(shopify_metafield_owner_metafields('3926111942'));
+
+    // $json_items = shopify_metafield_api_get_metafields($options);
+    // foreach ($json_items as $item) {
+    //   $shopify_metafield = shopify_metafield_metafield_update($item['id'], $item);
+    //   $shopify_metafield->save();
+    // }
+    // $metafields = shopify_metafield_owner_metafields('3926111942');
+    // $json_ids = array_map(function($item) {
+    //   return $item['id'];
+    // }, $json_items);
+    // dpm($metafields);
+    // foreach ($metafields as $metafield) {
+    //   if (!in_array($metafield->metafield_id, $json_ids)) {
+    //     dpm($metafield);
+    //     $metafield->delete();
+    //   }
+    // }
+
+    // $item = $items[1];
+    // dpm($item);
+    // $shopify_product = new ShopifyMetafield($item);
+    // dpm($shopify_product);
+    // $shopify_product->save();
+    // dpm(shopify_metafield_metafield_load_single($items[0]['id']));
+    // dpm(entity_load('shopify_metafield', array(1)));
+
+    // $shopify_product = shopify_product_load_single('5360229958');
+    // shopify_enhancements_associate_brand($shopify_product);
+    // shopify_enhancements_shopify_product_update_alter($shopify_product);
+
+    // dpm(drupal_http_request('http://drupal7.dev/shopify_product.json?variant_id=0&limit=5&id=307'));
+    // $response = drupal_http_request('http://drupal7.dev/shopify_product.json?variant_id=0&limit=5&id=307');
+    // dpm(json_decode($response->data));
+  }
+}
+
+/**
+ * Implements hook_shopify_product_update_alter().
+ */
+function shopify_enhancements_shopify_product_update_alter(&$shopify_product) {
+  $metafields = array('category', 'licence');
+  foreach ($shopify_product->shopify_product_metafields[LANGUAGE_NONE] as $value) {
+    if ($value['entity']->namespace == 'attr') {
+      $key = $value['entity']->key;
+      if (in_array($key, $metafields)) {
+        $shopify_product->$key = $value['entity']->value;
+      }
+    }
+  }
+
+  shopify_enhancements_associate($shopify_product, 'shopify_brands', 'vendor', 'field_shopify_brand_reference');
+  shopify_enhancements_associate($shopify_product, 'shopify_categories', 'category', 'field_shopify_category_reference');
+  shopify_enhancements_associate($shopify_product, 'shopify_licences', 'licence', 'field_shopify_licence_reference');
+}
+
+function shopify_enhancements_associate(&$shopify_product, $tax_name, $shopify_name, $field_name) {
+  if ($shopify_product->$shopify_name) {
+    $taxonomies = taxonomy_get_term_by_name($shopify_product->$shopify_name, $tax_name);
+    $product_wrapper = entity_metadata_wrapper('shopify_product', $shopify_product);
+    if (empty($taxonomies)) {
+      $tax = new stdClass();
+      $tax->name = $shopify_product->$shopify_name;
+      $tax->vid = taxonomy_vocabulary_machine_name_load($tax_name)->vid;
+      taxonomy_term_save($tax);
+    }
+    else {
+      $tax = array_shift($taxonomies);
+    }
+    $product_wrapper->$field_name->set($tax);
+    $product_wrapper->save();
+  }
+}
+
+/**
+ * Alter the outgoing response.
+ *
+ * related support issue https://drupal.org/node/2024603
+ *
+ * @param mixed $response
+ *   The response data being returned by the REST service (not yet serialized).
+ *
+ * @param string $function
+ *   The function being called on the REST service.
+ *
+ * @param string $format
+ *   The name of the format serializing the response.
+ */
+function shopify_enhancements_restws_response_alter(&$response, $function, $formatName) {
+  // specific modifications based common request type
+  if ($formatName == 'json') {
+    if ($function == 'viewResource') {
+      shopify_enhancements_restsw_process_entity($response);
+    }
+    if ($function == 'queryResource') {
+      if (is_array($response['list'])) {
+        foreach ($response['list'] as &$entity) {
+          shopify_enhancements_restsw_process_entity($entity);
+        }
+      }
+    }
+  }
+}
+
+function shopify_enhancements_restsw_process_entity(&$entity) {
+  // allow for deep loading of resources
+  foreach ($entity as $key => &$val) {
+    // check for a single resource verses many
+    if (is_array($val)) {
+      if (isset($val[0])) {
+        // loop through items loading them in
+        foreach ($val as &$item) {
+          shopify_enhancements_attach_field_reference($item);
+        }
+      }
+      elseif (isset($val['id'])) {
+        shopify_enhancements_attach_field_reference($val);
+      }
+    }
+  }
+
+  if (isset($entity['variant_id']) && $entity['variant_id'] == 0) {
+    $product = shopify_product_load_single($entity['product_id']);
+    foreach ($product->variants as $variant) {
+      if (entity_access('view', 'shopify_product', $variant)) {
+        // create a meta wrapper to act on for entity
+        $wrapper = entity_metadata_wrapper('shopify_product', $variant);
+        // filter out these values
+        $wrap = restws_property_access_filter($wrapper);
+        $eary = (array) $variant;
+        foreach ($eary as $property => $value) {
+          // value needs to be removed as it didn't pass wrapper validation
+          if (!isset($wrap[$property])) {
+            unset($eary[$property]);
+          }
+        }
+        // add values based on wrapper passing correctly
+        $entity['variants'][] = $eary;
+      }
+    }
+  }
+}
+
+function shopify_enhancements_attach_field_reference(&$field) {
+  if (isset($field['file'])) {
+    $field = $field['file'];
+  }
+  elseif (empty($field['id'])) {
+    return FALSE;
+  }
+  $entity = entity_load_single($field['resource'], $field['id']);
+  // ensure they can view this specific item
+  if (entity_access('view', $field['resource'], $entity)) {
+    // create a meta wrapper to act on for entity
+    $wrapper = entity_metadata_wrapper($field['resource'], $entity);
+    // filter out these values
+    $wrap = restws_property_access_filter($wrapper);
+    $eary = (array) $entity;
+    foreach ($eary as $property => $value) {
+      // value needs to be removed as it didn't pass wrapper validation
+      if (!isset($wrap[$property])) {
+        unset($eary[$property]);
+      }
+    }
+    if ($field['resource'] == 'file') {
+      $query = drupal_get_query_parameters();
+      $image_style = isset($query['image_style']) ? $query['image_style'] : 'medium';
+      $eary['url'] = theme('image', array(
+        'path' => $entity->uri,
+        'height' => $entity->height,
+        'width' => $entity->width,
+        'alt' => $wrapper->field_file_image_alt_text->value(),
+        'title' => $wrapper->field_file_image_title_text->value(),
+      ));
+    }
+    // add values based on wrapper passing correctly
+    $field[$field['resource']] = $eary;
+  }
+}

@@ -917,6 +917,7 @@ function shopify_product_update($product_id, $variant_id = 0, array $new_values 
   else {
     $shopify_product->__construct($new_values);
   }
+  drupal_alter('shopify_product_update', $shopify_product);
   return $shopify_product;
 }
 

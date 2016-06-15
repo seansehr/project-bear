@@ -1,0 +1,282 @@
+<?php
+/**
+ * @file
+ * Main module file containing hooks and functions.
+ */
+
+// Load include files.
+module_load_include('inc', 'shopify_metafield', 'includes/shopify_metafield.api');
+
+/**
+ * Menu access callback that puts 'administer shopify' permission first.
+ */
+function shopify_metafield_user_access($string, $account = NULL) {
+  if (user_access('administer shopify', $account) || user_access($string, $account)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function shopify_metafield_theme($existing, $type, $theme, $path) {
+  return array(
+    'shopify_metafield' => array(
+      'variables' => array(
+        'shopify_metafield' => array(),
+      ),
+      'path' => $path . '/templates',
+      'template' => 'shopify-metafield',
+    ),
+  );
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function shopify_metafield_entity_info() {
+  $return = array(
+    'shopify_metafield' => array(
+      'label' => t('Shopify Metafield'),
+      'label callback' => 'shopify_metafield_label',
+      'entity class' => 'ShopifyMetafield',
+      'controller class' => 'ShopifyMetafieldController',
+      'base table' => 'shopify_metafields',
+      'entity keys' => array(
+        'id' => 'id',
+        'label' => 'metafield_id'
+      ),
+      'bundles' => array(
+        'shopify_metafield' => array(
+          'label' => 'Shopify Metafield',
+        ),
+      ),
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Full'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'load hook' => 'shopify_metafield_metafield_load',
+      'module' => 'shopify_metafield',
+      'access callback' => 'shopify_metafield_metafield_access',
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function shopify_metafield_entity_load($entities, $type) {
+  if ($type == 'shopify_metafield') {
+    foreach ($entities as &$entity) {
+      $entity->key = $entity->metafield_key;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function shopify_metafield_entity_presave($entity, $type) {
+  if ($type == 'shopify_metafield') {
+    // 'key' is not a valid db column name.
+    $entity->metafield_key = $entity->key;
+  }
+}
+
+/**
+ * Shopify product access callback.
+ *
+ * @return bool
+ *   Returns TRUE if the user has access to the product.
+ */
+function shopify_metafield_metafield_access($op, ShopifyMetafield $entity = NULL, $account = NULL, $entity_type = 'shopify_metafield') {
+  if (user_access('administer shopify', $account) || user_access('edit shopify products', $account)) {
+    // User has access to do all the things.
+    return TRUE;
+  }
+  switch ($op) {
+    case 'view':
+      // Check if this product is published.
+      return $entity->published_at && user_access('view shopify products', $account);
+      break;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_shopify_product_update_alter().
+ */
+function shopify_metafield_shopify_product_update_alter(&$shopify_product) {
+  $new_product = shopify_metafield_update_owner_metafields('product', $shopify_product);
+}
+
+/**
+ * Implements hook_shopify_collection_update_alter().
+ */
+function shopify_metafield_shopify_collection_update_alter(&$shopify_collection) {
+  $new_collection = shopify_metafield_update_owner_metafields('collection', $shopify_collection);
+}
+
+/**
+ * Update an owner's metafields.
+ *
+ * @param string $shopify_type
+ *   The shopify type.
+ * @param object $entity
+ *   The collection or product entity object.
+ *
+ * @return NULL
+ *   Modifies the entity by saving the metafield reference field.
+ */
+function shopify_metafield_update_owner_metafields($shopify_type, $entity) {
+  $shopify_type_id = $shopify_type . '_id';
+  $options = array(
+    'metafield[owner_id]' => $entity->$shopify_type_id,
+    'metafield[owner_resource]' => $shopify_type,
+  );
+  $json_items = shopify_metafield_api_get_metafields($options);
+  foreach ($json_items as $item) {
+    $shopify_metafield = shopify_metafield_metafield_update($item['id'], $item);
+    $shopify_metafield->save();
+  }
+  $metafields = shopify_metafield_owner_metafields($entity->$shopify_type_id);
+  $json_ids = array_map(function($item) {
+    return $item['id'];
+  }, $json_items);
+  foreach ($metafields as $metafield) {
+    if (!in_array($metafield->metafield_id, $json_ids)) {
+      $metafield->delete();
+    }
+  }
+  $metafields_id = array_keys($metafields);
+  $entity_wrapper = entity_metadata_wrapper('shopify_' . $shopify_type, $entity);
+  $wrapper_id = "shopify_$shopify_type" . "_metafields";
+  $entity_wrapper->$wrapper_id->set($metafields_id);
+}
+
+/**
+ * Update a Shopify Metafield with new values or create a new one.
+ *
+ * @param int $metafield_id
+ *   Shopify Metafield ID.
+ * @param array $new_values
+ *   New values to apply to the Shopify Metafield.
+ *
+ * @return \ShopifyMetafield
+ *   Returns the newly created or modified Shopify Metafield.
+ */
+function shopify_metafield_metafield_update($metafield_id, array $new_values = array()) {
+  $shopify_metafield = shopify_metafield_metafield_load_single($metafield_id);
+  if (!$shopify_metafield) {
+    // Create a new metafield with those values.
+    $shopify_metafield = new ShopifyMetafield($new_values);
+  }
+  else {
+    $shopify_metafield->__construct($new_values);
+  }
+  drupal_alter('shopify_metafield_update', $shopify_metafield);
+  return $shopify_metafield;
+}
+
+/**
+ * Load a single Shopify Metafield given a metafield ID.
+ *
+ * @param int $metafield_id
+ *   Shopify Metafield ID.
+ *
+ * @return ShopifyMetafield
+ *   Returns the loaded Shopify Metafield entity.
+ */
+function shopify_metafield_metafield_load_single($metafield_id) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'shopify_metafield')
+    ->propertyCondition('metafield_id', $metafield_id)
+    ->addMetaData('account', user_load(1)); // Run the query as user 1.
+  $result = $query->execute();
+  if (isset($result['shopify_metafield'])) {
+    $ids = array_keys($result['shopify_metafield']);
+    $shopify_metafield = entity_load_single('shopify_metafield', reset($ids));
+  }
+  return isset($shopify_metafield) ? $shopify_metafield : NULL;
+}
+
+/**
+ * Load metafields based on the owner_id.
+ *
+ * @param int $owner_id
+ *   Shopify Owner ID.
+ *
+ * @return array
+ *   Returns an array of ShopifyMetafield entities.
+ */
+function shopify_metafield_owner_metafields($owner_id) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'shopify_metafield')
+    ->propertyCondition('owner_id', $owner_id)
+    ->addMetaData('account', user_load(1)); // Run the query as user 1.
+  $result = $query->execute();
+  return isset($result['shopify_metafield']) ? entity_load('shopify_metafield', array_keys($result['shopify_metafield'])) : array();
+}
+
+/**
+ * Implements hook_cron().
+ */
+function shopify_metafield_cron() {
+  // Default to an hourly interval. Of course, cron has to be running at least
+  // hourly for this to work.
+  $interval = variable_get('shopify_metafield_cron_interval', 60 * 60);
+  // We usually don't want to act every time cron runs (which could be every
+  // minute) so keep a time for the next run in a variable.
+  if (time() >= variable_get('shopify_metafield_cron_next_execution', 0)) {
+    // This is a silly example of a cron job.
+    // It just makes it obvious that the job has run without
+    // making any changes to your database.
+    watchdog('shopify_metafields', 'orphaned metafields ran');
+    shopify_metafield_delete_orphaned_metafields();
+    variable_set('shopify_metafield_cron_next_execution', time() + $interval);
+  }
+}
+
+/**
+ * Delete metafields from the system that are not associated with any products.
+ */
+function shopify_metafield_delete_orphaned_metafields() {
+  $orphaned_metafields = shopify_metafield_get_orphaned_metafields();
+  $nids = array_map(function($n) {
+    return $n->id;
+  }, $orphaned_metafields);
+  watchdog('shopify_metafields', '%count orphaned metafields deleted', array('%count' => count($nids)));
+  if (!empty($nids)) {
+    entity_delete_multiple('shopify_metafield', $nids);
+  }
+}
+
+/**
+ * Gets metafields from the system that are not associated with any products.
+ */
+function shopify_metafield_get_orphaned_metafields() {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'shopify_metafield')
+    ->addMetaData('account', user_load(1)); // Run the query as user 1.
+  $result = $query->execute();
+  $orphaned_metafields = array();
+  if ($result && isset($result['shopify_metafield']) && $result['shopify_metafield']) {
+    $metafields = entity_load('shopify_metafield', array_keys($result['shopify_metafield']));
+    // For each term, check if it has products associated with it.
+    foreach ($metafields as $eid => $metafield) {
+      $query = new EntityFieldQuery();
+      $count = $query->entityCondition('entity_type', 'shopify_product')
+        ->propertyCondition('product_id', $metafield->owner_id)
+        ->execute();
+      if (!$count || !isset($count['shopify_product']) || !count($count['shopify_product'])) {
+        $orphaned_metafields[] = $metafield;
+      }
+    }
+  }
+  return $orphaned_metafields;
+}

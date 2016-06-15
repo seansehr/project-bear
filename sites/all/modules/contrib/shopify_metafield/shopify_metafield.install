@@ -1,0 +1,138 @@
+<?php
+/**
+ * @file
+ * Contains install and uninstall functionality.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function shopify_metafield_schema() {
+  $schema['shopify_metafields'] = array(
+    'description' => 'Base table for storing Shopify metafields.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Drupal ID for metafield',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'metafield_id' => array(
+        'type' => 'int',
+        'description' => 'Shopify metafield ID',
+        'size' => 'big',
+      ),
+      'namespace' => array(
+        'description' => 'Metafield namespace',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      // 'key' is not a valid column name.
+      'metafield_key' => array(
+        'description' => 'Metafield key',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'value' => array(
+        'description' => 'Metafield value',
+        'type' => 'text',
+      ),
+      'value_type' => array(
+        'description' => 'Metafield value_type',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'description' => array(
+        'description' => 'Metafield description',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'metafield_id' => array(
+        'type' => 'int',
+        'description' => 'Shopify metafield ID',
+        'size' => 'big',
+      ),
+      'owner_id' => array(
+        'type' => 'int',
+        'description' => 'Shopify ID of the owner',
+        'size' => 'big',
+      ),
+      'owner_resource' => array(
+        'description' => 'Metafield owner_resource',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'created_at' => array(
+        'description' => 'Created at',
+        'type' => 'int',
+      ),
+      'updated_at' => array(
+        'description' => 'Updated at',
+        'type' => 'int',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function shopify_metafield_install() {
+  // Add reference field to products.
+  $field = array(
+    'cardinality' => FIELD_CARDINALITY_UNLIMITED,
+    'entity_types' => array(),
+    'field_name' => 'shopify_product_metafields',
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'target_type' => 'shopify_metafield',
+    ),
+    'type' => 'entityreference',
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'field_name' => 'shopify_product_metafields',
+    'entity_type' => 'shopify_product',
+    'bundle' => 'shopify_product',
+    'label' => 'Shopify Product Metafields',
+    'widget' => array(
+      'type' => 'options_select',
+    ),
+    'settings' => array(
+      'target_type' => 'shopify_metafield',
+      'handler_settings' => array('target_bundles' => array('shopify_metafield')),
+    ),
+  );
+  field_create_instance($instance);
+
+  // Add reference field to product collections.
+  $field['field_name'] = 'shopify_collection_metafields';
+  field_create_field($field);
+
+  $instance = array(
+    'field_name' => 'shopify_collection_metafields',
+    'entity_type' => 'taxonomy_term',
+    'bundle' => 'shopify_collections',
+    'label' => 'Shopify Collection Metafields',
+    'widget' => array(
+      'type' => 'options_select',
+    ),
+    'settings' => array(
+      'target_type' => 'shopify_metafield',
+      'handler_settings' => array('target_bundles' => array('shopify_metafield')),
+    ),
+  );
+  field_create_instance($instance);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function shopify_metafield_uninstall() {
+  field_delete_field('shopify_product_metafields');
+  field_delete_field('shopify_collection_metafields');
+}

@@ -1,0 +1,11 @@
+name = Shopify Metafield
+description = Add metafield support for Shopify eCommerce.
+core = 7.x
+
+dependencies[] = entity (>=1.6)
+dependencies[] = shopify
+dependencies[] = views
+
+package = Shopify
+
+files[] = includes/shopify_metafield.entity.inc

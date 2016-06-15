@@ -1308,8 +1308,10 @@ function shopify_product_access($op, ShopifyProduct $entity = NULL, $account = N
   switch ($op) {
     case 'view':
       // Check if this product is published.
-      return $entity->published_at && user_access('view shopify products', $account);
-      break;
+      if (isset($entity)) {
+        return $entity->published_at && user_access('view shopify products', $account);
+      }
+      return user_access('view shopify products', $account);
   }
   return FALSE;
 }

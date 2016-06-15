@@ -1,0 +1,38 @@
+.top-bar {
+  margin-bottom: 1px;
+}
+
+.top-bar-section {
+  float: none;
+
+  .main-nav {
+    @extend %space-between;
+
+    border-bottom: $border;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      float:none;
+    }
+  }
+
+  .red {
+    color: $sale-red;
+  }
+
+  a.main-menu__home {
+    background-image: url(../logo.png) !important;
+    background-size: contain !important;
+    font-size: 0;
+    height: 60px;
+    width: 132px;
+    padding: 0 !important;
+    margin-top: 7px;
+  }
+}
+
+.top-bar-section ul li {
+  background: transparent;
+}

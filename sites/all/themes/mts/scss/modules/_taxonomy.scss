@@ -1,0 +1,57 @@
+.js-brand-sticky.sticked {
+  .brand-info {
+    background: $white;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .taxonomy-term-description {
+    display: none;
+  }
+
+  img {
+    height: 60px;
+    width: auto;
+  }
+}
+
+.brand-info__inner {
+  @include grid-column(
+    $columns: 12,
+    $offset: 2
+  );
+
+  .js-brand-sticky.sticked & {
+    @include grid-column(
+      $columns: 16,
+      $offset: 0
+    );
+  }
+}
+
+.vocabulary-shopify-brands {
+  .corner-outline {
+    padding: 5px;
+  }
+
+  .field-name-field-brand-logo {
+    @include grid-column(
+      $columns: 4,
+      $collapse: true
+    );
+
+    img {
+      padding-right: $column-gutter;
+    }
+  }
+
+  .taxonomy-term-description {
+    @include grid-column(
+      $columns: 8,
+      $collapse: true
+    );
+  }
+}

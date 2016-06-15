@@ -1,0 +1,66 @@
+// @file
+// Place your mixins here. Feel free to roll your own mixins.
+
+%flex-container {
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin corner-outline($color, $length: 30px) {
+  border: 1px solid $color;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: $length;
+    right: $length;
+    top: -1px;
+    border-bottom: 1px solid $white;
+    border-top: 1px solid $white;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: $length;
+    left: -1px;
+    right: -1px;
+    top: $length;
+    border-left: 1px solid $white;
+    border-right: 1px solid $white;
+  }
+}
+
+.corner-outline {
+  @include corner-outline($border-color);
+}
+
+%space-between {
+  @extend %flex-container;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+%space-around {
+  @extend %flex-container;
+
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+%share-bar {
+  .a2a_kit {
+    @extend %space-between;
+
+    > div {
+      display: none;
+    }
+  }
+}

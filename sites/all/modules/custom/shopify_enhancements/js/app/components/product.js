@@ -23,7 +23,7 @@ class Product extends React.Component {
     data.image = images[0] ? images[0].file.url : '';
     data.hover_image = images[1] ? images[1].file.url : '';
     data.tags = data.shopify_product_tags.filter(tag => {
-      return fieldValue(tag.taxonomy_term.field_status_marker)
+      return !!parseInt(fieldValue(tag.taxonomy_term.field_status_marker), 10)
     })
     // data.url = "/product/" + data.id
   }

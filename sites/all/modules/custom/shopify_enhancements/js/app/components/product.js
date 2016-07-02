@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import { fieldValue } from '../helpers/fields'
 
 class Product extends React.Component {
   constructor(props) {
@@ -21,6 +22,10 @@ class Product extends React.Component {
     let images = data.shopify_product_images;
     data.image = images[0] ? images[0].file.url : '';
     data.hover_image = images[1] ? images[1].file.url : '';
+    data.tags = data.shopify_product_tags.filter(tag => {
+      return fieldValue(tag.taxonomy_term.field_status_marker)
+    })
+    // data.url = "/product/" + data.id
   }
 
   render() {
@@ -29,11 +34,13 @@ class Product extends React.Component {
       'price--compare': this.props.data.compare_at_price
     });
     return (
-      <div link="/product/{this.props.data.handle}" className="product_thumb">
+      <div className="product_thumb">
         <div className="product_thumb__inner">
           <div className="product_thumb__image">
-            <div dangerouslySetInnerHTML={{__html: this.props.data.image}} />
-          <div className="product_thumb__image--hover" dangerouslySetInnerHTML={{__html: this.props.data.hover_image}} />
+            <a href={this.props.data.url} dangerouslySetInnerHTML={{__html: this.props.data.image}} />
+            <div className="product_thumb__image--hover">
+              <a href={this.props.data.url} dangerouslySetInnerHTML={{__html: this.props.data.hover_image}} />
+            </div>
           </div>
           <div className="product_thumb__info top">
             <div className="product_thumb__vendor">
@@ -45,19 +52,26 @@ class Product extends React.Component {
           </div>
           <div className="product_thumb__info bottom">
             <div className="product_thumb__status">
+              {this.props.data.tags.map(tag => {
+                let name = tag.taxonomy_term.name
+                let key = name.replace(/\s+/g, '-').toLowerCase()
+                let color = fieldValue(tag.taxonomy_term.field_color, 'jquery_colorpicker')
+                let style = color ? {color: '#' + color} : {}
+                return <span key={key} className={'product__status--' + key} style={style}>{name}</span>;
+              })}
               {this.props.data.status}
             </div>
             <div className="product_thumb__price">
-              <span className="price__compare_at">{this.props.data.compare_at_price}</span>
-              <span className={priceBtnClass}>{this.props.data.display_price}</span>
+              <a href={this.props.data.url}><span className="price__compare_at">{this.props.data.compare_at_price}</span>
+              <span className={priceBtnClass}>{this.props.data.display_price}</span></a>
             </div>
           </div>
           <div className="product_thumb__info on-hover">
-            <div className="product_thumb__name">
+            <a href={this.props.data.url} className="product_thumb__name">
               {this.props.data.title}
-            </div>
+            </a>
             <div className="product_thumb__actions">
-              <i className="fa fa-info" aria-hidden="true"></i><span className="show-for-sr">more info</span>
+              <a href={this.props.data.url}><i className="fa fa-info" aria-hidden="true"></i><span className="show-for-sr">more info</span></a>
               <a role="button" href="#" className="specs"><i className="fa fa-cart-plus" aria-hidden="true"></i><span className="show-for-sr">Add {this.props.data.title} to Cart</span></a>
             </div>
           </div>

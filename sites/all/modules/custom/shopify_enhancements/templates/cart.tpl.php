@@ -16,7 +16,7 @@
 </span>
 <div class="cart-wrapper row">
   <div id="cart_close" class="cart-close js_cart_close"><div class="show-for-sr">close</div><i class="fa fa-close"></i></div>
-  <div class="small-12 small-offset-2">
+  <div class="small-10 small-offset-1">
     <div id="cart" class="cart"></div>
     <div class="cart__buttons">
       <button id="continue_shopping" class="cart__close js_cart_close">Continue Shopping</button>

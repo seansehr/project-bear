@@ -42,12 +42,12 @@
   <?php endif; ?>
 
   <div class="content row"<?php print $content_attributes; ?>>
-    <div class="small-12 medium-12 columns">
+    <div class="small-12 medium-9 columns">
       <div class="product__images">
-      <?php print render($content['shopify_product_images']); ?>
+        <?php print render($content['shopify_product_images']); ?>
+      </div>
     </div>
-    </div>
-    <div class="small-12 medium-4 columns product__sidebar">
+    <div class="small-12 medium-3 columns product__sidebar">
       <div>
         <div class="product__product_type">
           <?php print $shopify_product->vendor; ?>
@@ -91,6 +91,19 @@
         <div class="return">Returns</div>
       </div>
       <div class="product__price">
+        <?php print render($price); ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="content row product__bottom">
+    <div class="small-12 medium-9 columns">
+      <div class="product__images">
+        <div class="flex-control-nav-container"></div>
+      </div>
+    </div>
+    <div class="small-12 medium-3 columns product__sidebar">
+      <div class="product__add-to-cart">
         <?php print render($content['add_to_cart']); ?>
       </div>
       <div class="product__share">

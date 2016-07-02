@@ -1,12 +1,18 @@
 .entity-shopify-product {
   .content {
-    @extend %flex-container;
-    align-items: stretch;
+    position: relative;
+    // @extend %flex-container;
+    // align-items: stretch;
   }
 }
 
 .product__ {
   &sidebar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+
     @extend %flex-container;
     flex-direction: column;
   }
@@ -36,6 +42,7 @@
     border-top: $border;
 
     // list-style: none;
+    min-height: 46px;
     margin: 18px 0 10px;
     padding: 10px 0;
 
@@ -58,6 +65,7 @@
     border-bottom: $border;
     flex-grow: 1;
     margin-bottom: 5px;
+    overflow: auto;
 
     > div {
       display: none;
@@ -69,11 +77,15 @@
   }
 
   &price {
+    font-size: rem-calc(20);
+    text-align: right;
+  }
+
+  &add-to-cart {
     margin-bottom: 6px;
 
     .shopify-price {
-      font-size: rem-calc(20);
-      text-align: right;
+      display: none;
     }
 
     .form-wrapper {
@@ -81,7 +93,8 @@
     }
 
     button {
-      margin: 15px 0 0;
+      line-height: 1;
+      margin: 0;
       width: 100%;
     }
   }
@@ -94,6 +107,7 @@
 
   &images {
     .flexslider {
+      border: none;
       margin-bottom: 0;
 
       .flex-direction-nav {
@@ -130,7 +144,7 @@
       }
 
       img {
-        height: 83px;
+        height: 85px;
         width: auto;
       }
     }

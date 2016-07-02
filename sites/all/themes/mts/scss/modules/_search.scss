@@ -1,0 +1,32 @@
+.block-shopify-enhancements-product-search {
+  float: right;
+  margin-right: 20px;
+
+  .form-item-term {
+    display: inline-block;
+    float: right;
+    margin: 0 10px 0 0;
+    overflow: hidden;
+    transition: width 0.5s;
+    width: 0;
+
+    input {
+      border-width: 0 0 1px;
+      box-shadow: none;
+      height: 2rem;
+      padding: .5rem 0 0;
+    }
+  }
+
+  .button--search {
+    cursor: pointer;
+    float: right;
+    font-size: rem-calc(20);
+  }
+
+  .opened {
+    .form-item-term {
+      width: 90%;
+    }
+  }
+}

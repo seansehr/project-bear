@@ -20,13 +20,13 @@
 
 .brand-info__inner {
   @include grid-column(
-    $columns: 12,
-    $offset: 2
+    $columns: 10,
+    $offset: 1
   );
 
   .js-brand-sticky.sticked & {
     @include grid-column(
-      $columns: 16,
+      $columns: 12,
       $offset: 0
     );
   }

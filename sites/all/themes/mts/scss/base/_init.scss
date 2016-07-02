@@ -72,7 +72,7 @@
 // $include-xl-html-grid-classes: false;
 
 $row-width: rem-calc(1600);
-$total-columns: 16;
+// $total-columns: 16;
 $column-gutter: rem-calc(20);
 
 // c. Global
@@ -262,7 +262,7 @@ $border: $border-width $border-style $border-color;
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
 // $hr-border-style: solid;
-// $hr-border-color: $gainsboro;
+$hr-border-color: $border-color;
 // $hr-margin: rem-calc(20);
 
 // We use these to style lists
@@ -628,7 +628,7 @@ $button-bg-color: $white;
 // $input-font-size: rem-calc(14);
 // $input-bg-color: $white;
 // $input-focus-bg-color: scale-color($white, $lightness: -2%);
-// $input-border-color: scale-color($white, $lightness: -20%);
+$input-border-color: $border-color;
 // $input-focus-border-color: scale-color($white, $lightness: -40%);
 // $input-border-style: solid;
 // $input-border-width: 1px;
@@ -640,7 +640,7 @@ $button-bg-color: $white;
 // We use these to style the fieldset border and spacing.
 // $fieldset-border-style: solid;
 // $fieldset-border-width: 1px;
-// $fieldset-border-color: $gainsboro;
+$fieldset-border-color: $border-color;
 // $fieldset-padding: rem-calc(20);
 // $fieldset-margin: rem-calc(18 0);
 

@@ -1308,7 +1308,7 @@ function shopify_product_access($op, ShopifyProduct $entity = NULL, $account = N
   switch ($op) {
     case 'view':
       // Check if this product is published.
-      if (isset($entity)) {
+      if (isset($entity) && !$entity->variant_id) {
         return $entity->published_at && user_access('view shopify products', $account);
       }
       return user_access('view shopify products', $account);

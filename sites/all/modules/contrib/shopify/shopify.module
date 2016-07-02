@@ -24,10 +24,10 @@ function shopify_taxonomy_term_view($term, $view_mode, $langcode) {
       $uri = entity_uri('taxonomy_term', $term);
       drupal_goto($uri['path']);
       break;
-    case 'shopify_tags':
-      $uri = entity_uri('taxonomy_term', $term);
-      drupal_goto($uri['path']);
-      break;
+    // case 'shopify_tags':
+    //   $uri = entity_uri('taxonomy_term', $term);
+    //   drupal_goto($uri['path']);
+    //   break;
   }
 }
 
@@ -1508,7 +1508,7 @@ function shopify_product_form_submit(&$form, &$form_state) {
  * actually do something.
  */
 function shopify_entity_info_alter(&$entity_info) {
-  $entity_info['taxonomy_term']['bundles']['shopify_tags']['uri callback'] = 'shopify_taxonomy_tag_term_uri';
+  // $entity_info['taxonomy_term']['bundles']['shopify_tags']['uri callback'] = 'shopify_taxonomy_tag_term_uri';
   $entity_info['taxonomy_term']['bundles']['shopify_collections']['uri callback'] = 'shopify_taxonomy_collection_term_uri';
 }
 

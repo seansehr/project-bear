@@ -32,6 +32,7 @@ function mts_links__topbar_main_menu($variables) {
 
 function mts_preprocess_entity(&$variables) {
   if ($variables['elements']['#entity_type'] == 'shopify_product' && isset($variables['elements']['#entity'])) {
+    $variables['price'] = $variables['elements']['add_to_cart']['product']['variant']['price'];
     $fields = array('size', 'specs');
     foreach ($fields as $field) {
       foreach ($variables['elements']['#entity']->shopify_product_metafields[LANGUAGE_NONE] as $value) {

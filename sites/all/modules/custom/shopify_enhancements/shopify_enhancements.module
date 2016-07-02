@@ -17,6 +17,19 @@ function shopify_enhancements_ctools_plugin_directory($module, $plugin) {
   }
 }
 
+/**
+ * Implements hook_menu().
+ */
+function shopify_enhancements_menu() {
+  $items['product-search/%'] = array(
+    'page callback' => 'shopify_enhancements_search',
+    'page arguments' => array(1),
+    'title' => 'Shopify',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
 
 /**
  * Implements hook_library().
@@ -131,8 +144,11 @@ function shopify_enhancements_theme($existing, $type, $theme, $path) {
 function shopify_enhancements_block_info() {
   $blocks['currency'] = array(
     'info' => t('Shopify Currency'),
-    // 'cache' => DRUPAL_CACHE_GLOBAL,
     'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['product_search'] = array(
+    'info' => t('Product Search'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
 }
@@ -145,37 +161,85 @@ function shopify_enhancements_block_view($delta = '') {
   $module_path = drupal_get_path('module', 'shopify_enhancements');
   switch ($delta) {
     case 'currency':
-      $currencies = array(
-        'USD' => '$',
-        'CAD' => '🍁',
-        'GBP' => '£',
-        'EUR' => '€',
-        'JPY' => '¥',
-        'INR' => '₹',
-        'TRY' => '₺',
-      );
-      $block['content'] = array(
-        '#theme' => 'currency',
-        '#currencies' => $currencies,
-        '#attached' => array(
-          'library' => array(
-            array('shopify_enhancements', 'shopify_enhancements_cart'),
-          ),
-          'js' => array(
-            array(
-              'type' => 'setting',
-              'data' => array(
-                'shopify_enhancements' => array(
-                  'currencies' => $currencies,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
+      $block['content'] = shopify_enhancements_currency_block();
+      break;
+    case 'product_search':
+      $form = drupal_get_form('shopify_enhancements_product_search_form');
+      $form['#attached']['js'][] = $module_path . '/js/shopify_enhancements.search.js';
+      $block['content'] = $form;
       break;
   }
   return $block;
+}
+
+/**
+ * View for the currency change block.
+ *
+ * @return Array
+ *   A render array for the block.
+ */
+function shopify_enhancements_currency_block() {
+  $currencies = array(
+    'USD' => '$',
+    'CAD' => '🍁',
+    'GBP' => '£',
+    'EUR' => '€',
+    'JPY' => '¥',
+    'INR' => '₹',
+    'TRY' => '₺',
+  );
+  return array(
+    '#theme' => 'currency',
+    '#currencies' => $currencies,
+    '#attached' => array(
+      'library' => array(
+        array('shopify_enhancements', 'shopify_enhancements_cart'),
+      ),
+      'js' => array(
+        array(
+          'type' => 'setting',
+          'data' => array(
+            'shopify_enhancements' => array(
+              'currencies' => $currencies,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Form for searching products.
+ */
+function shopify_enhancements_product_search_form($form, &$form_state) {
+  // Use markup to avoid default button styling.
+  $form['search'] = array(
+    '#markup' => '<span class="button--search" id="search-button"><i class="fa fa-search"></i><span class="show-for-sr">' . t('Search') . '</span></span>',
+  );
+
+  $form['term'] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#maxlength' => 128,
+  );
+
+  // Needs a submit button to work.
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Search'),
+    '#attributes' => array(
+      'class' => array('hide'),
+    )
+  );
+
+  return $form;
+}
+
+function shopify_enhancements_product_search_form_submit($form, &$form_state) {
+  // Destination overrides the redirect.
+  unset($_GET['destination']);
+  $form_state['redirect'] = 'product-search/' . check_plain($form_state['values']['term']);
 }
 
 /**
@@ -201,6 +265,7 @@ function shopify_enhancements_block_view_alter(&$data, $block) {
 
 function shopify_enhancements_entity_view_alter(&$build, $type) {
   if ($type == 'shopify_product') {
+    shopify_enhancements_search();
     // dpm($build);
     // dpm($build['#entity']);
     drupal_add_js(array('shopify_enhancements' => array('productID' => $build['#entity']->product_id)), 'setting');
@@ -336,6 +401,8 @@ function shopify_enhancements_restsw_process_entity(&$entity) {
 
   if (isset($entity['variant_id']) && $entity['variant_id'] == 0) {
     $product = shopify_product_load_single($entity['product_id']);
+    $alias = drupal_get_path_alias(entity_uri('shopify_product', $product));
+    $entity['url'] = $alias['path'];
     foreach ($product->variants as $variant) {
       if (entity_access('view', 'shopify_product', $variant)) {
         // create a meta wrapper to act on for entity
@@ -391,4 +458,19 @@ function shopify_enhancements_attach_field_reference(&$field) {
     // add values based on wrapper passing correctly
     $field[$field['resource']] = $eary;
   }
+}
+
+function shopify_enhancements_search($term) {
+  $index = search_api_index_load("products");
+  $query = new SearchApiQuery($index);
+  $query->keys(check_plain($term));
+  $data = $query->execute();
+  $results = $data["results"];
+  $settings = array(
+    "source" => "custom",
+    "ids" => array_keys($results),
+  );
+  include(drupal_get_path("module", "ctools") . "/includes/content.inc");
+  $widget = ctools_content_render("shopify_enhancements", "shopify_enhancements", $settings);
+  return $widget->content;
 }

@@ -18,6 +18,9 @@
           else if ($input.val().length) {
             $form.submit();
           }
+          else {
+            $form.removeClass('opened');
+          }
         });
       }
     }

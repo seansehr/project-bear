@@ -25,7 +25,7 @@ class Product extends React.Component {
     data.tags = data.shopify_product_tags.filter(tag => {
       return !!parseInt(fieldValue(tag.taxonomy_term.field_status_marker), 10)
     })
-    // data.url = "/product/" + data.id
+    data.url = "/" + data.url
   }
 
   render() {

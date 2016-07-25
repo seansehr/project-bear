@@ -90,10 +90,6 @@ $info-gutter: 3px;
     &:hover {
       border: $border;
 
-      .product_thumb__image {
-        display: none;
-      }
-
       .product_thumb__image--hover {
         z-index: 1;
       }

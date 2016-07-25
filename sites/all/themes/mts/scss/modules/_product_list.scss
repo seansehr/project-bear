@@ -69,6 +69,11 @@ $info-gutter: 3px;
     }
   }
 
+  &__image {
+    overflow: hidden;
+    position: relative;
+  }
+
   &__image--hover {
     left: 0;
     position: absolute;
@@ -84,6 +89,10 @@ $info-gutter: 3px;
 
     &:hover {
       border: $border;
+
+      .product_thumb__image {
+        display: none;
+      }
 
       .product_thumb__image--hover {
         z-index: 1;

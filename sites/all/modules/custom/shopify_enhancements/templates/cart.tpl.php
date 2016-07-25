@@ -12,6 +12,7 @@
 ?>
 <div class="cart-button js_cart_toggle" id="cart-button">
   <?php print $cart ?><span class="cart-count" id="cart-count"></span>
+  <span class="tooltip">Cart is empty<span class="nub"></span></span>
 </div>
 </span>
 <div class="cart-wrapper row">

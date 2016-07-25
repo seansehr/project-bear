@@ -2,6 +2,17 @@
   font-size: rem-calc(15);
   margin-top: 2px;
   text-transform: uppercase;
+
+  .tooltip {
+    left: -66px;
+    width: auto;
+    text-transform: none;
+
+    .nub {
+      left: auto;
+      right: 15px;
+    }
+  }
 }
 
 .cart-count {

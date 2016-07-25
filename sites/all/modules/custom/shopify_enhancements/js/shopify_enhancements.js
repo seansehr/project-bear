@@ -90,7 +90,17 @@
           cart.dom.close();
         });
         $('body').on('click', '.js_cart_toggle', function (event) {
-          cart.dom.toggle();
+          if (cart.lineItems.length) {
+            cart.dom.toggle();
+          }
+          else {
+            var $tooltip = $('.tooltip', this);
+            $tooltip.fadeIn(300, function () {
+              window.setTimeout(function () {
+                $tooltip.fadeOut(300);
+              }, 2000);
+            })
+          }
         });
       }
       // $.ajax({

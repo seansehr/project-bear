@@ -6,6 +6,27 @@
   Drupal.behaviors.shopify_enhancements = {
     attach: function (context, settings) {
       if (context == document) {
+        $('.flexslider').on('start', function (event) {
+          var $prev = $('.controls--prev', this),
+              $next = $('.controls--next', this),
+              slider = $(this).data('flexslider'),
+              slidesCount = slider.slides.length;
+
+          if ($prev.length || $next.length) {
+
+            $prev.on('click', function () {
+              var slide = slider.currentSlide - 1 >= 0 ? slider.currentSlide - 1 : (slider.slides.length - 1);
+              slider.flexAnimate(slide);
+            });
+
+            $next.on('click', function () {
+              var slide = slider.currentSlide + 1 < slider.slides.length ? slider.currentSlide + 1 : 0;
+              slider.flexAnimate(slide);
+            });
+          }
+        });
+
+
         for (var key in Drupal.settings.shopify_enhancements.instances) {
           var url = Drupal.settings.shopify_enhancements.instances[key];
           Drupal.shopify_enhancements.createFilter(url, key).then(function(store) {

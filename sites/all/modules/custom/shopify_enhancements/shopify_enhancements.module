@@ -269,6 +269,18 @@ function shopify_enhancements_entity_view_alter(&$build, $type) {
     // dpm($build);
     // dpm($build['#entity']);
     drupal_add_js(array('shopify_enhancements' => array('productID' => $build['#entity']->product_id)), 'setting');
+    $entity = entity_metadata_wrapper('shopify_product', $build['#entity']);
+    $tags = $entity->shopify_product_tags->value();
+    $filtered_tags = array();
+    foreach ($tags as $tag) {
+      if ($tag->field_status_marker[LANGUAGE_NONE][0]) {
+        $color = !empty($tag->field_color[LANGUAGE_NONE][0]) ? '#' . $tag->field_color[LANGUAGE_NONE][0]['jquery_colorpicker'] : 'inherit';
+        $filtered_tags[] = "<span style='color:$color;'>$tag->name</span>";
+      }
+    }
+    $build['shopify_product_tags'] = array(
+      '#markup' => implode(', ', $filtered_tags),
+    );
     // $options = array(
     //   'metafield[owner_id]' => '3926111942',
     //   'metafield[owner_resource]' => 'product',

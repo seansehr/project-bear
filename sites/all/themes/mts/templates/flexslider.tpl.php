@@ -5,10 +5,7 @@
 */
 ?>
 <div <?php print drupal_attributes($settings['attributes'])?>>
-  <div class="controls">
-    <div class="controls__prev"></div>
-    <div class="controls__expand"></div>
-    <div class="controls__next"></div>
-  </div>
+  <div class="controls--prev"></div>
+  <div class="controls--next"></div>
   <?php print theme('flexslider_list', array('items' => $items, 'settings' => $settings)); ?>
 </div>

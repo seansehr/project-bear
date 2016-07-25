@@ -35,10 +35,12 @@ function mts_preprocess_entity(&$variables) {
     $variables['price'] = $variables['elements']['add_to_cart']['product']['variant']['price'];
     $fields = array('size', 'specs');
     foreach ($fields as $field) {
-      foreach ($variables['elements']['#entity']->shopify_product_metafields[LANGUAGE_NONE] as $value) {
-        $metafield = $value['entity'];
-        if ($metafield->key == $field && $metafield->namespace == 'attr') {
-          $variables[$field] = $metafield->value;
+      if (!empty($variables['elements']['#entity']->shopify_product_metafields)) {
+        foreach ($variables['elements']['#entity']->shopify_product_metafields[LANGUAGE_NONE] as $value) {
+          $metafield = $value['entity'];
+          if ($metafield->key == $field && $metafield->namespace == 'attr') {
+            $variables[$field] = $metafield->value;
+          }
         }
       }
     }

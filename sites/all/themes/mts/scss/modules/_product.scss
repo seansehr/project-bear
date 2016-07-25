@@ -10,7 +10,7 @@
   &sidebar {
     position: absolute;
     bottom: 0;
-    right: 0;
+    left: 0;
     top: 0;
 
     @extend %flex-container;
@@ -76,6 +76,15 @@
     }
   }
 
+  &bottom {
+    min-height: 100px;
+  }
+
+  &status {
+    font-size: rem-calc(20);
+    float: left;
+  }
+
   &price {
     font-size: rem-calc(20);
     text-align: right;
@@ -109,30 +118,27 @@
     .flexslider {
       border: none;
       margin-bottom: 0;
+    }
 
-      .flex-direction-nav {
-        a {
-          height: auto;
-          width: 30%;
-          top: 0;
-          bottom: 0;
-          text-indent: -9999px;
+    %controls {
+      bottom: 0;
+      height: auto;
+      position: absolute;
+      top: 0;
+      width: 30%;
+      z-index: 1;
+    }
 
-          &:before {
-            display: none;
-          }
-        }
+    .controls--prev {
+      @extend %controls;
+      cursor: w-resize;
+      left: 0;
+    }
 
-        .flex-prev {
-          left: 0;
-          cursor: w-resize;
-        }
-
-        .flex-next {
-          right: 0;
-          cursor: e-resize;
-        }
-      }
+    .controls--next {
+      @extend %controls;
+      cursor: e-resize;
+      right: 0;
     }
 
     .flex-control-thumbs {

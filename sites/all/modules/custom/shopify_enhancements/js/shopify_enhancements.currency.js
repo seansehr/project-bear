@@ -21,7 +21,7 @@
             dispatch: function(action) {
               if ($priceDom.length && price) {
                 self.convert(price, action.key).then(function(np) {
-                  newPrice = np + ' ' + action.key;
+                  newPrice = action.symbol + ' ' + np + ' ' + action.key;
                   $priceDom.text(newPrice);
                 });
               }

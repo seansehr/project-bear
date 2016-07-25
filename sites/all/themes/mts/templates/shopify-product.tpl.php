@@ -42,19 +42,16 @@
   <?php endif; ?>
 
   <div class="content row"<?php print $content_attributes; ?>>
-    <div class="small-12 medium-9 columns">
-      <div class="product__images">
-        <?php print render($content['shopify_product_images']); ?>
-      </div>
-    </div>
     <div class="small-12 medium-3 columns product__sidebar">
       <div>
         <div class="product__product_type">
           <?php print $shopify_product->vendor; ?>
         </div>
-        <div class="product__size">
-          <?php print $size ?>
-        </div>
+        <?php if (isset($size)): ?>
+          <div class="product__size">
+            <?php print $size ?>
+          </div>
+        <?php endif; ?>
       </div>
       <h1 class="product__title">
         <?php print $title ?>
@@ -84,24 +81,31 @@
           <?php print render($content['body_html']); ?>
         </div>
         <div class="specs">
-          <?php print $specs; ?>
+          <?php if (isset($specs)): ?>
+            <?php print $specs; ?>
+          <?php endif; ?>
         </div>
         <div class="dimensions">Dimensions</div>
         <div class="shipping">Shipping</div>
         <div class="return">Returns</div>
       </div>
-      <div class="product__price">
-        <?php print render($price); ?>
+      <div>
+        <div class="product__status">
+          <?php print render($content['shopify_product_tags']); ?>
+        </div>
+        <div class="product__price">
+          <?php print render($price); ?>
+        </div>
+      </div>
+    </div>
+    <div class="small-12 medium-9 columns">
+      <div class="product__images">
+        <?php print render($content['shopify_product_images']); ?>
       </div>
     </div>
   </div>
 
   <div class="content row product__bottom">
-    <div class="small-12 medium-9 columns">
-      <div class="product__images">
-        <div class="flex-control-nav-container"></div>
-      </div>
-    </div>
     <div class="small-12 medium-3 columns product__sidebar">
       <div class="product__add-to-cart">
         <?php print render($content['add_to_cart']); ?>
@@ -124,6 +128,11 @@
           a2a_config.icon_color = "transparent";
         </script>
         <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+      </div>
+    </div>
+    <div class="small-12 medium-9 columns">
+      <div class="product__images">
+        <div class="flex-control-nav-container"></div>
       </div>
     </div>
   </div>

@@ -22,10 +22,23 @@ $info-gutter: 3px;
     float:left;
   }
 
+  &__name {
+    max-width: 85%;
+    line-height: 1.5;
+  }
+
   &__size,
   &__price,
   &__actions {
     float: right;
+  }
+
+  &__actions {
+    font-size: rem-calc(16);
+
+    a + a {
+      margin-left: 10px;
+    }
   }
 
   &__vendor {
@@ -65,6 +78,7 @@ $info-gutter: 3px;
 
   &__inner {
     border: 1px solid transparent;
+    min-height: 0;
     overflow: hidden;
     position: relative;
 
@@ -76,7 +90,7 @@ $info-gutter: 3px;
       }
 
       .on-hover {
-        height: 27px;
+        min-height: 27px;
       }
     }
   }

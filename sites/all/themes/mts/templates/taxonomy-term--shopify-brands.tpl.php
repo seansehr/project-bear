@@ -48,14 +48,16 @@
       <h2><a href="<?php print $term_url; ?>"><?php print $term_name; ?></a></h2>
     <?php endif; ?>
 
-    <div class="content brand-info__inner">
-      <div class="row">
-        <div class="corner-outline">
-          <?php print render($content); ?>
-          <div class="clearfix"></div>
+    <?php if ($content): ?>
+      <div class="content brand-info__inner">
+        <div class="row">
+          <div class="corner-outline">
+            <?php print render($content); ?>
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
-    </div>
+    <?php endif; ?>
 
   </div>
 </div>

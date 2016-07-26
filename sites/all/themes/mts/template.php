@@ -38,7 +38,7 @@ function mts_preprocess_entity(&$variables) {
       if (!empty($variables['elements']['#entity']->shopify_product_metafields)) {
         foreach ($variables['elements']['#entity']->shopify_product_metafields[LANGUAGE_NONE] as $value) {
           $metafield = $value['entity'];
-          if ($metafield->key == $field && $metafield->namespace == 'attr') {
+          if ($metafield->key == $field && ($metafield->namespace == 'attr' || $metafield->namespace == 'c_f')) {
             $variables[$field] = $metafield->value;
           }
         }

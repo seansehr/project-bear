@@ -32,7 +32,7 @@ window.Drupal.shopify_enhancements.createFilter = (url, container, filterCategor
         'size': {
           'name': 'Size',
           'options': [],
-          'metafieldNamespace': 'attr',
+          'metafieldNamespace': 'c_f',
           'subfilter': 'vendor'
         }
       }

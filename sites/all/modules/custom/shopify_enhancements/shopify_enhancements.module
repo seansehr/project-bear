@@ -333,7 +333,7 @@ function shopify_enhancements_entity_view_alter(&$build, $type) {
 function shopify_enhancements_shopify_product_update_alter(&$shopify_product) {
   $metafields = array('category', 'licence');
   foreach ($shopify_product->shopify_product_metafields[LANGUAGE_NONE] as $value) {
-    if ($value['entity']->namespace == 'attr') {
+    if ($value['entity']->namespace == 'attr' || $value['entity']->namespace == 'c_f') {
       $key = $value['entity']->key;
       if (in_array($key, $metafields)) {
         $shopify_product->$key = $value['entity']->value;

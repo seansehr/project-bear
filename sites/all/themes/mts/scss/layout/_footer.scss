@@ -1,1 +1,24 @@
 // Non-modular or client styles for .l-footer region.
+.l-footer {
+  background: #f8f8f8;
+
+  margin-top: 20px;
+  padding: 30px 20px;
+
+  .columns {
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
+  }
+
+  .menu {
+    font-size: rem-calc(14);
+    list-style: none;
+    margin-left: 0;
+  }
+}
+
+.copyright {
+  font-weight: bold;
+  font-size: rem-calc(11);
+  padding: 5px 10px;
+}

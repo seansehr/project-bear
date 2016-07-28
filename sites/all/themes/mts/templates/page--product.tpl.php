@@ -204,13 +204,13 @@
     <?php if ($site_name) : ?>
       <div class="row">
         <div class="footer__border"></div>
-        <div class="copyright columns">
-          Copyright <?php print date('Y') . ' ' . $site_name . ' ' . t('All rights reserved.'); ?>
-        </div>
       </div>
     <?php endif; ?>
   </footer>
   <!--/.l-footer -->
+  <div class="copyright columns">
+    Copyright <?php print date('Y') . ' ' . $site_name . ' ' . t('All rights reserved.'); ?>
+  </div>
 
   <?php if ($messages && $zurb_foundation_messages_modal): print $messages; endif; ?>
 </div>

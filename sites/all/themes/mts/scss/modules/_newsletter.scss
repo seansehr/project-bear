@@ -1,0 +1,18 @@
+.newsletter {
+  .form {
+    position: relative;
+  }
+
+  .send {
+    background: $primary-color;
+    color: white;
+    position: absolute;
+    padding: 0.5125rem 1.325rem;
+
+    & + input {
+      margin-left: 58px;
+      min-width: 230px;
+      width: auto;
+    }
+  }
+}

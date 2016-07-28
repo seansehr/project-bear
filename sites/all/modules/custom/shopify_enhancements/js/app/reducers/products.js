@@ -5,10 +5,10 @@ const products = (state = [], action) => {
       ret.products.push();
       return ret;
     case 'CURRENCY_CHANGE':
-      console.log(action)
       return state.map(product => {
         if (product.id == action.product.id) {
-          product.display_price = action.price
+          product.display_price = action.prices[0]
+          product.display_compare_at_price = product.compare_at_price ? action.prices[1] : product.compare_at_price
         }
         return product
       })

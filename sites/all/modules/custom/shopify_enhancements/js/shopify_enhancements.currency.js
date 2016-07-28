@@ -21,7 +21,7 @@
             dispatch: function(action) {
               if ($priceDom.length && price) {
                 self.convert(price, action.key).then(function(np) {
-                  newPrice = action.symbol + ' ' + np + ' ' + action.key;
+                  newPrice = np + ' ' + action.key;
                   $priceDom.text(newPrice);
                 });
               }
@@ -45,9 +45,9 @@
         Drupal.shopify_enhancements.stores.add('header', headerStore());
       }
 
-      if (this.currency !== 'USD') {
+      // if (this.currency !== 'USD') {
         this.changeCurrency(this.currency);
-      }
+      // }
       this.inited = true;
     },
 
@@ -58,8 +58,17 @@
         type: 'CURRENCY_CHANGE',
         key: currency,
         symbol: Drupal.settings.shopify_enhancements.currencies[currency]
-      });
+      }, true);
       $('.currency__selection a[data-code="' + currency + '"]').addClass('active');
+    },
+
+    convertMultiple: function (values, to) {
+      var self = this;
+      promises = values.map(function (value) {
+        value = (isNaN(value) || value === null) ? 0 : value;
+        return self.convert(value, to);
+      })
+      return Promise.all(promises)
     },
 
     convert: function (amt, to) {
@@ -68,11 +77,15 @@
       var promise = new Promise(function(resolve, reject) {
         (function convert() {
           if (self.inited) {
-            amt = parseInt(amt, 10);
+            amt = parseFloat(amt);
             if (isNaN(amt) || typeof to !== 'string') {
               reject('Amount is NaN.');
             }
-            resolve(fx.convert(amt, {to: to}).toFixed(2));
+            var symbol = to == 'CAD' ? '$' : Drupal.settings.shopify_enhancements.currencies[to]
+            resolve(accounting.formatMoney(fx.convert(amt, {to: to}), {
+              symbol: symbol,
+              format: '%s %v'
+            }));
           }
           else {
             setTimeout(function() {

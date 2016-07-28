@@ -24,7 +24,7 @@ function shopify_enhancements_menu() {
   $items['product-search/%'] = array(
     'page callback' => 'shopify_enhancements_search',
     'page arguments' => array(1),
-    'title' => 'Shopify',
+    'title' => 'Search Products',
     'access callback' => TRUE,
   );
 
@@ -40,6 +40,10 @@ function shopify_enhancements_library() {
     'title' => 'Settings',
     'version' => '1.0',
     'js' => array(
+      libraries_get_path('accountingjs') . '/accounting.min.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
       libraries_get_path('money_js') . '/money.js' => array(
         'defer' => 'true',
         'scope' => 'footer',
@@ -265,7 +269,7 @@ function shopify_enhancements_block_view_alter(&$data, $block) {
 
 function shopify_enhancements_entity_view_alter(&$build, $type) {
   if ($type == 'shopify_product') {
-    shopify_enhancements_search();
+    // shopify_enhancements_search();
     // dpm($build);
     // dpm($build['#entity']);
     drupal_add_js(array('shopify_enhancements' => array('productID' => $build['#entity']->product_id)), 'setting');
@@ -273,7 +277,7 @@ function shopify_enhancements_entity_view_alter(&$build, $type) {
     $tags = $entity->shopify_product_tags->value();
     $filtered_tags = array();
     foreach ($tags as $tag) {
-      if ($tag->field_status_marker[LANGUAGE_NONE][0]) {
+      if (isset($tag->field_status_marker) && $tag->field_status_marker[LANGUAGE_NONE][0]['value']) {
         $color = !empty($tag->field_color[LANGUAGE_NONE][0]) ? '#' . $tag->field_color[LANGUAGE_NONE][0]['jquery_colorpicker'] : 'inherit';
         $filtered_tags[] = "<span style='color:$color;'>$tag->name</span>";
       }

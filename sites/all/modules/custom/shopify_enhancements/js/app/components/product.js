@@ -18,6 +18,7 @@ class Product extends React.Component {
     }
 
     data.display_price = data.display_price || data.price
+    data.display_compare_at_price = data.display_compare_at_price || data.compare_at_price
 
     let images = data.shopify_product_images;
     data.image = images[0] ? images[0].file.url : '';
@@ -33,6 +34,7 @@ class Product extends React.Component {
       'price__price': true,
       'price--compare': this.props.data.compare_at_price
     });
+
     return (
       <div className="product_thumb">
         <div className="product_thumb__inner">
@@ -62,7 +64,7 @@ class Product extends React.Component {
               {this.props.data.status}
             </div>
             <div className="product_thumb__price">
-              <a href={this.props.data.url}><span className="price__compare_at">{this.props.data.compare_at_price}</span>
+              <a href={this.props.data.url}><span className="price__compare_at">{this.props.data.display_compare_at_price}</span>
               <span className={priceBtnClass}>{this.props.data.display_price}</span></a>
             </div>
           </div>

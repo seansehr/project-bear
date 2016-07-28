@@ -48,19 +48,20 @@ export const toggleSort = () => {
   }
 }
 
-export const changePrice = (product, price) => {
+export const changePrice = (product, prices, currency) => {
   return {
     type: 'CURRENCY_CHANGE',
     product,
-    price
+    prices,
+    currency
   }
 }
 
-export const changeCurrency = (products, key) => {
+export const changeCurrency = (products, currency) => {
   return dispatch => {
     products.forEach((product, index) => {
-      Drupal.behaviors.shopify_enhancements_currency.convert(product.price, key).then(newPrice => {
-        dispatch(changePrice(product, newPrice))
+      Drupal.behaviors.shopify_enhancements_currency.convertMultiple([product.price, product.compare_at_price], currency.key).then(prices => {
+        dispatch(changePrice(product, prices, currency))
       })
     })
   }

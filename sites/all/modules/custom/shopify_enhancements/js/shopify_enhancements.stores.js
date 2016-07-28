@@ -9,20 +9,39 @@
         Drupal.shopify_enhancements.stores = {
           add: function (id, store) {
             this.list[id] = store;
+            for (var action in this.reinit) {
+              this.dispatch(store, this.reinit[action]);
+            }
           },
           remove: function (id) {
             delete(this.list[id]);
           },
-          dispatchAll: function (action) {
+          dispatch: function(store, action) {
+            // TODO figure out how to handle this in react.
+            if (store.hasOwnProperty('getState')) {
+              var products = store.getState().products;
+              if (products.length) {
+                store.dispatch(window.changeCurrency(products, action));
+              }
+            }
+            else {
+              store.dispatch(action);
+            }
+          },
+          dispatchAll: function (action, reinit) {
             if (typeof action === 'object') {
+              if (reinit) {
+                this.reinit.push(action)
+              }
               for (var store in this.list) {
                 if (this.list.hasOwnProperty(store)) {
-                  this.list[store].dispatch(action);
+                  this.dispatch(this.list[store], action)
                 }
               }
             }
           },
-          list: new Object(null)
+          list: new Object(null),
+          reinit: []
         }
       }
     }

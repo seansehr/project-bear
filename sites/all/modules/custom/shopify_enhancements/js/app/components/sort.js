@@ -11,11 +11,17 @@ class Sort extends React.Component {
     });
     return (
       <div className={sortClassName}>
-        {this.props.options.map(option => {
+        {this.props.options.map(sortBy => {
           return (
-            <Link key={option.key + '-' + option.order} order={option.order} className="filter-list__category" active={false} onClick={() => {this.props.sortClick(option)}}>
-              {option.name}
-            </Link>
+            <div key={sortBy.key}>
+              {objectMap(sortBy.options, (key, index) => {
+                return (
+                  <Link key={sortBy.key + '-' + key} order={key} className="sort-list__category" active={false} onClick={() => {this.props.sortClick(sortBy)}}>
+                    {sortBy.options[key]}
+                  </Link>
+                );
+              })}
+            </div>
           );
         })}
       </div>

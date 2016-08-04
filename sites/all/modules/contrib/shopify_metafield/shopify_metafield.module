@@ -102,7 +102,10 @@ function shopify_metafield_metafield_access($op, ShopifyMetafield $entity = NULL
   switch ($op) {
     case 'view':
       // Check if this product is published.
-      return $entity->published_at && user_access('view shopify products', $account);
+      if (isset($entity->published_at)) {
+        return $entity->published_at && user_access('view shopify products', $account);
+      }
+      return user_access('view shopify products', $account);
       break;
   }
   return FALSE;

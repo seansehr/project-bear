@@ -70,6 +70,10 @@
   }
 }
 
+.filter-list__sort-button {
+  padding-top: 3px;
+}
+
 .filter-options.opened {
   @include corner-outline($border-color);
   @extend %space-around;
@@ -96,9 +100,18 @@
 
 .sort-list {
   @extend .filter-list;
+  @include corner-outline($border-color);
   margin-top: 10px;
 
   &.closed {
     display: none;
+  }
+}
+
+.sort-list__category {
+  display: block;
+
+  & + .sort-list__category {
+    margin-top: 8px;
   }
 }

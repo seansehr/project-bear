@@ -1,8 +1,10 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Shopify Enhancements feature.
  */
+
+include_once 'shopify_enhancements.features.inc';
 
 /**
  * @file
@@ -143,6 +145,15 @@ function shopify_enhancements_theme($existing, $type, $theme, $path) {
       'path' => $path . '/templates',
       'template' => 'currency',
     ),
+    'other_products' => array(
+      'variables' => array(
+        'related' => NULL,
+        'recent' => NULL,
+        'preorder' => NULL,
+      ),
+      'path' => $path . '/templates',
+      'template' => 'other-products',
+    ),
     'image_modal' => array(
       'variables' => array(
         'files' => array(),
@@ -165,6 +176,10 @@ function shopify_enhancements_block_info() {
     'info' => t('Product Search'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['related_products'] = array(
+    'info' => t('Shopify Related Products'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
   return $blocks;
 }
 
@@ -182,6 +197,11 @@ function shopify_enhancements_block_view($delta = '') {
       $form = drupal_get_form('shopify_enhancements_product_search_form');
       $form['#attached']['js'][] = $module_path . '/js/shopify_enhancements.search.js';
       $block['content'] = $form;
+      break;
+    case 'related_products':
+      if ($product = menu_get_object('shopify_product')) {
+        $block['content'] = shopify_enhancements_related_products_block($product);
+      }
       break;
   }
   return $block;
@@ -222,6 +242,23 @@ function shopify_enhancements_currency_block() {
       ),
     ),
   );
+}
+
+/**
+ * View for the related products block.
+ *
+ * @return Array
+ *   A render array for the block.
+ */
+function shopify_enhancements_related_products_block($product) {
+  $related = views_embed_view('related_products', 'default', $product->id, $product->id, $product->id);
+  $recent = views_embed_view('recently_viewed_products', 'default', $product->id);
+  $preorder = views_embed_view('preorder_products');
+  return theme('other_products', array(
+    'related' => $related,
+    'recent' => $recent,
+    'preorder' => $preorder,
+  ));
 }
 
 /**

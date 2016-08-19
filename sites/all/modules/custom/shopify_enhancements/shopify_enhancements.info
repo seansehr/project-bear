@@ -1,8 +1,17 @@
 name = Shopify Enhancements
 core = 7.x
 package = Project Bear
+dependencies[] = entity
+dependencies[] = recently_read
 dependencies[] = restws
 dependencies[] = search_api
+dependencies[] = session_api
 dependencies[] = shopify
 dependencies[] = shopify_api
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
+features[views_view][] = preorder_products
+features[views_view][] = recently_viewed_products
+features[views_view][] = related_products
+features_exclude[dependencies][ctools] = ctools

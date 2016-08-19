@@ -1,0 +1,48 @@
+.other-products {
+  margin-top: 30px;
+
+  &__tabs {
+    @extend %space-between;
+  }
+
+  // More specificity to override Foundation.
+  & &__tab {
+    flex-grow: 1;
+
+    a {
+      background-color: transparent;
+      display: inline-block;
+      padding: 0;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    .tab-link {
+      font-size: rem-calc(24);
+    }
+
+    &.active {
+      a {
+        background-color: transparent;
+      }
+
+      .tab-link {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__tab + &__tab {
+    border-left: 2px solid $primary-color;
+    padding: 0 10px;
+  }
+}
+
+.tab__view-all {
+  font-size: rem-calc(9);
+  float: right;
+  line-height: 1;
+  text-align: right;
+}

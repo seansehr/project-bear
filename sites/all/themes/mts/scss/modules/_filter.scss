@@ -25,11 +25,12 @@
 
   &__option {
     @extend %active-x;
-    margin-left: 20px;
+    margin-left: 10px;
   }
 }
 
 .clear-filters {
+  margin-right: 10px;
   text-decoration: underline;
 }
 
@@ -65,8 +66,15 @@
     // width: 0;
   }
 
-  &.active:after {
-    transform: translate3d(0, 0, 0) rotate(45deg);
+  &.active {
+    span {
+      border-bottom: 1px solid $monsoon;
+      padding-bottom: 2px;
+    }
+
+    &:after {
+      transform: translate3d(0, 0, 0) rotate(45deg);
+    }
   }
 }
 

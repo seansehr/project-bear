@@ -44,8 +44,8 @@
 
 %space-between {
   @extend %flex-container;
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
 }
 
 %space-around {

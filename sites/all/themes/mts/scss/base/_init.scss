@@ -149,6 +149,17 @@ $border-width: 1px;
 $border-style: solid;
 $border: $border-width $border-style $border-color;
 
+::-moz-selection { /* Needs to be it's own declaration */
+  color: $white;
+  background: $primary-color;
+}
+
+::selection {
+  color: $white;
+  background: $primary-color;
+}
+
+
 // d. Media Query Ranges
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1306,7 +1317,7 @@ $fieldset-border-color: $border-color;
 // $tabs-navigation-bg-color: $silver  ;
 // $tabs-navigation-active-bg-color: $white;
 // $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
-// $tabs-navigation-font-color: $jet;
+$tabs-navigation-font-color: $primary-color;
 // $tabs-navigation-active-font-color: $tabs-navigation-font-color;
 // $tabs-navigation-font-size: rem-calc(16);
 // $tabs-navigation-font-family: $body-font-family;
@@ -1369,7 +1380,7 @@ $topbar-bg-color: $white;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: rem-calc(75);
+$topbar-height: rem-calc(65);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar

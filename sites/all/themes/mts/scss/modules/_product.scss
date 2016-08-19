@@ -21,12 +21,14 @@
   &product_type {
     float: left;
     font-size: rem-calc(25);
+    line-height: 1;
+    padding-bottom: 5px;
   }
 
   &size {
     float: right;
     font-size: rem-calc(15);
-    line-height: 37px;
+    line-height: 25px;
   }
 
   &title,
@@ -82,7 +84,7 @@
   }
 
   &status {
-    font-size: rem-calc(17);
+    font-size: rem-calc(15);
     float: left;
   }
 
@@ -112,41 +114,13 @@
   &share {
     @extend %share-bar;
     background: $monsoon;
-    padding: 5px 30px 5px;
+    padding: 7px 30px 13px;
   }
 
   &images {
     .flexslider {
       border: none;
       margin-bottom: 0;
-    }
-
-    %controls {
-      bottom: 0;
-      height: auto;
-      position: absolute;
-      top: 0;
-      width: 30%;
-      z-index: 1;
-    }
-
-    .controls--prev {
-      @extend %controls;
-      cursor: w-resize;
-      left: 0;
-    }
-
-    .controls--next {
-      @extend %controls;
-      cursor: e-resize;
-      right: 0;
-    }
-
-    .controls--open {
-      @extend %controls;
-      left: 30%;
-      right: 30%;
-      cursor: zoom-in;
     }
 
     .flex-control-thumbs {
@@ -158,10 +132,49 @@
       }
 
       img {
-        height: 85px;
+        height: 90px;
         width: auto;
       }
     }
+  }
+}
+
+.product__controls {
+  %controls {
+    bottom: 0;
+    height: auto;
+    position: absolute;
+    top: 0;
+    width: 30%;
+    z-index: 1;
+  }
+
+  .controls--prev {
+    @extend %controls;
+    cursor: w-resize;
+    left: 0;
+  }
+
+  .controls--next {
+    @extend %controls;
+    cursor: e-resize;
+    right: 0;
+  }
+
+  .controls--open {
+    @extend %controls;
+    left: 30%;
+    right: 30%;
+    width: 40%;
+    cursor: zoom-in;
+  }
+
+  .controls--close {
+    @extend %controls;
+    left: 30%;
+    right: 30%;
+    width: 40%;
+    cursor: zoom-out;
   }
 }
 
@@ -186,6 +199,7 @@
 
     a {
       display: block;
+      margin-bottom: 5px;
     }
   }
 
@@ -193,10 +207,26 @@
     float: right;
     height: 100%;
     overflow: scroll;
+    padding-left: 10px;
+    position: relative;
     width: calc(100% - 150px);
 
     img {
+      margin-bottom: 5px;
       width: 100%;
     }
+  }
+
+  .product__controls {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+
+  .controls--close {
+    left: 0;
+    right: 0;
+    width: 100%;
+    cursor: zoom-out;
   }
 }

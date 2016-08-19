@@ -142,3 +142,5 @@
     </div>
   </div>
 </div>
+
+<?php print render($image_modal); ?>

@@ -143,6 +143,13 @@ function shopify_enhancements_theme($existing, $type, $theme, $path) {
       'path' => $path . '/templates',
       'template' => 'currency',
     ),
+    'image_modal' => array(
+      'variables' => array(
+        'files' => array(),
+      ),
+      'path' => $path . '/templates',
+      'template' => 'image-modal',
+    ),
   );
 }
 
@@ -493,4 +500,48 @@ function shopify_enhancements_search($term) {
   include(drupal_get_path("module", "ctools") . "/includes/content.inc");
   $widget = ctools_content_render("shopify_enhancements", "shopify_enhancements", $settings);
   return $widget->content;
+}
+
+function shopify_enhancements_preprocess_image_modal(&$variables) {
+  $variables['images'] = array();
+  $variables['thumbnails'] = array();
+  foreach ($variables['files'] as $key => $value) {
+    $image_id = "modal-image-$key";
+    $variables['images'][$key] = array(
+      '#theme' => 'image',
+      '#path' => $value['uri'],
+      '#alt' => $value['alt'],
+      '#title' => $value['title'],
+      '#height' => $value['height'],
+      '#width' => $value['width'],
+      '#attributes' => array(
+        'id' =>  $image_id,
+      ),
+    );
+
+    $thumbnail_image = array(
+      '#theme' => 'image_style',
+      '#style_name' => 'shopify_product_thumbnail',
+      '#path' => $value['uri'],
+      '#alt' => $value['alt'],
+      '#title' => $value['title'],
+      '#height' => $value['height'],
+      '#width' => $value['width'],
+      '#attributes' => array(
+        'class' => array('image-modal__image'),
+      ),
+    );
+    $variables['thumbnails'][$key] = array(
+      '#theme' => 'link',
+      '#path' => current_path(),
+      '#options' => array(
+        'attributes' => array(
+          'class' => array('js-thumbnail-skip image-modal__thumbnail'),
+        ),
+        'html' => TRUE,
+        'fragment' => "modal-image-$key",
+       ),
+      '#text' => drupal_render($thumbnail_image),
+    );
+  }
 }

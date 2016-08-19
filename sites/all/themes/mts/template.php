@@ -32,11 +32,18 @@ function mts_links__topbar_main_menu($variables) {
 
 function mts_preprocess_entity(&$variables) {
   if ($variables['elements']['#entity_type'] == 'shopify_product' && isset($variables['elements']['#entity'])) {
-    $variables['price'] = $variables['elements']['add_to_cart']['product']['variant']['price'];
+    $entity = $variables['shopify_product'];
+    $variables['image_modal'] = FALSE;
+    if (!empty($variables['shopify_product_images'])) {
+      $variables['image_modal'] = array(
+        '#theme' => 'image_modal',
+        '#files' => $variables['shopify_product_images'],
+      );
+    }
     $fields = array('size', 'specs');
     foreach ($fields as $field) {
-      if (!empty($variables['elements']['#entity']->shopify_product_metafields)) {
-        foreach ($variables['elements']['#entity']->shopify_product_metafields[LANGUAGE_NONE] as $value) {
+      if (!empty($entity->shopify_product_metafields)) {
+        foreach ($entity->shopify_product_metafields[LANGUAGE_NONE] as $value) {
           $metafield = $value['entity'];
           if ($metafield->key == $field && ($metafield->namespace == 'attr' || $metafield->namespace == 'c_f')) {
             $variables[$field] = $metafield->value;
@@ -60,85 +67,4 @@ function mts_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'shopify_add_to_cart_form') {
     unset($form['product']['variant']['quantity']);
   }
-}
-
-/**
- * Overriding flexslider_list theme implementation to output colorbox enabled images
- */
-function mts_flexslider_list(&$vars) {
-  // Reference configuration variables
-  $optionset = &$vars['settings']['optionset'];
-  if ($optionset->name == 'product') {
-    $items = &$vars['items'];
-    $attributes = &$vars['settings']['attributes'];
-    $type = &$vars['settings']['type'];
-    $output = '';
-    $group = $optionset->title;
-
-    // Build the list
-    if (!empty($items)) {
-      $output .= "<$type" . drupal_attributes($attributes) . '>';
-      foreach ($items as $i => $item) {
-
-        $caption = '';
-        if (!empty($item['caption'])) {
-          $caption = $item['caption'];
-        }
-
-        // Build path to colorbox image style. Replace 'colorbox' with your image style name.
-        $colorbox_path = file_create_url($item['item']['uri']);
-        $image_options = array(
-          'style_name' => 'original',
-          'path'       => $item['item']['uri'],
-          'height'     => $item['item']['height'],
-          'width'      => $item['item']['width'],
-          'alt'        => $item['item']['alt'],
-          'title'      => $item['item']['title'],
-        );
-
-        $item['slide'] = theme('colorbox_imagefield', array('image' => $image_options, 'path' => $colorbox_path, 'title' => $caption, 'gid' => array('rel' => $group)));
-
-        $output .= theme('flexslider_list_item', array(
-          'item' => $item['slide'],
-          'settings' => array(
-            'optionset' => $optionset,
-          ),
-          'caption' => $caption,
-        ));
-      }
-      $output .= "</$type>";
-    }
-
-  }
-  else {
-    // Reference configuration variables
-    $optionset = &$vars['settings']['optionset'];
-    $items = &$vars['items'];
-    $attributes = &$vars['settings']['attributes'];
-    $type = &$vars['settings']['type'];
-    $output = '';
-
-    // Build the list
-    if (!empty($items)) {
-      $output .= "<$type" . drupal_attributes($attributes) . '>';
-      foreach ($items as $i => $item) {
-
-        $caption = '';
-        if (!empty($item['caption'])) {
-          $caption = $item['caption'];
-        }
-
-        $output .= theme('flexslider_list_item', array(
-          'item' => $item['slide'],
-          'settings' => array(
-            'optionset' => $optionset,
-          ),
-          'caption' => $caption,
-        ));
-      }
-      $output .= "</$type>";
-    }
-  }
-
-  return $output;
 }

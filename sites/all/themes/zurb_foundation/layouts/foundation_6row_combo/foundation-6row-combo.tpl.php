@@ -50,7 +50,7 @@
       <?php print $content['middle_small']; ?>
     </div>
     <div class="medium-9 columns">
-      <?php print $content['middle_medium']; ?>
+      <?php print $content['middle_large']; ?>
     </div>
   </div>
 

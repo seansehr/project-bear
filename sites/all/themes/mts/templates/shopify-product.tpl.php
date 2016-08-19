@@ -94,7 +94,12 @@
           <?php print render($content['shopify_product_tags']); ?>
         </div>
         <div class="product__price">
-          <?php print render($price); ?>
+          <span class="price__compare_at" data-price="<?php print $compare_at_price ;?>">
+            <?php print $compare_at_price; ?>
+          </span>
+          <span class="shopify-price <?php if($compare_at_price) print 'price--compare'; ?>" data-price="<?php print $price ;?>">
+            <?php print render($price); ?>
+          </span>
         </div>
       </div>
     </div>

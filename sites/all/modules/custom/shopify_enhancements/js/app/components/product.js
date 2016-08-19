@@ -73,7 +73,6 @@ class Product extends React.Component {
               {this.props.data.title}
             </a>
             <div className="product_thumb__actions">
-              <a href={this.props.data.url}><i className="fa fa-info" aria-hidden="true"></i><span className="show-for-sr">more info</span></a>
               <a role="button" href="#" className="specs"><i className="fa fa-cart-plus" aria-hidden="true"></i><span className="show-for-sr">Add {this.props.data.title} to Cart</span></a>
             </div>
           </div>

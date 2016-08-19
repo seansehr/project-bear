@@ -10,7 +10,7 @@ class FilterList extends React.Component {
         {objectMap(this.props.filterCategories, (key, index) => {
           return (
             <FilterCategory key={key} value={key} className="filter-list__category">
-              {this.props.filterCategories[key].name}
+              <span>{this.props.filterCategories[key].name}</span>
             </FilterCategory>
           );
         })}

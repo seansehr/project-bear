@@ -9,22 +9,22 @@ const mapStateToProps = (state) => {
       {
         'key': 'price',
         'options': {
-          'asc': 'Price: Low to High',
           'desc': 'Price: High to Low',
+          'asc': 'Price: Low to High',
         }
       },
       {
         'key': 'size',
         'options': {
-          'asc': 'Size: Big to Small',
-          'desc': 'Size: Small to Big',
+          'desc': 'Size: Big to Small',
+          'asc': 'Size: Small to Big',
         }
       },
       {
         'key': 'updated_at',
         'options': {
-          'asc': 'Old to New',
           'desc': 'New to Old',
+          'asc': 'Old to New',
         }
       },
       {

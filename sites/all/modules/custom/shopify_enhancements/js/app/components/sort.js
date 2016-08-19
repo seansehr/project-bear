@@ -16,7 +16,7 @@ class Sort extends React.Component {
             <div key={sortBy.key}>
               {objectMap(sortBy.options, (key, index) => {
                 return (
-                  <Link key={sortBy.key + '-' + key} order={key} className="sort-list__category" active={false} onClick={() => {this.props.sortClick(sortBy)}}>
+                  <Link key={sortBy.key + '-' + key} order={key} className="sort-list__category" active={false} onClick={() => {this.props.sortClick(sortBy.key)}}>
                     {sortBy.options[key]}
                   </Link>
                 );

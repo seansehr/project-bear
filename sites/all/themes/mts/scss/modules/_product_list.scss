@@ -37,7 +37,7 @@ $info-gutter: 3px;
 
   &__actions {
     bottom: 0;
-    font-size: rem-calc(16);
+    font-size: rem-calc(20);
     position: absolute;
     right: 5px;
 
@@ -118,4 +118,5 @@ $info-gutter: 3px;
 
 .price--compare {
   color: $sale-red;
+  display: inline;
 }

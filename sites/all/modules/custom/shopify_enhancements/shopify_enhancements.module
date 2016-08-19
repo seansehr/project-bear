@@ -68,6 +68,10 @@ function shopify_enhancements_library() {
         'defer' => 'true',
         'scope' => 'footer',
       ),
+      $module_path . '/js/shopify_enhancements.cart.js' => array(
+        'defer' => 'true',
+        'scope' => 'footer',
+      ),
       array(
         'type' => 'setting',
         'data' => array(

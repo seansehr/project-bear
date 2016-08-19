@@ -11,12 +11,12 @@
  */
 ?>
 <div class="cart-button js_cart_toggle" id="cart-button">
-  <?php print $cart ?><span class="cart-count" id="cart-count"></span>
+  <?php print $cart ?> &nbsp;<span class="cart-count" id="cart-count"></span>
   <span class="tooltip">Cart is empty<span class="nub"></span></span>
 </div>
 </span>
 <div class="cart-wrapper row">
-  <div id="cart_close" class="cart-close js_cart_close"><div class="show-for-sr">close</div><i class="fa fa-close"></i></div>
+  <div id="cart_close" class="cart-close js_cart_close"><div class="show-for-sr">close</div>+</div>
   <div class="small-10 small-offset-1">
     <div id="cart" class="cart"></div>
     <div class="cart__buttons">

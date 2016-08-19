@@ -44,6 +44,15 @@ function mts_preprocess_entity(&$variables) {
         }
       }
     }
+    if (!$entity->variant_id) {
+      $primary_variant = array_values($entity->variants)[0];
+    }
+    else {
+      $primary_variant = $entity;
+    }
+    $variables['price'] = $primary_variant->price;
+    $variables['compare_at_price'] = $primary_variant->compare_at_price;
+    $variables['primary_variant'] = $primary_variant->variant_id;
   }
 }
 

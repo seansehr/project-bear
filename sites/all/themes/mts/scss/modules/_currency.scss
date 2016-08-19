@@ -2,19 +2,9 @@
   height: 26px;
   line-height: rem-calc(18);
   overflow: hidden;
+  position: relative;
   text-transform: uppercase;
-
-  &.active {
-    .currency__active {
-      height: 0;
-    }
-  }
-}
-
-.currency__active {
-  height: 26px;
-  overflow: hidden;
-  transition: height .5s;
+  width: 240px;
 }
 
 .currency__symbol {
@@ -29,17 +19,31 @@
   display: inline-block;
 }
 
-.currency__selection a {
-  color: #9c9da0;
-  display: inline-block;
-  font-size: rem-calc(18);
-  font-weight: $font-weight-bold;
-  margin-right: 5px;
-  border: 2px solid transparent;
-  border-radius: 3px;
-  padding: 2px 5px;
+.currency__selection {
+  background: $white;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  transition: width .5s;
 
-  &.active {
-    border-color: #9c9da0;
+  .active & {
+    width: 240px;
+  }
+
+  a {
+    color: #9c9da0;
+    display: inline-block;
+    font-size: rem-calc(18);
+    font-weight: $font-weight-bold;
+    margin-right: 5px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    padding: 2px 5px;
+
+    &.active {
+      border-color: #9c9da0;
+    }
   }
 }

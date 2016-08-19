@@ -14,17 +14,19 @@
 
       if (Drupal.shopify_enhancements.stores) {
         var productStore = function() {
-          var $priceDom = $('.shopify-price'),
-              price = $priceDom.text().replace(/[^0-9.,]/g,'');
-
           return {
             dispatch: function(action) {
-              if ($priceDom.length && price) {
-                self.convert(price, action.key).then(function(np) {
-                  newPrice = np + ' ' + action.key;
-                  $priceDom.text(newPrice);
-                });
-              }
+              var $priceDom = $('[data-price]').each(function (index) {
+                var $this = $(this),
+                    price = $this.data('price');
+
+                if (price) {
+                  self.convert(price, action.key).then(function(np) {
+                    newPrice = np + ' ' + action.key;
+                    $this.text(newPrice);
+                  });
+                }
+              });
             }
           }
         };

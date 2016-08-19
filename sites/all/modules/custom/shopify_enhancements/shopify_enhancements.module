@@ -152,7 +152,7 @@ function shopify_enhancements_theme($existing, $type, $theme, $path) {
 function shopify_enhancements_block_info() {
   $blocks['currency'] = array(
     'info' => t('Shopify Currency'),
-    'cache' => DRUPAL_NO_CACHE,
+    'cache' => DRUPAL_CACHE_GLOBAL,
   );
   $blocks['product_search'] = array(
     'info' => t('Product Search'),

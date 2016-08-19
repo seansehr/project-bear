@@ -6,6 +6,29 @@
   Drupal.behaviors.shopify_enhancements = {
     attach: function (context, settings) {
       if (context == document) {
+        var modal = {
+          close: function (event) {
+            $('.image-modal').removeClass('opened');
+            $('body').css('overflow', 'auto');
+            $(document).unbind('keyup.modal');
+          },
+          open: function (event) {
+            $('.image-modal').addClass('opened');
+            $('body').css('overflow', 'hidden');
+            $(document).on('keyup.modal', function (e) {
+              if (e.keyCode == 27) { // escape key maps to keycode `27`
+                modal.close();
+              }
+            })
+          }
+        }
+        $('.product__images').on('click', '.js-open-modal', function (event) {
+          modal.open();
+        });
+        $('.image-modal').on('click', '.js-close-modal', function (event) {
+          modal.close();
+        });
+
         $('.flexslider').on('start', function (event) {
           var $prev = $('.controls--prev', this),
               $next = $('.controls--next', this),
@@ -34,95 +57,12 @@
           })
         }
 
-        var cartStore = Drupal.shopify_enhancements.createCart([], 'cart'),
-            $cartCount = $('#cart-count');
-        Drupal.shopify_enhancements.stores.add('cart', cartStore);
-        var createCart = function (shopifyCart) {
-          var $container = $('.cart-wrapper'),
-              products = shopifyCart.lineItems;
-
-          sessionStorage.setItem('cartid', shopifyCart.id);
-          cartStore.dispatch({
-            type: 'SET_PRODUCTS',
-            products: products
-          });
-          $cartCount.text(shopifyCart.lineItems.length);
-          shopifyCart.dom = {
-            close: function () {
-              $container.removeClass('opened');
-            },
-            open: function () {
-              $container.addClass('opened');
-            },
-            toggle: function () {
-              $('.cart-wrapper').toggleClass('opened');
-            }
-          }
-
-          return shopifyCart;
-        }
-
         Drupal.shopify_enhancements.client = ShopifyBuy.buildClient({
-          apiKey: Drupal.settings.shopify_enhancements.apiKey,
+          apiKey: '70d4172240cf29a471c73f66f30776fe',
           myShopifyDomain: Drupal.settings.shopify_enhancements.domain,
           appId: '6'
         });
 
-        var cartID = sessionStorage.getItem('cartid'),
-            cart,
-            product = {
-              'variants': []
-            };
-
-        if (cartID) {
-          Drupal.shopify_enhancements.client.fetchCart(cartID).then(function (c) {
-            cart = createCart(c);
-          });
-        }
-        else {
-          Drupal.shopify_enhancements.client.createCart().then(function (c) {
-            cart = createCart(c);
-          });
-        }
-
-        if (settings.shopify_enhancements.productID) {
-          Drupal.shopify_enhancements.client.fetchProduct(settings.shopify_enhancements.productID).then(function(p) {
-            product = p;
-          });
-        }
-
-        $('body').on('click', '.shopify-add-to-cart-button', function (event) {
-          var variantID = $(this).parents('form').data('variant-id'),
-              variant = product.variants.filter(function(v) {
-                return v.id == variantID;
-              })[0];
-          if (!variant) {
-            return;
-          }
-
-          event.preventDefault();
-          cart.addVariants({variant: variant, quantity: 1}).then(function (c) {
-            cart = createCart(c);
-            cart.dom.open();
-          });
-        });
-
-        $('body').on('click', '.js_cart_close', function (event) {
-          cart.dom.close();
-        });
-        $('body').on('click', '.js_cart_toggle', function (event) {
-          if (cart.lineItems.length) {
-            cart.dom.toggle();
-          }
-          else {
-            var $tooltip = $('.tooltip', this);
-            $tooltip.fadeIn(300, function () {
-              window.setTimeout(function () {
-                $tooltip.fadeOut(300);
-              }, 2000);
-            })
-          }
-        });
       }
       // $.ajax({
       //   type: 'GET',

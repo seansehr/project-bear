@@ -64,13 +64,13 @@
           <a role="button" href="#" class="description" data-tab="description"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="show-for-sr">Description</span></a>
         </li>
         <li>
-          <a role="button" href="#" class="specs" data-tab="specs"><i class="fa fa-list" aria-hidden="true"></i><span class="show-for-sr">Specs</span></a>
+          <a role="button" href="#" class="specs" data-tab="specs"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="show-for-sr">Specs</span></a>
         </li>
         <li>
-          <a role="button" href="#" class="dimensions" data-tab="dimensions"><i class="fa fa-list" aria-hidden="true"></i><span class="show-for-sr">Dimensions</span></a>
+          <a role="button" href="#" class="dimensions" data-tab="dimensions"></a>
         </li>
         <li>
-          <a role="button" href="#" class="shipping" data-tab="shipping"><i class="fa fa-truck" aria-hidden="true"></i><span class="show-for-sr">Shipping</span></a>
+          <a role="button" href="#" class="shipping" data-tab="shipping"><i class="fa fa-truck fa-flip-horizontal" aria-hidden="true"></i><span class="show-for-sr">Shipping</span></a>
         </li>
         <li>
           <a role="button" href="#" class="return" data-tab="return"><i class="fa fa-refresh" aria-hidden="true"></i><span class="show-for-sr">Returns</span></a>

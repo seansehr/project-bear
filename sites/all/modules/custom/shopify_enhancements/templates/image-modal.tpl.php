@@ -18,9 +18,7 @@
   </div>
   <div class="image-modal__images">
     <div class="product__controls">
-      <div class="controls--prev"></div>
       <div class="js-close-modal controls--close"></div>
-      <div class="controls--next"></div>
     </div>
     <?php foreach ($images as $image): ?>
       <?php print render($image); ?>

@@ -16,6 +16,15 @@
           <?php endif; ?>
         </section>
       </nav>
+      <?php if (!empty($page['header'])): ?>
+        <!--.l-header-region -->
+        <section class="l-header-region row">
+          <div class="columns">
+            <?php print render($page['header']); ?>
+          </div>
+        </section>
+        <!--/.l-header-region -->
+      <?php endif; ?>
       <?php if ($top_bar_classes): ?>
         </div>
       <?php endif; ?>
@@ -63,16 +72,6 @@
       </section>
     <?php endif; ?>
     <!-- End title, slogan and menu -->
-
-    <?php if (!empty($page['header'])): ?>
-      <!--.l-header-region -->
-      <section class="l-header-region row">
-        <div class="columns">
-          <?php print render($page['header']); ?>
-        </div>
-      </section>
-      <!--/.l-header-region -->
-    <?php endif; ?>
 
   </header>
   <!--/.l-header -->

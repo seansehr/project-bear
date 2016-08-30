@@ -10,7 +10,6 @@ const getFilterCategories = (state) => state.filterCategories
 export const getFilterOptions = createSelector(
   [ getSelectedFilter, getProducts, getFilters, getFilterCategories ],
   (selectedFilter, products, filters, filterCategories) => {
-    console.log(selectedFilter)
     let options = {}
     if (selectedFilter) {
       products.forEach(function (product) {

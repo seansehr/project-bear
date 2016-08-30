@@ -40,8 +40,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    sortClick: option => {
-      dispatch(setSort(option.key, option.order))
+    sortClick: (key, dir) => {
+      dispatch(setSort(key, dir))
     }
   }
 }

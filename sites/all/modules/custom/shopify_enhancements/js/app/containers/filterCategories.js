@@ -3,7 +3,6 @@ import FilterCategoriesComp from '../components/filterCategories'
 import { toggleSort } from '../actions'
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     products: state.products,
     filterCategories: state.filterCategories

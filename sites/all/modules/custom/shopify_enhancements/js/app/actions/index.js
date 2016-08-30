@@ -68,3 +68,11 @@ export const changeCurrency = (products, currency) => {
 }
 
 window.changeCurrency = changeCurrency
+
+export const changeQuantity = (product_id, quantity) => {
+  return {
+    type: 'CHANGE_QUANTITY',
+    product_id,
+    quantity
+  }
+}

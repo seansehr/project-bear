@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
     }
     return ret
   })
-  console.log(state)
+
   return {
     currency: state.currency,
     products: products.slice(0, 50)

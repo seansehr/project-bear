@@ -48,11 +48,9 @@ export const toggleSort = () => {
   }
 }
 
-export const changePrice = (product, prices, currency) => {
+export const changePrice = currency => {
   return {
-    type: 'CURRENCY_CHANGE',
-    product,
-    prices,
+    type: 'SET_CURRENCY',
     currency
   }
 }
@@ -68,11 +66,3 @@ export const changeCurrency = (products, currency) => {
 }
 
 window.changeCurrency = changeCurrency
-
-export const changeQuantity = (product_id, quantity) => {
-  return {
-    type: 'CHANGE_QUANTITY',
-    product_id,
-    quantity
-  }
-}

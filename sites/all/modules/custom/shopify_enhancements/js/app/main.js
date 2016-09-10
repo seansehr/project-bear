@@ -8,10 +8,12 @@ import thunkMiddleware from 'redux-thunk'
 
 // var ProductList = require('./components/product_list');
 import App from './components'
-import Cart from './containers/cart'
+import Cart from './cart'
 import ProductReducers from './reducers'
+
 // import products from './data'
 window.Drupal.shopify_enhancements = window.Drupal.shopify_enhancements || {};
+window.Drupal.shopify_enhancements.createCart = Cart;
 window.Drupal.shopify_enhancements.createFilter = (url, container, filterCategories) => {
   let promise = new Promise((resolve, reject) => {
     jQuery.get(url, (data) => {
@@ -69,22 +71,6 @@ window.Drupal.shopify_enhancements.createFilter = (url, container, filterCategor
 
   })
   return promise
-}
-
-window.Drupal.shopify_enhancements.createCart = (products, container) => {
-  let store = createStore(ProductReducers, {
-      products
-    },
-    applyMiddleware(thunkMiddleware));
-
-  render(
-    <Provider store={store}>
-      <Cart />
-    </Provider>,
-    document.getElementById(container)
-  );
-
-  return store;
 }
 
 // var createStore = require('redux').createStore;

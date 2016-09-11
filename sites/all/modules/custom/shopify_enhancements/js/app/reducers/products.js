@@ -12,8 +12,6 @@ const products = (state = [], action) => {
         }
         return product
       })
-    case 'SET_PRODUCTS':
-      return action.products
     default:
       return state
   }

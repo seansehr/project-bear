@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
 import { fieldValue } from '../helpers/fields'
+import Link from './link'
+import { format } from '../helpers/price'
 
 class Product extends React.Component {
   constructor(props) {
@@ -17,8 +19,10 @@ class Product extends React.Component {
       });
     }
 
-    data.display_price = data.display_price || data.price
-    data.display_compare_at_price = data.display_compare_at_price || data.compare_at_price
+    data.display_price = format(props.currency.converter(data.price), props.currency)
+    if (data.compare_at_price) {
+      data.display_compare_at_price = format(props.currency.converter(data.compare_at_price), props.currency)
+    }
 
     let images = data.shopify_product_images;
     data.image = images[0] ? images[0].file.url : '';
@@ -73,7 +77,10 @@ class Product extends React.Component {
               {this.props.data.title}
             </a>
             <div className="product_thumb__actions">
-              <a role="button" href="#" className="specs"><i className="fa fa-cart-plus" aria-hidden="true"></i><span className="show-for-sr">Add {this.props.data.title} to Cart</span></a>
+              <Link role="button" href="#" className="specs" active={false} onClick={this.props.onClick}>
+                <i className="fa fa-cart-plus" aria-hidden="true"></i>
+                <span className="show-for-sr">Add {this.props.data.title} to Cart</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -81,22 +88,5 @@ class Product extends React.Component {
     )
   }
 }
-// {/*<a href={"/product/" + this.props.data.id}>*/}
-export default Product
 
-// <div className="product_thumb">
-//   <hr />
-//   <div className="product_thumb__name">
-//     {this.props.data.title}
-//   </div>
-//   <div className="product_thumb__vendor">
-//     {this.props.data.vendor}
-//   </div>
-//   <div className="product_thumb__type">
-//     {this.props.data.product_type}
-//   </div>
-//   <div className="product_thumb__price">
-//     <span className="price__compare_at">{this.props.data.compare_at_price}</span>
-//     <span className={priceBtnClass}>{this.props.data.price}</span>
-//   </div>
-// </div>
+export default Product

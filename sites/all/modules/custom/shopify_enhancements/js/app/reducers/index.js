@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import currency from './currency'
 import filterCategories from './filterCategories'
 import products from './products'
 import filters from './filters'
@@ -23,18 +24,6 @@ function sortOpen(state, action) {
       }
       else {
         return 'closed'
-      }
-    default:
-      return state;
-  }
-}
-
-const currency = (state = {key: 'USD', symbol: '$'}, action) => {
-  switch (action.type) {
-    case 'CURRENCY_CHANGE':
-      return {
-        key: action.key,
-        symbol: action.symbol
       }
     default:
       return state;

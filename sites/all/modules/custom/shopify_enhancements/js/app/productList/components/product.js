@@ -19,11 +19,6 @@ class Product extends React.Component {
       });
     }
 
-    data.display_price = format(props.currency.converter(data.price), props.currency)
-    if (data.compare_at_price) {
-      data.display_compare_at_price = format(props.currency.converter(data.compare_at_price), props.currency)
-    }
-
     let images = data.shopify_product_images;
     data.image = images[0] ? images[0].file.url : '';
     data.hover_image = images[1] ? images[1].file.url : '';
@@ -38,6 +33,11 @@ class Product extends React.Component {
       'price__price': true,
       'price--compare': this.props.data.compare_at_price
     });
+
+    this.props.data.display_price = format(this.props.currency.converter(this.props.data.price), this.props.currency)
+    if (this.props.data.compare_at_price) {
+      this.props.data.display_compare_at_price = format(this.props.currency.converter(this.props.data.compare_at_price), this.props.currency)
+    }
 
     return (
       <div className="product_thumb">

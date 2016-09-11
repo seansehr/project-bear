@@ -1,0 +1,13 @@
+.reveal-modal {
+  &.full {
+    background: $reveal-overlay-bg;
+  }
+}
+
+.reveal-modal-bg {
+  position: fixed;
+}
+
+body.reveal {
+  overflow: hidden;
+}

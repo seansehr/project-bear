@@ -6,28 +6,21 @@
   Drupal.behaviors.shopify_enhancements = {
     attach: function (context, settings) {
       if (context == document) {
-        var modal = {
-          close: function (event) {
-            $('.image-modal').removeClass('opened');
-            $('body').css('overflow', 'auto');
-            $(document).unbind('keyup.modal');
-          },
-          open: function (event) {
-            $('.image-modal').addClass('opened');
-            $('body').css('overflow', 'hidden');
-            $(document).on('keyup.modal', function (e) {
-              if (e.keyCode == 27) { // escape key maps to keycode `27`
-                modal.close();
-              }
-            })
-          }
-        }
         $('.product__images').on('click', '.js-open-modal', function (event) {
-          modal.open();
+          $('#imageModal').foundation('reveal', 'open');
         });
-        $('.image-modal').on('click', '.js-close-modal', function (event) {
-          modal.close();
+        $('#imageModal').on('click', '.js-close-modal', function (event) {
+          $('#imageModal').foundation('reveal', 'close');
         });
+
+        $(document).on('open.fndtn.reveal', '[data-reveal]', function () {
+          $('body').addClass('reveal');
+        });
+
+        $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+          $('body').removeClass('reveal');
+        });
+
 
         $('.flexslider').on('start', function (event) {
           var $prev = $('.controls--prev', this),
@@ -62,21 +55,7 @@
           myShopifyDomain: Drupal.settings.shopify_enhancements.domain,
           appId: '6'
         });
-
       }
-      // $.ajax({
-      //   type: 'GET',
-      //   url: 'https://' + settings.shopify_enhancements.domain + '/cart.json',
-      //   dataType: 'jsonp',
-      //   success: function (data) {
-      //     console.log(data);
-      //     var total = 0;
-      //     for (i = 0; i < data.items.length; i++) {
-      //       total += data.items[i].quantity;
-      //     }
-      //     $('#shopify-cart-total').text(total);
-      //   }
-      // });
     }
   };
 

@@ -10,7 +10,7 @@
  */
 ?>
 
-<div class="image-modal">
+<div id="imageModal" class="reveal-modal full" data-reveal aria-hidden="true" role="images">
   <div class="image-modal__thumbnails">
     <?php foreach ($thumbnails as $thumbnail): ?>
       <?php print render($thumbnail); ?>

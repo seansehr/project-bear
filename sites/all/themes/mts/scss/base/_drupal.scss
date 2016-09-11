@@ -19,6 +19,10 @@
 
 // Fix Zurb Foundation Reveal Modal z-index and make it play nice with dropdown
 // menus, lightboxes, etc.
+.reveal-modal-bg {
+  z-index: 998;
+}
+
 .reveal-modal {
   z-index: 999;
 }

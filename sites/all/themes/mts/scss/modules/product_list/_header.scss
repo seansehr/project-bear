@@ -1,0 +1,24 @@
+// Product List Header
+.product-list__header {
+  border: $border;
+
+  > * {
+    padding: 8px 0 12px;
+  }
+}
+
+.product-list__categories {
+  @extend %space-around;
+  float: left;
+  width: calc(100% - 100px);
+}
+
+.product-list__sort {
+  @include filter-status;
+  border-left: $border;
+  display: inline-block;
+  line-height: 1.5;
+  margin-top: 2px;
+  text-align: center;
+  width: 100px;
+}

@@ -42,9 +42,9 @@ export const setSort = (key, order) => {
   }
 }
 
-export const toggleSort = () => {
+export const toggleSortVisibility = () => {
   return {
-    type: 'TOGGLE_SORT'
+    type: 'TOGGLE_SORT_VISIBILITY'
   }
 }
 

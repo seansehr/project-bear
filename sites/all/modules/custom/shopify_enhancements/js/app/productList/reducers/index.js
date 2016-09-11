@@ -15,21 +15,6 @@ function selectedFilter(state, action) {
   }
 }
 
-function sortOpen(state, action) {
-  state = state || 'closed';
-  switch (action.type) {
-    case 'TOGGLE_SORT':
-      if (state == 'closed') {
-        return 'opened'
-      }
-      else {
-        return 'closed'
-      }
-    default:
-      return state;
-  }
-}
-
 const ProductReducers = combineReducers({
   currency,
   products,
@@ -37,7 +22,6 @@ const ProductReducers = combineReducers({
   selectedFilter,
   filters,
   sort,
-  sortOpen
 })
 
 export default ProductReducers

@@ -6,8 +6,8 @@ import classNames from 'classnames'
 class Sort extends React.Component {
   render() {
     let sortClassName = classNames({
-      'sort-list': true,
-      'closed': this.props.open == 'closed'
+      'product-list__sorts': true,
+      'closed': !this.props.open
     });
     return (
       <div className={sortClassName}>
@@ -16,7 +16,7 @@ class Sort extends React.Component {
             <div key={sortBy.key}>
               {objectMap(sortBy.options, (dir, index) => {
                 return (
-                  <Link key={sortBy.key + '-' + dir} order={dir} className="sort-list__category" active={false} onClick={() => {this.props.sortClick(sortBy.key, dir)}}>
+                  <Link key={sortBy.key + '-' + dir} order={dir} className="sorts__category" active={false} onClick={() => {this.props.sortClick(sortBy.key, dir)}}>
                     {sortBy.options[dir]}
                   </Link>
                 );

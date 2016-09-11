@@ -1,6 +1,8 @@
 // @file
 // Place your mixins here. Feel free to roll your own mixins.
 
+// Flex prefix shortcut
+// TODO: change flex stuff to mixins to for performance.
 %flex-container {
   -ms-box-orient: horizontal;
   display: -webkit-box;
@@ -11,6 +13,21 @@
   display: flex;
 }
 
+// Flex prefix shortcut
+%space-between {
+  @extend %flex-container;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+%space-around {
+  @extend %flex-container;
+
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+// Adds borders that appear that only corners are outlined.
 @mixin corner-outline($color, $length: 30px) {
   border: 1px solid $color;
   position: relative;
@@ -39,21 +56,32 @@
   }
 }
 
+// Filter status.
+@mixin filter-status($size: 27) {
+  &:after {
+    content: '+';
+    display: inline-block;
+    font-size: rem-calc(27);
+    line-height: 1;
+    margin-left: 7px;
+    transition: transform .5s;
+    vertical-align: -14%;
+  }
+
+  &.active {
+    span {
+      border-bottom: 1px solid $monsoon;
+      padding-bottom: 2px;
+    }
+
+    &:after {
+      transform: translate3d(0, 0, 0) rotate(45deg);
+    }
+  }
+}
+
 .corner-outline {
   @include corner-outline($border-color);
-}
-
-%space-between {
-  @extend %flex-container;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-}
-
-%space-around {
-  @extend %flex-container;
-
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
 }
 
 %share-bar {

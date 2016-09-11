@@ -4,7 +4,7 @@ import SortComp from '../components/sort'
 
 const mapStateToProps = (state) => {
   return {
-    open: state.sortOpen,
+    open: state.sort.opened,
     options: [
       {
         'key': 'price',

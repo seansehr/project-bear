@@ -1,0 +1,18 @@
+.product-list__sorts {
+  @extend %space-between;
+  @include corner-outline($border-color);
+  margin-top: 10px;
+  padding: $column-gutter;
+
+  &.closed {
+    display: none;
+  }
+}
+
+.sorts__category {
+  display: block;
+
+  & + .sort-list__category {
+    margin-top: 8px;
+  }
+}

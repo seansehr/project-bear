@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { loadFilterOptions } from '../actions'
-import Link from '../components/link'
+import Link from '../../helpers/components/link'
 
 const mapStateToProps = (state, ownProps) => {
   return {

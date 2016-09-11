@@ -1,18 +1,19 @@
 import { connect } from 'react-redux'
-import FilterCategoriesComp from '../components/filterCategories'
-import { toggleSort } from '../actions'
+import FilterCategoriesComp from '../components/categories'
+import { toggleSortVisibility } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
     products: state.products,
-    filterCategories: state.filterCategories
+    filterCategories: state.filterCategories,
+    sortOpened: state.sort.opened
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     sortOnClick: () => {
-      dispatch(toggleSort())
+      dispatch(toggleSortVisibility())
     }
   }
 }

@@ -1,25 +1,20 @@
 // main.js
 import React, { PropTypes } from 'react'
-import ProductsFiltered from '../containers/productsFiltered'
-import FilterCategories from '../containers/filterCategories'
-import FilterList from '../containers/filterList'
+import Products from '../containers/products'
+import Categories from '../containers/categories'
+import Filters from '../containers/filters'
 import ActiveFilters from '../containers/activeFilters'
 import Sort from '../containers/sort'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     return (
       <div>
         <ActiveFilters />
-        <FilterCategories />
-        <div className="filter-sort">
-          <Sort />
-          <FilterList />
-        </div>
-        <ProductsFiltered />
+        <Categories />
+        <Sort />
+        <Filters />
+        <Products />
       </div>
     );
   }

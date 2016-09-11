@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { setFilter, clearFilter } from '../actions'
-import Link from '../components/link'
+import Link from '../../helpers/components/link'
 
 let isFiltered = (state, ownProps) => {
   let ret = false

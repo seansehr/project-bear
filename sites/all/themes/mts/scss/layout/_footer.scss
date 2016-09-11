@@ -1,9 +1,10 @@
 // Non-modular or client styles for .l-footer region.
 .l-footer {
-  background: #f8f8f8;
-
+  background: $silver;
+  border-bottom: $border;
+  border-top: $border;
   margin-top: 20px;
-  padding: 30px 20px;
+  padding: 15px;
 
   .columns {
     padding-left: 1.3rem;
@@ -11,9 +12,18 @@
   }
 
   .menu {
+    @extend .inline-list;
     font-size: rem-calc(14);
-    list-style: none;
-    margin-left: 0;
+
+    // Hide submenu in footer. More performant than adding another module.
+    .menu {
+      display: none;
+    }
+  }
+
+  .block-title {
+    @extend h6;
+    margin-bottom: 15px;
   }
 }
 

@@ -25,7 +25,6 @@
         </section>
         <!--/.l-header-region -->
       <?php endif; ?>
-
       <?php if ($top_bar_classes): ?>
         </div>
       <?php endif; ?>
@@ -170,7 +169,11 @@
     <?php if (!empty($page['footer_firstcolumn']) || !empty($page['footer_secondcolumn']) || !empty($page['footer_thirdcolumn']) || !empty($page['footer_fourthcolumn'])): ?>
       <!--.footer-columns -->
       <section class="row l-footer-columns">
-        <?php if (!empty($page['footer_firstcolumn'])): ?>
+        <?php if (!empty($page['footer_firstcolumn']) && empty($page['footer_secondcolumn'])): ?>
+          <div class="footer-first medium-6 columns">
+            <?php print render($page['footer_firstcolumn']); ?>
+          </div>
+        <?php else: ?>
           <div class="footer-first medium-3 columns">
             <?php print render($page['footer_firstcolumn']); ?>
           </div>

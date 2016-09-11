@@ -3,13 +3,13 @@
 }
 
 .top-bar-section {
+  border-bottom: $border;
   float: none;
 
   .main-nav {
     @extend %space-between;
 
-    border-bottom: $border;
-    padding: 0;
+    padding: 0 15px;
     margin: 0;
     list-style: none;
 
@@ -46,5 +46,7 @@
 }
 
 .l-header-region {
-  background: $topbar-bg-color;
+  background: $white;
+  margin-top: 0;
+  padding: 10px 0 5px;
 }

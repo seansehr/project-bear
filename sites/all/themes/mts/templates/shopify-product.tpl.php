@@ -67,7 +67,7 @@
           <a role="button" href="#" class="specs" data-tab="specs"><i class="fa fa-list-ul" aria-hidden="true"></i><span class="show-for-sr">Specs</span></a>
         </li>
         <li>
-          <a role="button" href="#" class="dimensions" data-tab="dimensions"></a>
+          <a role="button" href="#" class="dimensions" data-tab="dimensions"><i class="icon icon-ruler" aria-hidden="true"></i><span class="show-for-sr">Specs</span></a>
         </li>
         <li>
           <a role="button" href="#" class="shipping" data-tab="shipping"><i class="fa fa-truck fa-flip-horizontal" aria-hidden="true"></i><span class="show-for-sr">Shipping</span></a>

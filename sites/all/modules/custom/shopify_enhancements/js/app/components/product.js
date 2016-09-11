@@ -78,7 +78,7 @@ class Product extends React.Component {
             </a>
             <div className="product_thumb__actions">
               <Link role="button" href="#" className="specs" active={false} onClick={this.props.onClick}>
-                <i className="fa fa-cart-plus" aria-hidden="true"></i>
+                <i className="icon icon-cart-add" aria-hidden="true"></i>
                 <span className="show-for-sr">Add {this.props.data.title} to Cart</span>
               </Link>
             </div>

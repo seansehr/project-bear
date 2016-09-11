@@ -94,7 +94,7 @@ $white       : #FFFFFF;
 // $snow        : #F9F9F9;
 // $vapor       : #F6F6F6;
 // $white-smoke : #F5F5F5;
-// $silver      : #EFEFEF;
+$silver      : #EDEDED;
 // $smoke       : #EEEEEE;
 // $gainsboro   : #DDDDDD;
 // $iron        : #CCCCCC;
@@ -109,6 +109,7 @@ $oil         : #000000;
 // $jet         : #222222;
 $black       : #000000;
 $sale-red    : #FF0000;
+$dark-grey   : #B6B6B6;
 
 // We use these as default colors throughout
 $primary-color: $monsoon;
@@ -1376,7 +1377,7 @@ $tabs-navigation-font-color: $primary-color;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: $white;
+$topbar-bg-color: $silver;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
@@ -1388,10 +1389,10 @@ $topbar-height: rem-calc(65);
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-$topbar-dropdown-bg: $white;
+$topbar-dropdown-bg: $topbar-bg-color;
 $topbar-dropdown-link-color: $monsoon;
-$topbar-dropdown-link-bg: $white;
-$topbar-dropdown-link-bg-hover: $white;
+$topbar-dropdown-link-bg: $topbar-bg-color;
+$topbar-dropdown-link-bg-hover: $topbar-bg-color;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
 // $topbar-dropdown-toggle-color: $white;

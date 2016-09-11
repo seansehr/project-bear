@@ -10,7 +10,10 @@
  * - $color: The color of the title.
  */
 ?>
-<a href="#" data-reveal-id="cartModal" class="cart-button"><?php print $cart ?> &nbsp;<span class="cart-count" id="cart-count"></span>
+<a href="#" data-reveal-id="cartModal" class="cart-button">
+  <i class="icon icon-cart" aria-hidden="true"></i>
+  <span class="show-for-sr"><?php print $cart ?></span>
+  <span class="cart-count" id="cart-count"></span>
   <span class="tooltip"></span>
 </a>
 </span>

@@ -1,5 +1,6 @@
 .block-shopify-enhancements-product-search {
   float: right;
+  line-height: 1;
   margin-right: 20px;
 
   .form-item-term {
@@ -13,8 +14,9 @@
     input {
       border-width: 0 0 1px;
       box-shadow: none;
-      height: 2rem;
-      padding: .5rem 0 0;
+      height: 1.5rem;
+      margin-bottom: 0;
+      padding: 0;
     }
   }
 

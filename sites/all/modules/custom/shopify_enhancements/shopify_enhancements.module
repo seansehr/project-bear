@@ -216,7 +216,7 @@ function shopify_enhancements_block_view($delta = '') {
 function shopify_enhancements_currency_block() {
   $currencies = array(
     'USD' => '$',
-    'CAD' => '🍁',
+    'CAD' => '<i class="icon icon-leaf" aria-hidden="true"></i>',
     'GBP' => '£',
     'EUR' => '€',
     'JPY' => '¥',

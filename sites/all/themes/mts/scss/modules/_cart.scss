@@ -1,26 +1,23 @@
 .cart-button {
   cursor: pointer;
-  font-size: rem-calc(15);
-  margin: 2px 5px 0 0;
+  font-size: rem-calc(21);
+  line-height: 1;
   position: relative;
-  text-transform: uppercase;
 
   .tooltip {
     max-width: none;
     text-transform: none;
     white-space: nowrap;
     width: auto;
-
-    .nub {
-      left: auto;
-      right: 15px;
-    }
   }
 }
 
 .cart-count {
-  vertical-align: super;
-  font-size: smaller;
+  color: $white;
+  font-size: 0.6em;
+  left: 4px;
+  position: absolute;
+  top: 8px;
 }
 
 .cart-wrapper {

@@ -5,8 +5,8 @@ import Link from '../../helpers/components/link'
 class ActiveFilters extends React.Component {
   render() {
     return (
-      <div className="active-filter">
-        {this.props.filters.length ? <Link active={false} onClick={this.props.clearFilter}><span className="clear-filters">Clear Filters</span> &mdash; </Link>: ''}
+      <div className="product-list__active-filter">
+        {this.props.filters.length ? <Link active={false} onClick={this.props.clearFilter}><span className="active-filter__clear-filter">Clear Filters</span> &mdash; </Link>: ''}
         {this.props.filters.map((item, index) => {
           return (
             <FilterLink key={index} value={item.value} filterKey={item.key} className="active-filter__option">

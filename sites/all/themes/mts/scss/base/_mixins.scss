@@ -41,7 +41,7 @@
     top: -1px;
     border-bottom: 1px solid $white;
     border-top: 1px solid $white;
-    z-index: -1;
+    z-index: -2;
   }
 
   &:after {
@@ -53,19 +53,32 @@
     top: $length;
     border-left: 1px solid $white;
     border-right: 1px solid $white;
+    z-index: -1;
   }
 }
 
 // Filter status.
-@mixin filter-status($size: 27) {
-  &:after {
+// Some filters only use the active state.
+@mixin filter-active($size: 27, $active-class: '.active') {
+  line-height: rem-calc($size);
+
+  "&#{$active-class}:after" {
     content: '+';
     display: inline-block;
     font-size: rem-calc(27);
     line-height: 1;
     margin-left: 7px;
-    transition: transform .5s;
-    vertical-align: -14%;
+    vertical-align: -#{($size/2)}%;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+}
+
+@mixin filter-status($size: 27) {
+  @include filter-active($size, '');
+
+  &:after {
+    // Override the default rotation.
+    transform: translate3d(0, 0, 0) rotate(0);
   }
 
   &.active {
@@ -75,6 +88,7 @@
     }
 
     &:after {
+      // Set it back.
       transform: translate3d(0, 0, 0) rotate(45deg);
     }
   }

@@ -211,7 +211,7 @@ $border: $border-width $border-style $border-color;
 // $header-font-family: $body-font-family;
 // $header-font-weight: $font-weight-normal;
 // $header-font-style: normal;
-// $header-font-color: $jet;
+$header-font-color: $primary-color;
 // $header-line-height: 1.4;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
@@ -220,9 +220,9 @@ $border: $border-width $border-style $border-color;
 // We use these to control header font sizes
 // $h1-font-size: rem-calc(44);
 // $h2-font-size: rem-calc(37);
-// $h3-font-size: rem-calc(27);
-// $h4-font-size: rem-calc(23);
-// $h5-font-size: rem-calc(18);
+$h3-font-size: rem-calc(18);
+$h4-font-size: rem-calc(14);
+$h5-font-size: rem-calc(12);
 // $h6-font-size: 1rem;
 
 // We use these to control header size reduction on small screens

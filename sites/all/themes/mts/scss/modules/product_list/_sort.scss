@@ -12,7 +12,7 @@
 .sorts__category {
   display: block;
 
-  & + .sort-list__category {
+  & + & {
     margin-top: 8px;
   }
 }

@@ -1,2 +1,9 @@
+.product-list {
+  font-size: rem-calc(15);
+}
+
+@import "active-filters";
+@import "categories";
+@import "filters";
 @import "header";
 @import "sort";

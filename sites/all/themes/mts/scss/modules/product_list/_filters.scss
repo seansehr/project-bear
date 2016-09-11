@@ -1,0 +1,28 @@
+.filters.opened {
+  @include corner-outline($border-color);
+  @extend %space-between;
+  margin-top: 10px;
+  padding: 15px 20px;
+}
+
+.product-list__filter {
+  position: relative;
+  @include filter-active
+}
+
+.product-list__filter-group {
+
+  & + & {
+    border-left: $border;
+    padding-left: 12px;
+  }
+
+  &.overflow {
+    @extend %space-around;
+    width: 100%;
+
+    h3 {
+      display: none;
+    }
+  }
+}

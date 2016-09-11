@@ -1,0 +1,13 @@
+.product-list__active-filter {
+  min-height: 42px;
+  padding: 7px;
+}
+
+.active-filter__option {
+  @include filter-active;
+  margin-left: 10px;
+}
+
+.active-filter__clear-filter {
+  text-decoration: underline;
+}

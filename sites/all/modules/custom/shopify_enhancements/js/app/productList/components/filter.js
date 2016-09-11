@@ -6,7 +6,7 @@ import classNames from 'classnames'
 class FilterSection extends React.Component {
   render() {
     let sectionClassName = classNames({
-      'filter-section': true,
+      'product-list__filter-group': true,
       'overflow': this.props.children == 'NONE'
     });
     return (
@@ -14,7 +14,7 @@ class FilterSection extends React.Component {
         <h3>{ this.props.children != 'NONE' ? this.props.children : '' }</h3>
           {this.props.values.map((item, index) => {
             return (
-              <FilterLink key={index} value={item.key} filterKey={this.props.selectedFilter} className="filter-options__option">
+              <FilterLink key={index} value={item.key} filterKey={this.props.selectedFilter} className="product-list__filter">
                 {item.key} ({item.count})
               </FilterLink>
             )

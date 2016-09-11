@@ -21,9 +21,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const FilterCategory = connect(
+const Category = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Link);
 
-export default FilterCategory
+export default Category

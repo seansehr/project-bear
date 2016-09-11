@@ -9,7 +9,7 @@ import Sort from '../containers/sort'
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="product-list">
         <ActiveFilters />
         <Categories />
         <Sort />

@@ -5,13 +5,13 @@
 
 import React, { PropTypes } from 'react'
 import CartItem from './cartItem'
-import { convert, format } from '../../helpers/price'
+import { format } from '../../helpers/price'
 
 class Cart extends React.Component {
   render() {
     let subtotal = this.props.lineItems.reduce((pre, cur) => {
       // Total in the specificed currency to avoid rounding issues.
-      return pre + (convert(cur.price, this.props.currency.key) * cur.quantity);
+      return pre + (this.props.currency.converter(cur.price) * cur.quantity);
     }, 0);
 
     return (

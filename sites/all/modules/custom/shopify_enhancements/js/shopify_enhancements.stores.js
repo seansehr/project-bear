@@ -17,26 +17,20 @@
             delete(this.list[id]);
           },
           dispatch: function(store, action) {
-            // TODO figure out how to handle this in react.
-            if (store.hasOwnProperty('getState')) {
-              var products = store.getState().products;
-              if (products.length) {
-                store.dispatch(window.changeCurrency(products, action));
-              }
+            if (store.hasOwnProperty('dispatch')) {
+              store.dispatch(action);
             }
             else {
               store.dispatch(action);
             }
           },
           dispatchAll: function (action, reinit) {
-            if (typeof action === 'object') {
-              if (reinit) {
-                this.reinit.push(action)
-              }
-              for (var store in this.list) {
-                if (this.list.hasOwnProperty(store)) {
-                  this.dispatch(this.list[store], action)
-                }
+            if (reinit) {
+              this.reinit.push(action)
+            }
+            for (var store in this.list) {
+              if (this.list.hasOwnProperty(store)) {
+                this.dispatch(this.list[store], action)
               }
             }
           },

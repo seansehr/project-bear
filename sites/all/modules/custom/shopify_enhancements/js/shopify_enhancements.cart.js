@@ -35,6 +35,7 @@
 
     attachEvents: function(context) {
       context = context || 'body';
+
       $(context).on('click', '.js-preview-atc', function (event) {
         event.preventDefault();
         var pid = $(this).data('product-id'),
@@ -61,14 +62,11 @@
       });
     },
 
-    updateCart: function(shopifyCart) {
+    updateCart: function(shopifyCart, currency) {
       var $container = $('.cart-wrapper'),
-          lineItems = shopifyCart.lineItems,
-          currency = self.cartUi ? self.cartUi.props.currency : {
-            key: 'USD',
-            symbol: '$',
-            rate: 1
-          };
+          lineItems = shopifyCart.lineItems;
+
+      currency = currency || self.cartUi.props.currency;
 
       sessionStorage.setItem('cartid', shopifyCart.id);
       self.cartUi = Drupal.shopify_enhancements.createCart(shopifyCart.lineItems, currency, 'cart');
@@ -92,7 +90,6 @@
         self = this;
         self.$cartCount = $('#cart-count');
         self.cartID = sessionStorage.getItem('cartid');
-        var cartPromise;
 
         if (self.cartID) {
           cartPromise = Drupal.shopify_enhancements.client.fetchCart(self.cartID);
@@ -105,9 +102,16 @@
           var defaultCurrency = {
             key: 'USD',
             symbol: '$',
-            rate: 1
+            converter: function (price) {
+              return price;
+            }
           }
-          self.cart = self.updateCart(c);
+          self.cart = self.updateCart(c, defaultCurrency);
+          Drupal.shopify_enhancements.stores.add('cart', {
+            dispatch: function (action) {
+              self.cart = self.updateCart(self.cart, action.currency);
+            }
+          });
         });
 
         self.attachEvents(context);

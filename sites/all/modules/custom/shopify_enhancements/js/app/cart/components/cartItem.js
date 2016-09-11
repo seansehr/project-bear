@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import Link from '../../components/link'
-import { convertAndFormat } from '../../helpers/price'
+import { format } from '../../helpers/price'
 
 class CartItem extends React.Component {
   render() {
@@ -34,7 +34,7 @@ class CartItem extends React.Component {
             <span className="show-for-sr">close</span>
           </Link>
           <div className="cart__product-price">
-            {convertAndFormat(product.price, this.props.currency)}
+            {format(this.props.currency.converter(product.price), this.props.currency)}
           </div>
         </div>
       </div>

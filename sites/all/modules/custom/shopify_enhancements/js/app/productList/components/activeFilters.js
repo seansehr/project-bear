@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import FilterLink from '../containers/filterLink'
-import Link from './link'
+import Link from '../../helpers/components/link'
 
 class ActiveFilters extends React.Component {
   render() {

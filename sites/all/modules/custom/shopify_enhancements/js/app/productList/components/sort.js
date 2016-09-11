@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
-import Link from './Link'
-import { objectMap } from '../helpers/object'
+import Link from '../../helpers/components/link'
+import { objectMap } from '../../helpers/object'
 import classNames from 'classnames'
 
 class Sort extends React.Component {

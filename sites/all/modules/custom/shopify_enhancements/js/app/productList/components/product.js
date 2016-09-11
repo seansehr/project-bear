@@ -1,8 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
-import { fieldValue } from '../helpers/fields'
-import Link from './link'
-import { format } from '../helpers/price'
+import { fieldValue } from '../../helpers/fields'
+import Link from '../../helpers/components/link'
+import { format } from '../../helpers/price'
 
 class Product extends React.Component {
   constructor(props) {

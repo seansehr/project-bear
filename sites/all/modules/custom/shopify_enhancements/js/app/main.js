@@ -6,10 +6,9 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
-// var ProductList = require('./components/product_list');
-import App from './components'
+import ProductList from './productList/components'
+import ProductReducers from './productList/reducers'
 import Cart from './cart'
-import ProductReducers from './reducers'
 
 // import products from './data'
 window.Drupal.shopify_enhancements = window.Drupal.shopify_enhancements || {};
@@ -61,7 +60,7 @@ window.Drupal.shopify_enhancements.createFilter = (url, container, filterCategor
 
       render(
         <Provider store={store}>
-          <App />
+          <ProductList />
         </Provider>,
         document.getElementById(container)
       );

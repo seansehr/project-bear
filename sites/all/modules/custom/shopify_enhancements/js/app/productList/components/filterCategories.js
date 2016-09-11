@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import FilterCategory from '../containers/filterCategory'
-import { objectMap } from '../helpers/object'
-import Link from './link'
+import { objectMap } from '../../helpers/object'
+import Link from '../../helpers/components/link'
 
 class FilterList extends React.Component {
   render() {

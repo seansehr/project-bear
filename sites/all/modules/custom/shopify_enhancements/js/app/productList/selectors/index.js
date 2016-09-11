@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { objectMap } from '../helpers/object'
-import { productIsVisible } from '../helpers/products'
+import { objectMap } from '../../helpers/object'
+import { productIsVisible } from '../../helpers/products'
 
 const getSelectedFilter = (state) => state.selectedFilter
 const getProducts = (state) => state.products

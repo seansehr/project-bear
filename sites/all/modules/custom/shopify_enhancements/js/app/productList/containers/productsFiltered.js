@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import ProductList from '../components/productList'
-import { getVisibleProducts } from '../helpers/products'
+import { getVisibleProducts } from '../../helpers/products'
 
 const mapStateToProps = (state) => {
   let products = getVisibleProducts(state.products, state.filters)

@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import Link from '../../components/link'
+import Link from '../../helpers/components/link'
 import { format } from '../../helpers/price'
 
 class CartItem extends React.Component {

@@ -205,6 +205,7 @@
   }
 
   &__images {
+    cursor: zoom-out;
     float: right;
     height: 100%;
     overflow: scroll;
@@ -216,18 +217,5 @@
       margin-bottom: 5px;
       width: 100%;
     }
-  }
-
-  .product__controls {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-  }
-
-  .controls--close {
-    left: 0;
-    right: 0;
-    width: 100%;
-    cursor: zoom-out;
   }
 }

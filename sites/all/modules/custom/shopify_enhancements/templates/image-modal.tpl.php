@@ -16,10 +16,7 @@
       <?php print render($thumbnail); ?>
     <?php endforeach; ?>
   </div>
-  <div class="image-modal__images">
-    <div class="product__controls">
-      <div class="js-close-modal controls--close"></div>
-    </div>
+  <div class="image-modal__images js-close-modal">
     <?php foreach ($images as $image): ?>
       <?php print render($image); ?>
     <?php endforeach; ?>

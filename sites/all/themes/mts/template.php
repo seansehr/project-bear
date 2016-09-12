@@ -30,6 +30,9 @@ function mts_links__topbar_main_menu($variables) {
   return '<ul' . drupal_attributes($variables['attributes']) . '>' . $output . '</ul>';
 }
 
+/**
+ * Implements hook_preprocess_THEME.
+ */
 function mts_preprocess_entity(&$variables) {
   if ($variables['elements']['#entity_type'] == 'shopify_product' && isset($variables['elements']['#entity'])) {
     $entity = $variables['shopify_product'];
@@ -65,8 +68,20 @@ function mts_preprocess_entity(&$variables) {
   }
 }
 
+/**
+ * Implements hook_form_alter.
+ */
 function mts_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'shopify_add_to_cart_form') {
     unset($form['product']['variant']['quantity']);
   }
+}
+
+/**
+ * Implements hook_preprocess_THEME.
+ *
+ * Add a theme hook suggestion for flexslider.
+ */
+function mts_preprocess_flexslider(&$variables) {
+  $variables['theme_hook_suggestions'][] = 'flexslider__' . $variables['settings']['optionset'];
 }

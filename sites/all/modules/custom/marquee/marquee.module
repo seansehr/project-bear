@@ -13,6 +13,8 @@ function marquee_theme($existing, $type, $theme, $path) {
   return array(
     'marquee_section' => array(
       'variables' => array(
+        'color' => NULL,
+        'url' => NULL,
         'title' => NULL,
         'image' => NULL,
       ),
@@ -65,10 +67,17 @@ function _marquee_section_mapping($section) {
   $wrapper = entity_metadata_wrapper('field_collection_item', $section);
   $image = $wrapper->field_section_image->value();
   if (isset($image['fid'])) {
+    try {
+      $url = $wrapper->field_url->url->value();
+    }
+    catch (Exception $e) {
+      $url = '#';
+    }
     $file = entity_metadata_wrapper('file', file_load($image['fid']));
     $ret = theme('marquee_section', array(
       'title' => $wrapper->field_title->value(),
       'color' => $wrapper->field_title_color->value(),
+      'url' => $url,
       'image' => array(
         '#theme' => 'image',
         '#path' => $file->url->value(),

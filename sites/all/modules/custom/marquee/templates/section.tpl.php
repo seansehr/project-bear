@@ -10,7 +10,7 @@
  * - $color: The color of the title.
  */
 ?>
-<div class="slide__section">
+<a class="slide__section" href="<?php print $url ?>">
   <div class="section__title" style="color: #<?php print $color ?>;"><?php print $title ?></div>
   <div class="section__image"><?php print render($image) ?></div>
-</div>
+</a>

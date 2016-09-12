@@ -351,44 +351,64 @@ function shopify_enhancements_entity_view_alter(&$build, $type) {
  * Implements hook_shopify_product_update_alter().
  */
 function shopify_enhancements_shopify_product_update_alter(&$shopify_product) {
-  $metafields = array('category', 'licence');
-  $ids = array_map(function ($e) {
-    return $e['target_id'];
-  }, $shopify_product->shopify_product_metafields[LANGUAGE_NONE]);
+  // Map Shopify metafields to fields and vocabs.
+  $fields = array(
+    'category' => array(
+      'field' => 'field_shopify_category_reference',
+      'vocab' => 'shopify_categories',
+    ),
+    'licence' => array(
+      'field' => 'field_shopify_licence_reference',
+      'vocab' => 'shopify_licences',
+    ),
+    'size' => array(
+      'field' => 'field_shopify_scale_reference',
+      'vocab' => 'shopify_scales',
+    ),
+  );
+  $wrapper = entity_metadata_wrapper('shopify_product', $shopify_product);
+  $metafields = $wrapper->shopify_product_metafields->value();
 
-  if (!empty($ids)) {
-    $entities = entity_load('shopify_metafield', $ids);
-    foreach ($entities as $entity) {
-      if ($entity->namespace == 'attr' || $entity->namespace == 'c_f') {
-        $key = $entity->key;
-        if (in_array($key, $metafields)) {
-          $shopify_product->$key = $entity->value;
+  if (!empty($metafields)) {
+    foreach ($metafields as $metafield) {
+      if ($metafield->namespace == 'attr' || $metafield->namespace == 'c_f') {
+        if (in_array($metafield->key, array_keys($fields))) {
+          $field = $fields[$metafield->key];
+          $tax = shopify_enhancements_update_taxonomy($field['vocab'], $metafield->value);
+          $wrapper->$field['field']->set($tax);
         }
       }
     }
   }
-
-  shopify_enhancements_associate($shopify_product, 'shopify_brands', 'vendor', 'field_shopify_brand_reference');
-  shopify_enhancements_associate($shopify_product, 'shopify_categories', 'category', 'field_shopify_category_reference');
-  shopify_enhancements_associate($shopify_product, 'shopify_licences', 'licence', 'field_shopify_licence_reference');
+  $brand = shopify_enhancements_update_taxonomy('shopify_brands', $wrapper->vendor->value());
+  $wrapper->field_shopify_brand_reference->set($brand);
+  $wrapper->save();
 }
 
-function shopify_enhancements_associate(&$shopify_product, $tax_name, $shopify_name, $field_name) {
-  if ($shopify_product->$shopify_name) {
-    $taxonomies = taxonomy_get_term_by_name($shopify_product->$shopify_name, $tax_name);
-    $product_wrapper = entity_metadata_wrapper('shopify_product', $shopify_product);
-    if (empty($taxonomies)) {
-      $tax = new stdClass();
-      $tax->name = $shopify_product->$shopify_name;
-      $tax->vid = taxonomy_vocabulary_machine_name_load($tax_name)->vid;
-      taxonomy_term_save($tax);
-    }
-    else {
-      $tax = array_shift($taxonomies);
-    }
-    $product_wrapper->$field_name->set($tax);
-    $product_wrapper->save();
+/**
+ * Associate a property to a taxonomy.
+ *
+ * @param string $vocab
+ *   The vocabulary to use.
+ *
+ * @param string $tax_name
+ *   The name of the taxonomy.
+ *
+ * @return object
+ *   The taxonomy object that it was saved to.
+ */
+function shopify_enhancements_update_taxonomy($vocab, $tax_name) {
+  $taxonomies = taxonomy_get_term_by_name($tax_name, $vocab);
+  if (empty($taxonomies)) {
+    $tax = new stdClass();
+    $tax->name = $tax_name;
+    $tax->vid = taxonomy_vocabulary_machine_name_load($vocab)->vid;
+    taxonomy_term_save($tax);
   }
+  else {
+    $tax = array_shift($taxonomies);
+  }
+  return $tax;
 }
 
 /**
@@ -628,7 +648,7 @@ function _shopify_enhancements_categories_map($category) {
         'category',
       );
       break;
-    case 'size':
+    case 'shopify_scales':
       $fields = array(
         'vendor',
         'licence',

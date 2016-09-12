@@ -85,9 +85,21 @@
             <?php print $specs; ?>
           <?php endif; ?>
         </div>
-        <div class="dimensions">Dimensions</div>
-        <div class="shipping"><?php print $shipping['value'] ?></div>
-        <div class="return"><?php print $returns['value'] ?></div>
+        <div class="dimensions">
+          <?php if (isset($dimensions)): ?>
+            <?php print $dimensions; ?>
+          <?php endif; ?>
+        </div>
+        <div class="shipping">
+          <?php if (isset($shipping)): ?>
+            <?php print $shipping['value'] ?>
+          <?php endif; ?>
+        </div>
+        <div class="return">
+          <?php if (isset($returns)): ?>
+            <?php print $returns['value'] ?>
+          <?php endif; ?>
+        </div>
       </div>
       <div>
         <div class="product__status">

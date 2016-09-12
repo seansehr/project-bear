@@ -43,7 +43,7 @@ function mts_preprocess_entity(&$variables) {
         '#files' => $variables['shopify_product_images'],
       );
     }
-    $fields = array('size', 'specs');
+    $fields = array('size', 'specs', 'dimensions');
     foreach ($fields as $field) {
       if (!empty($entity->shopify_product_metafields)) {
         foreach ($entity->shopify_product_metafields[LANGUAGE_NONE] as $value) {

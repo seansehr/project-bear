@@ -38,7 +38,7 @@ function shopify_enhancements_strongarm() {
           'weight' => '3',
         ),
         'path' => array(
-          'weight' => '7',
+          'weight' => '8',
         ),
       ),
       'display' => array(
@@ -296,6 +296,34 @@ function shopify_enhancements_strongarm() {
     ),
   );
   $export['field_bundle_settings_shopify_product__shopify_product'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_shopify_brands_pattern';
+  $strongarm->value = 'brands/[term:name]';
+  $export['pathauto_taxonomy_term_shopify_brands_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_shopify_categories_pattern';
+  $strongarm->value = 'categories/[term:name]';
+  $export['pathauto_taxonomy_term_shopify_categories_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_shopify_licences_pattern';
+  $strongarm->value = 'licenses/[term:name]';
+  $export['pathauto_taxonomy_term_shopify_licences_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_shopify_scales_pattern';
+  $strongarm->value = 'scales/[term:name]';
+  $export['pathauto_taxonomy_term_shopify_scales_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

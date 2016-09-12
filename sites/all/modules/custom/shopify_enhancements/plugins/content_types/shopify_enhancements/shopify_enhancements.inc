@@ -63,7 +63,7 @@ function shopify_enhancements_render($subtype, $conf, $args, $contexts) {
   $block = new stdClass();
   $block->title = NULL;
   $block->content = array(
-    '#markup' => '<div id="' . $id. '"></div>',
+    '#markup' => '<div id="' . $id. '"><div style="text-align:center;"><i class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></i></div></div>',
     '#attached' => array(
       'js' => array(
         array(

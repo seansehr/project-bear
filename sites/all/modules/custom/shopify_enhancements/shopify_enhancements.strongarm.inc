@@ -297,5 +297,25 @@ function shopify_enhancements_strongarm() {
   );
   $export['field_bundle_settings_shopify_product__shopify_product'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'shopify_enhancements_returns';
+  $strongarm->value = array(
+    'value' => '<p>Returns or Exchanges may be done within 14 days from purchase date. We kindly ask that all valid returns must be in unworn condition with attached tags and packaging. HAVEN will not accept any returned merchandise without prior written communication and valid Return Authorization Number&sup1;. Upon inspection and approval, Exchange or Store Credit will be provided, No Refunds. All sale items, discounted and promotional merchandise, including any discount/promo codes used are FINAL SALE and are ineligible to be returned or exchanged. HAVEN does not accept or assume any responsibility for loss of or damage to returned goods whilst in transit from the customer. It is therefore strongly recommended customers use an appropriate carrier with a tracking or trace system.</p><p>All charges incurred as the result of an exchange or return (ie. shipping, duties, and taxes) are the customer&rsquo;s responsibility. In the case of an exchange the customer will be required to pay an additional re-shipping fee.</p><p>It is the customer&rsquo;s responsibility to ensure the accuracy and correctness of the shipment, as well as the responsibility to oversee the product(s) are packaged and delivered in tact, unworn and in original purchased condition (with all tags still attached). If any matters of liability arise, the matter will be dealt with and settled between the seller and the customer directly. The terms and conditions of the respective seller will apply.</p>',
+    'format' => 'full_html',
+  );
+  $export['shopify_enhancements_returns'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'shopify_enhancements_shipping';
+  $strongarm->value = array(
+    'value' => '<p>International Custom Duties &ndash;&nbsp;Please note, International orders may be charged customs fees by the destination county&rsquo;s government. We have no control over if, and how much you are charged for customs. We are not responsible for any additional charges the destination country imposes on you.&nbsp;Due to the customs process delivery times are estimates and may take longer than stated.</p><p>Shipping and Handling Costs &ndash;&nbsp;Shipping and handling costs depend on the size of the order. All Canadian and U.S. orders are trackable. International shipping options include Tracked Packet International (where available) and International Xpresspost. Here are the breakdowns for domestic and international shipping prices.</p>',
+    'format' => 'full_html',
+  );
+  $export['shopify_enhancements_shipping'] = $strongarm;
+
   return $export;
 }

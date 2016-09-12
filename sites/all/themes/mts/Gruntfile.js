@@ -45,6 +45,9 @@ module.exports = function(grunt) {
     'js/_*.js'
   ];
 
+  grunt.config('env', grunt.option('env') || process.env.GRUNT_ENV || 'development');
+  grunt.config('compress', grunt.config('env') === 'production');
+
   grunt.initConfig({
     global_vars: global_vars,
     pkg: grunt.file.readJSON('package.json'),
@@ -52,8 +55,8 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
-          outputStyle: 'expanded',
-          sourceMap: true,
+          outputStyle: grunt.config('compress') ? 'compressed' : 'expanded',
+          sourceMap: !grunt.config('compress'),
           includePaths: ['<%= global_vars.theme_scss %>', '<%= global_vars.base_theme_path %>/scss/'].concat(bourbon)
         },
         files: {

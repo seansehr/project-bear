@@ -116,6 +116,30 @@ function shopify_enhancements_library() {
 }
 
 /**
+ * Implements hook_libraries_info().
+ *
+ * For defining external libraries.
+ */
+function shopify_metafield_libraries_info() {
+  $libraries['parsedown'] = array(
+    'name' => 'Parsedown',
+    'vendor url' => 'http://erusev.com',
+    'download url' => 'http://parsedown.org',
+    'version arguments' => array(
+      'file' => 'parsedown.php',
+      // const version = 1.6.0
+      'pattern' => '/(\d+\.+\d+\.+\d+)/',
+      'lines' => 25,
+    ),
+    'files' => array(
+      'php' => array('parsedown.php'),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
  * Implements hook_theme().
  */
 function shopify_enhancements_theme($existing, $type, $theme, $path) {
@@ -472,6 +496,21 @@ function shopify_enhancements_attach_field_reference(&$field) {
     }
     // add values based on wrapper passing correctly
     $field[$field['resource']] = $eary;
+  }
+}
+
+/**
+ * Implements hook_shopify_metafield_update_alter().
+ *
+ * Converting fields from markdown to html before they are saved.
+ */
+function shopify_enhancements_shopify_metafield_update_alter(&$metafield) {
+  $markdown_fields = array('dimensions', 'specs');
+  if (in_array($metafield->key, $markdown_fields)) {
+    if (($library = libraries_load('parsedown')) && !empty($library['loaded'])) {
+      $Parsedown = new Parsedown();
+      $metafield->value = check_markup($Parsedown->text($metafield->value), 'full_html');
+    }
   }
 }
 

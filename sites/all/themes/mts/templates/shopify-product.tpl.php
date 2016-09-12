@@ -86,8 +86,8 @@
           <?php endif; ?>
         </div>
         <div class="dimensions">Dimensions</div>
-        <div class="shipping">Shipping</div>
-        <div class="return">Returns</div>
+        <div class="shipping"><?php print $shipping['value'] ?></div>
+        <div class="return"><?php print $returns['value'] ?></div>
       </div>
       <div>
         <div class="product__status">

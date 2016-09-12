@@ -29,7 +29,16 @@ function shopify_enhancements_menu() {
     'title' => 'Search Products',
     'access callback' => TRUE,
   );
-
+  $items['admin/shopify/enhancements'] = array(
+    'title' => 'Other Settings',
+    'description' => 'Settings provided by Shopify Enhancements.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('shopify_enhancements_admin_form'),
+    'access callback' => 'shopify_user_access',
+    'access arguments' => array('administer shopify'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'includes/shopify_enhancements.admin.inc',
+  );
   return $items;
 }
 

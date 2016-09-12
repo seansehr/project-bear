@@ -60,6 +60,8 @@ function mts_preprocess_entity(&$variables) {
     $variables['price'] = $primary_variant->price;
     $variables['compare_at_price'] = $primary_variant->compare_at_price;
     $variables['primary_variant'] = $primary_variant->variant_id;
+    $variables['shipping'] = variable_get('shopify_enhancements_shipping', NULL);
+    $variables['returns'] = variable_get('shopify_enhancements_returns', NULL);
   }
 }
 

@@ -514,6 +514,30 @@ function shopify_enhancements_shopify_metafield_update_alter(&$metafield) {
   }
 }
 
+/**
+ * Implements hook_menu_breadcrumb_alter().
+ *
+ * Add brands to product's breadcrumbs.
+ */
+function shopify_enhancements_menu_breadcrumb_alter(&$active_trail, $item) {
+  if ($item['title_callback'] == 'shopify_product_title' && !empty($item['page_arguments'])) {
+    $last_item = array_pop($active_trail);
+    $product = entity_metadata_wrapper('shopify_product', $item['page_arguments'][0]);
+    $brand_name = $product->field_shopify_brand_reference->name->value();
+    $brand_url = $product->field_shopify_brand_reference->url->value();
+    if ($brand_name && $brand_url) {
+      $active_trail[] = array(
+        'title' => $brand_name,
+        'href' => $brand_url,
+        'link_path' => '',
+        'localized_options' => array(),
+        'type' => 0,
+      );
+    }
+    $active_trail[] = $last_item;
+  }
+}
+
 function shopify_enhancements_search($term) {
   $index = search_api_index_load("products");
   $query = new SearchApiQuery($index);

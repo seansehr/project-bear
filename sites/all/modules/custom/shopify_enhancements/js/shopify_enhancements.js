@@ -44,8 +44,10 @@
 
 
         for (var key in Drupal.settings.shopify_enhancements.instances) {
-          var url = Drupal.settings.shopify_enhancements.instances[key];
-          Drupal.shopify_enhancements.createFilter(url, key).then(function(store) {
+          var url = Drupal.settings.shopify_enhancements.instances[key].url,
+              categories = Drupal.settings.shopify_enhancements.instances[key].categories;
+
+          Drupal.shopify_enhancements.createFilter(url, key, categories).then(function(store) {
             Drupal.shopify_enhancements.stores.add(key, store);
           })
         }

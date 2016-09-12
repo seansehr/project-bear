@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import FilterCategoriesComp from '../components/categories'
+import categoriesComp from '../components/categories'
 import { toggleSortVisibility } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
     products: state.products,
-    filterCategories: state.filterCategories,
+    categories: state.categories,
     sortOpened: state.sort.opened
   }
 }
@@ -18,9 +18,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const FilterCategories = connect(
+const categories = connect(
   mapStateToProps,
   mapDispatchToProps
-)(FilterCategoriesComp)
+)(categoriesComp)
 
-export default FilterCategories
+export default categories

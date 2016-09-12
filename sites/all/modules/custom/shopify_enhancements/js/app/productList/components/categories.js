@@ -8,10 +8,10 @@ class FilterList extends React.Component {
     return (
       <div className="product-list__header clearfix">
         <div  className="product-list__categories">
-          {objectMap(this.props.filterCategories, (key, index) => {
+          {objectMap(this.props.categories, (key, index) => {
             return (
               <Category key={key} value={key} className="product-list__category">
-                <span>{this.props.filterCategories[key].name}</span>
+                <span>{this.props.categories[key].name}</span>
               </Category>
             );
           })}
@@ -25,7 +25,7 @@ class FilterList extends React.Component {
 }
 
 FilterList.propTypes = {
-  filterCategories: PropTypes.object.isRequired
+  categories: PropTypes.object.isRequired
 }
 
 export default FilterList;

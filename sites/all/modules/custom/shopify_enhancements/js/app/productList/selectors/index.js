@@ -5,11 +5,11 @@ import { productIsVisible } from '../../helpers/products'
 const getSelectedFilter = (state) => state.selectedFilter
 const getProducts = (state) => state.products
 const getFilters = (state) => state.filters
-const getFilterCategories = (state) => state.filterCategories
+const getcategories = (state) => state.categories
 
 export const getFilterOptions = createSelector(
-  [ getSelectedFilter, getProducts, getFilters, getFilterCategories ],
-  (selectedFilter, products, filters, filterCategories) => {
+  [ getSelectedFilter, getProducts, getFilters, getcategories ],
+  (selectedFilter, products, filters, categories) => {
     let options = {}
     if (selectedFilter) {
       products.forEach(function (product) {
@@ -17,8 +17,8 @@ export const getFilterOptions = createSelector(
         if (option) {
           if (productIsVisible(product, filters, [selectedFilter])) {
             let subfilter = 'NONE'
-            if (filterCategories[selectedFilter].subfilter) {
-              subfilter = product[filterCategories[selectedFilter].subfilter]
+            if (categories[selectedFilter].subfilter) {
+              subfilter = product[categories[selectedFilter].subfilter]
             }
             if (typeof options[subfilter] === 'undefined') {
               options[subfilter] = {}

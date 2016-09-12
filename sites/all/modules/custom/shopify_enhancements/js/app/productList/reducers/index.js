@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import currency from './currency'
-import filterCategories from './filterCategories'
+import categories from './categories'
 import products from './products'
 import filters from './filters'
 import sort from './sort'
@@ -18,7 +18,7 @@ function selectedFilter(state, action) {
 const ProductReducers = combineReducers({
   currency,
   products,
-  filterCategories,
+  categories,
   selectedFilter,
   filters,
   sort,

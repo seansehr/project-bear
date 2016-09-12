@@ -90,25 +90,6 @@ function shopify_enhancements_library() {
     'title' => 'Gigya Accounts',
     'version' => '1.0',
     'js' => array(
-      // libraries_get_path('bower_components') . '/angular/angular.min.js' => array(
-      //   'scope' => 'footer',
-      // ),
-      // $module_path . '/js/app/main.js' => array(
-      //   'defer' => 'true',
-      //   'scope' => 'footer',
-      // ),
-      // $module_path . '/js/app/factories.js' => array(
-      //   'defer' => 'true',
-      //   'scope' => 'footer',
-      // ),
-      // $module_path . '/js/app/services.js' => array(
-      //   'defer' => 'true',
-      //   'scope' => 'footer',
-      // ),
-      // $module_path . '/js/app/controllers.js' => array(
-      //   'defer' => 'true',
-      //   'scope' => 'footer',
-      // ),
       'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js' => array(
         'external' => true,
       ),
@@ -317,9 +298,6 @@ function shopify_enhancements_block_view_alter(&$data, $block) {
 
 function shopify_enhancements_entity_view_alter(&$build, $type) {
   if ($type == 'shopify_product') {
-    // shopify_enhancements_search();
-    // dpm($build);
-    // dpm($build['#entity']);
     drupal_add_js(array('shopify_enhancements' => array('productID' => $build['#entity']->product_id)), 'setting');
     $entity = entity_metadata_wrapper('shopify_product', $build['#entity']);
     $tags = $entity->shopify_product_tags->value();
@@ -333,49 +311,6 @@ function shopify_enhancements_entity_view_alter(&$build, $type) {
     $build['shopify_product_tags'] = array(
       '#markup' => implode(', ', $filtered_tags),
     );
-    // $options = array(
-    //   'metafield[owner_id]' => '3926111942',
-    //   'metafield[owner_resource]' => 'product',
-    // );
-
-    // shopify_metafield_delete_orphaned_metafields();
-    // dpm(shopify_metafield_get_orphaned_metafields());
-    // $items = shopify_metafield_api_get_metafields($options);
-    // dpm($items);
-    // dpm(shopify_metafield_owner_metafields('3926111942'));
-
-    // $json_items = shopify_metafield_api_get_metafields($options);
-    // foreach ($json_items as $item) {
-    //   $shopify_metafield = shopify_metafield_metafield_update($item['id'], $item);
-    //   $shopify_metafield->save();
-    // }
-    // $metafields = shopify_metafield_owner_metafields('3926111942');
-    // $json_ids = array_map(function($item) {
-    //   return $item['id'];
-    // }, $json_items);
-    // dpm($metafields);
-    // foreach ($metafields as $metafield) {
-    //   if (!in_array($metafield->metafield_id, $json_ids)) {
-    //     dpm($metafield);
-    //     $metafield->delete();
-    //   }
-    // }
-
-    // $item = $items[1];
-    // dpm($item);
-    // $shopify_product = new ShopifyMetafield($item);
-    // dpm($shopify_product);
-    // $shopify_product->save();
-    // dpm(shopify_metafield_metafield_load_single($items[0]['id']));
-    // dpm(entity_load('shopify_metafield', array(1)));
-
-    // $shopify_product = shopify_product_load_single('5360229958');
-    // shopify_enhancements_associate_brand($shopify_product);
-    // shopify_enhancements_shopify_product_update_alter($shopify_product);
-
-    // dpm(drupal_http_request('http://drupal7.dev/shopify_product.json?variant_id=0&limit=5&id=307'));
-    // $response = drupal_http_request('http://drupal7.dev/shopify_product.json?variant_id=0&limit=5&id=307');
-    // dpm(json_decode($response->data));
   }
 }
 
@@ -384,11 +319,18 @@ function shopify_enhancements_entity_view_alter(&$build, $type) {
  */
 function shopify_enhancements_shopify_product_update_alter(&$shopify_product) {
   $metafields = array('category', 'licence');
-  foreach ($shopify_product->shopify_product_metafields[LANGUAGE_NONE] as $value) {
-    if ($value['entity']->namespace == 'attr' || $value['entity']->namespace == 'c_f') {
-      $key = $value['entity']->key;
-      if (in_array($key, $metafields)) {
-        $shopify_product->$key = $value['entity']->value;
+  $ids = array_map(function ($e) {
+    return $e['target_id'];
+  }, $shopify_product->shopify_product_metafields[LANGUAGE_NONE]);
+
+  if (!empty($ids)) {
+    $entities = entity_load('shopify_metafield', $ids);
+    foreach ($entities as $entity) {
+      if ($entity->namespace == 'attr' || $entity->namespace == 'c_f') {
+        $key = $entity->key;
+        if (in_array($key, $metafields)) {
+          $shopify_product->$key = $entity->value;
+        }
       }
     }
   }
@@ -581,4 +523,97 @@ function shopify_enhancements_preprocess_image_modal(&$variables) {
       '#text' => drupal_render($thumbnail_image),
     );
   }
+}
+
+/**
+ * Get an array of categories to use in the product list.
+ *
+ * @param string $category
+ *   The response data being returned by the REST service (not yet serialized).
+ *
+ * @return array
+ */
+function _shopify_enhancements_categories_map($category) {
+  switch ($category) {
+    case 'shopify_brands':
+      $fields = array(
+        'size',
+        'licence',
+        'category',
+      );
+      break;
+    case 'shopify_categories':
+      $fields = array(
+        'size',
+        'vendor',
+        'licence',
+      );
+      break;
+    case 'shopify_licences':
+      $fields = array(
+        'size',
+        'vendor',
+        'category',
+      );
+      break;
+    case 'size':
+      $fields = array(
+        'vendor',
+        'licence',
+        'category',
+      );
+      break;
+    default:
+      $fields = array(
+        'size',
+        'vendor',
+        'licence',
+        'category',
+      );
+      break;
+  }
+  $map = array();
+  foreach ($fields as $field) {
+    $map[$field] = _shopify_enhancements_categories_map_field($field);
+  }
+  return $map;
+}
+
+/**
+ * Get settigns for a specific field.
+ *
+ * @param string $field_name
+ *   The field to get information for.
+ *
+ * @return array
+ */
+function _shopify_enhancements_categories_map_field($field_name) {
+  switch ($field_name) {
+    case 'category':
+      $field = array(
+        'name' => t('Type'),
+        'metafieldNamespace' => 'c_f',
+      );
+      break;
+    case 'licence':
+      $field = array(
+        'name' => t('Licenses'),
+        'metafieldNamespace' => 'c_f',
+      );
+      break;
+    case 'size':
+      $field = array(
+        'name' => t('Scale'),
+        'metafieldNamespace' => 'c_f',
+      );
+      break;
+    case 'vendor':
+      $field = array(
+        'name' => t('Brand'),
+      );
+      break;
+    default:
+      $field = array();
+  }
+  return $field;
 }

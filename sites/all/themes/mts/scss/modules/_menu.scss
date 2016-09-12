@@ -6,14 +6,15 @@
   border-bottom: $border;
   float: none;
 
-  .main-nav {
+  // Direct decendent to prevent dropdown issues.
+  > .main-nav {
     @extend %space-between;
 
     padding: 0 15px;
     margin: 0;
     list-style: none;
 
-    li {
+    > li {
       &:first-child a {
         padding-left: 0;
         padding-right: ($topbar-link-padding*2);

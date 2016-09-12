@@ -28,10 +28,12 @@ $plugin = array(
 function shopify_enhancements_render($subtype, $conf, $args, $contexts) {
   $source = isset($conf['source']) ? $conf['source'] : 'context';
   $query = '';
+  $category_map = '';
   switch ($source) {
     case 'custom':
       $ids = implode('&id[]=', $conf['ids']);
       $query = "&id[]=$ids";
+      $category_map = 'custom';
       break;
     default:
       $fields = array_filter(field_info_instances('shopify_product', 'shopify_product'), function ($n) {
@@ -48,6 +50,7 @@ function shopify_enhancements_render($subtype, $conf, $args, $contexts) {
         if ($value->keyword == 'term' && $tax = taxonomy_term_load($value->argument)) {
           foreach ($fields as $field_name => $terms) {
             if (in_array($tax->vocabulary_machine_name, $terms)) {
+              $category_map = $tax->vocabulary_machine_name;
               $query = "&$field_name=$tax->tid";
             }
           }
@@ -68,7 +71,10 @@ function shopify_enhancements_render($subtype, $conf, $args, $contexts) {
           'data' => array(
             'shopify_enhancements' => array(
               'instances' => array(
-                $id => $url,
+                $id => array(
+                  'url' => $url,
+                  'categories' => _shopify_enhancements_categories_map($category_map),
+                ),
               ),
             ),
           ),

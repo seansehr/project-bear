@@ -1,4 +1,4 @@
-const filterCategories = (state = [], action) => {
+const categories = (state = [], action) => {
   switch (action.type) {
     case 'LOAD_FILTER_OPTIONS2':
       return []
@@ -7,4 +7,4 @@ const filterCategories = (state = [], action) => {
   }
 }
 
-export default filterCategories
+export default categories

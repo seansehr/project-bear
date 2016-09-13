@@ -5,7 +5,7 @@ import { getFilterOptions } from '../selectors'
 const mapStateToProps = (state) => {
   return {
     options: getFilterOptions(state),
-    selectedFilter: state.selectedFilter
+    activeCategory: state.activeCategory
   }
 }
 

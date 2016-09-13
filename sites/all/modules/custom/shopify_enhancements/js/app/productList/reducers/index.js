@@ -1,27 +1,19 @@
 import { combineReducers } from 'redux'
-import currency from './currency'
+import activeCategory from './activeCategory'
 import categories from './categories'
+import currency from './currency'
 import products from './products'
 import filters from './filters'
 import sort from './sort'
 
-function selectedFilter(state, action) {
-  state = state || false;
-  switch (action.type) {
-    case 'LOAD_FILTER_OPTIONS':
-      return action.selectedFilter;
-    default:
-      return state;
-  }
-}
-
 const ProductReducers = combineReducers({
-  currency,
-  products,
+  activeCategory,
   categories,
-  selectedFilter,
+  currency,
   filters,
-  sort,
+  products,
+  activeCategory,
+  sort
 })
 
 export default ProductReducers

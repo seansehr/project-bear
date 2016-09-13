@@ -14,7 +14,7 @@ class FilterSection extends React.Component {
         <h3>{ this.props.children != 'NONE' ? this.props.children : '' }</h3>
           {this.props.values.map((item, index) => {
             return (
-              <FilterLink key={index} value={item.key} filterKey={this.props.selectedFilter} className="product-list__filter">
+              <FilterLink key={index} value={item.key} filterKey={this.props.activeCategory} className="product-list__filter">
                 {item.key} ({item.count})
               </FilterLink>
             )

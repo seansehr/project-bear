@@ -2,23 +2,23 @@ import { createSelector } from 'reselect'
 import { objectMap } from '../../helpers/object'
 import { productIsVisible } from '../../helpers/products'
 
-const getSelectedFilter = (state) => state.selectedFilter
+const getActiveCategory = (state) => state.activeCategory
 const getProducts = (state) => state.products
 const getFilters = (state) => state.filters
 const getcategories = (state) => state.categories
 
 export const getFilterOptions = createSelector(
-  [ getSelectedFilter, getProducts, getFilters, getcategories ],
-  (selectedFilter, products, filters, categories) => {
+  [ getActiveCategory, getProducts, getFilters, getcategories ],
+  (activeCategory, products, filters, categories) => {
     let options = {}
-    if (selectedFilter) {
+    if (activeCategory) {
       products.forEach(function (product) {
-        let option = product[selectedFilter];
+        let option = product[activeCategory];
         if (option) {
-          if (productIsVisible(product, filters, [selectedFilter])) {
+          if (productIsVisible(product, filters, [activeCategory])) {
             let subfilter = 'NONE'
-            if (categories[selectedFilter].subfilter) {
-              subfilter = product[categories[selectedFilter].subfilter]
+            if (categories[activeCategory].subfilter) {
+              subfilter = product[categories[activeCategory].subfilter]
             }
             if (typeof options[subfilter] === 'undefined') {
               options[subfilter] = {}

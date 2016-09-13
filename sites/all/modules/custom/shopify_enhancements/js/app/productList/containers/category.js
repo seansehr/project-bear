@@ -4,7 +4,7 @@ import Link from '../../helpers/components/link'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    active: ownProps.value === state.selectedFilter
+    active: ownProps.value === state.activeCategory
   }
 }
 

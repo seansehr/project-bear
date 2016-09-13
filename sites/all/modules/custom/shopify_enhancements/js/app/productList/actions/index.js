@@ -1,3 +1,4 @@
+// Filters
 export const clearAllFilters = () => {
   return {
     type: 'CLEAR_FILTERS'
@@ -12,13 +13,6 @@ export const clearFilter = (key, value) => {
   }
 }
 
-export const loadFilterOptions = (selectedFilter) => {
-  return {
-    type: 'LOAD_FILTER_OPTIONS',
-    selectedFilter: selectedFilter
-  }
-}
-
 export const setFilter = (key, value) => {
   return {
     type: 'SET_FILTER',
@@ -27,13 +21,15 @@ export const setFilter = (key, value) => {
   }
 }
 
-export const setProducts = (products) => {
+// Category
+export const loadFilterOptions = (category) => {
   return {
-    type: 'SET_PRODUCTS',
-    products
+    type: 'SET_CATEGORY',
+    category
   }
 }
 
+// Sort
 export const setSort = (key, order) => {
   return {
     type: 'SET_SORT',
@@ -48,21 +44,11 @@ export const toggleSortVisibility = () => {
   }
 }
 
-export const changePrice = currency => {
+// Currency
+// Triggered from outside the app.
+export const setCurrency = currency => {
   return {
     type: 'SET_CURRENCY',
     currency
   }
 }
-
-export const changeCurrency = (products, currency) => {
-  return dispatch => {
-    products.forEach((product, index) => {
-      Drupal.behaviors.shopify_enhancements_currency.convertMultiple([product.price, product.compare_at_price], currency.key).then(prices => {
-        dispatch(changePrice(product, prices, currency))
-      })
-    })
-  }
-}
-
-window.changeCurrency = changeCurrency

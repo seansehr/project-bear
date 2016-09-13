@@ -16,8 +16,8 @@ const mapStateToProps = (state) => {
       bKey = sortOrder.indexOf(bKey)
     }
     if (sortKey == 'price') {
-      a.price = parseInt(a.price)
-      b.price = parseInt(b.price)
+      a.price = parseFloat(a.price)
+      b.price = parseFloat(b.price)
     }
     if (aKey < bKey) {
       ret = -1;

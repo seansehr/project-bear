@@ -5,16 +5,24 @@ import { getVisibleProducts } from '../../helpers/products'
 const mapStateToProps = (state) => {
   let products = getVisibleProducts(state.products, state.filters)
   let sortKey = state.sort.key
+  let sortOrder = state.sort.sortOrders[sortKey]
+
   products.sort((a, b) => {
     let ret = 0
+    let aKey = a[sortKey]
+    let bKey = b[sortKey]
+    if (sortOrder) {
+      aKey = sortOrder.indexOf(aKey)
+      bKey = sortOrder.indexOf(bKey)
+    }
     if (sortKey == 'price') {
       a.price = parseInt(a.price)
       b.price = parseInt(b.price)
     }
-    if (a[sortKey] < b[sortKey]) {
+    if (aKey < bKey) {
       ret = -1;
     }
-    if (a[sortKey] > b[sortKey]) {
+    if (aKey > bKey) {
       ret = 1;
     }
     if (state.sort.order == 'desc') {

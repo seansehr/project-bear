@@ -13,7 +13,7 @@ import Cart from './cart'
 // import products from './data'
 window.Drupal.shopify_enhancements = window.Drupal.shopify_enhancements || {};
 window.Drupal.shopify_enhancements.createCart = Cart;
-window.Drupal.shopify_enhancements.createFilter = (url, container, categories = {}) => {
+window.Drupal.shopify_enhancements.createFilter = (url, container, categories = {}, sortOrders = Drupal.settings.shopify_enhancements.sortOrders) => {
   let promise = new Promise((resolve, reject) => {
     jQuery.get(url, (data) => {
       let products = data.list;
@@ -28,9 +28,17 @@ window.Drupal.shopify_enhancements.createFilter = (url, container, categories = 
         })
       })
 
+      let sort = {
+        key: "title",
+        opened: false,
+        order: "asc",
+        sortOrders
+      }
+
       let store = createStore(ProductReducers, {
           products,
-          categories
+          categories,
+          sort
         },
         applyMiddleware(thunkMiddleware));
 

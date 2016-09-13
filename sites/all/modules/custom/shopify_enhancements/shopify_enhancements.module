@@ -47,6 +47,12 @@ function shopify_enhancements_menu() {
  */
 function shopify_enhancements_library() {
   $module_path = drupal_get_path('module', 'shopify_enhancements');
+  // Get the sort order for scales.
+  $vocabulary = taxonomy_vocabulary_machine_name_load('shopify_scales');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  $size_names = array_map(function ($n) {
+    return $n->name;
+  }, array_values($terms));
   $libraries['shopify_enhancements'] = array(
     'title' => 'Settings',
     'version' => '1.0',
@@ -89,6 +95,9 @@ function shopify_enhancements_library() {
           'shopify_enhancements' => array(
             'domain' => str_replace('.myshopify.com', '', shopify_store_info()->myshopify_domain),
             'apiKey' => '56fdbbc3dc59ed0919f4338740a2cca2',
+            'sortOrders' => array(
+              'size' => $size_names,
+            ),
           ),
         ),
       ),

@@ -146,7 +146,7 @@
     height: auto;
     position: absolute;
     top: 0;
-    width: 30%;
+    width: 25%;
     z-index: 1;
   }
 
@@ -164,18 +164,10 @@
 
   .controls--open {
     @extend %controls;
-    left: 30%;
-    right: 30%;
-    width: 40%;
+    left: 25%;
+    right: 25%;
+    width: 50%;
     cursor: zoom-in;
-  }
-
-  .controls--close {
-    @extend %controls;
-    left: 30%;
-    right: 30%;
-    width: 40%;
-    cursor: zoom-out;
   }
 }
 

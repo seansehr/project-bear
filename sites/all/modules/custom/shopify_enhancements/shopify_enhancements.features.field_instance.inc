@@ -10,6 +10,170 @@
 function shopify_enhancements_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance:
+  // 'shopify_product-shopify_product-field_shopify_brand_reference'.
+  $field_instances['shopify_product-shopify_product-field_shopify_brand_reference'] = array(
+    'bundle' => 'shopify_product',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'shopify_product',
+    'field_name' => 'field_shopify_brand_reference',
+    'label' => 'Shopify Brand Reference',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'apply_chosen' => 1,
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'shopify_product-shopify_product-field_shopify_category_reference'.
+  $field_instances['shopify_product-shopify_product-field_shopify_category_reference'] = array(
+    'bundle' => 'shopify_product',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'shopify_product',
+    'field_name' => 'field_shopify_category_reference',
+    'label' => 'Shopify Category Reference',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'apply_chosen' => 1,
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'shopify_product-shopify_product-field_shopify_licence_reference'.
+  $field_instances['shopify_product-shopify_product-field_shopify_licence_reference'] = array(
+    'bundle' => 'shopify_product',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'shopify_product',
+    'field_name' => 'field_shopify_licence_reference',
+    'label' => 'Shopify Licence Reference',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'apply_chosen' => 1,
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'shopify_product-shopify_product-field_shopify_scale_reference'.
+  $field_instances['shopify_product-shopify_product-field_shopify_scale_reference'] = array(
+    'bundle' => 'shopify_product',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'shopify_product',
+    'field_name' => 'field_shopify_scale_reference',
+    'label' => 'Shopify Scale Reference',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-shopify_brands-field_brand_logo'.
   $field_instances['taxonomy_term-shopify_brands-field_brand_logo'] = array(
     'bundle' => 'shopify_brands',
@@ -69,6 +233,10 @@ function shopify_enhancements_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Brand Logo');
+  t('Shopify Brand Reference');
+  t('Shopify Category Reference');
+  t('Shopify Licence Reference');
+  t('Shopify Scale Reference');
 
   return $field_instances;
 }

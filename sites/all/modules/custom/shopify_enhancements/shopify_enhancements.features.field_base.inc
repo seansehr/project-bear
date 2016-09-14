@@ -32,5 +32,109 @@ function shopify_enhancements_field_default_field_bases() {
     'type' => 'image',
   );
 
+  // Exported field_base: 'field_shopify_brand_reference'.
+  $field_bases['field_shopify_brand_reference'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_shopify_brand_reference',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'shopify_brands',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_shopify_category_reference'.
+  $field_bases['field_shopify_category_reference'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_shopify_category_reference',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'shopify_categories',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_shopify_licence_reference'.
+  $field_bases['field_shopify_licence_reference'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_shopify_licence_reference',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'shopify_licences',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_shopify_scale_reference'.
+  $field_bases['field_shopify_scale_reference'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_shopify_scale_reference',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'shopify_scales',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
   return $field_bases;
 }

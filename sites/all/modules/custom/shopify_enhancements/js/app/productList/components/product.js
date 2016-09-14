@@ -20,10 +20,10 @@ class Product extends React.Component {
     }
 
     let images = data.shopify_product_images;
-    data.image = images[0] ? images[0].file.url : '';
-    data.hover_image = images[1] ? images[1].file.url : '';
+    data.image = images[0] ? images[0] : '';
+    data.hover_image = images[1] ? images[1] : '';
     data.tags = data.shopify_product_tags.filter(tag => {
-      return !!parseInt(fieldValue(tag.taxonomy_term.field_status_marker), 10)
+      return !!parseInt(fieldValue(tag.field_status_marker), 10)
     })
     data.url = "/" + data.url
   }
@@ -59,9 +59,9 @@ class Product extends React.Component {
           <div className="product_thumb__info bottom">
             <div className="product_thumb__status">
               {this.props.data.tags.map(tag => {
-                let name = tag.taxonomy_term.name
+                let name = tag.name
                 let key = name.replace(/\s+/g, '-').toLowerCase()
-                let color = fieldValue(tag.taxonomy_term.field_color, 'jquery_colorpicker')
+                let color = fieldValue(tag.field_color, 'jquery_colorpicker')
                 let style = color ? {color: '#' + color} : {}
                 return <span key={key} className={'product__status--' + key} style={style}>{name}</span>;
               })}
@@ -77,7 +77,7 @@ class Product extends React.Component {
               {this.props.data.title}
             </a>
             <div className="product_thumb__actions">
-              <Link role="button" href="#" className="specs" active={false} onClick={this.props.onClick}>
+              <Link role="button" href="#" className="add_to_cart" active={false} title="Add to Cart" onClick={this.props.onClick}>
                 <i className="icon icon-cart-add" aria-hidden="true"></i>
                 <span className="show-for-sr">Add {this.props.data.title} to Cart</span>
               </Link>

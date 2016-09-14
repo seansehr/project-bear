@@ -44,12 +44,11 @@
 
 
         for (var key in Drupal.settings.shopify_enhancements.instances) {
-          var url = Drupal.settings.shopify_enhancements.instances[key].url,
+          var products = Drupal.settings.shopify_enhancements.instances[key].products,
               categories = Drupal.settings.shopify_enhancements.instances[key].categories;
 
-          Drupal.shopify_enhancements.createFilter(url, key, categories).then(function(store) {
-            Drupal.shopify_enhancements.stores.add(key, store);
-          })
+          var store = Drupal.shopify_enhancements.createFilter(products, key, categories);
+          Drupal.shopify_enhancements.stores.add(key, store);
         }
 
         Drupal.shopify_enhancements.client = ShopifyBuy.buildClient({

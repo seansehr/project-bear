@@ -1,5 +1,9 @@
 $marquee-gutter: ($column-gutter / 3);
 
+.panel-pane .node-marquee {
+  margin: 0 -30px;
+}
+
 .slide__wrapper {
   @include display(flex);
   @include flex-direction(row);

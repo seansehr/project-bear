@@ -579,6 +579,9 @@ function shopify_enhancements_search($term) {
   );
   include(drupal_get_path("module", "ctools") . "/includes/content.inc");
   $widget = ctools_content_render("shopify_enhancements", "shopify_enhancements", $settings);
+  if (!$widget->content) {
+    return t('No results found.');
+  }
   return $widget->content;
 }
 

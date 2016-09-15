@@ -54,6 +54,8 @@ function shopify_enhancements_render($subtype, $conf, $args, $contexts) {
 
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'shopify_product')
+            // Don't get variants.
+              ->propertyCondition('variant_id', 0, '=')
               ->fieldCondition($field_name, 'tid', $tax->tid, '=');
 
             $result = $query->execute();
@@ -206,9 +208,11 @@ function _shopify_enhancements_format_product($product) {
     }
   }
   if (!$product->variant_id && !empty($product->variants)) {
-    $variant = array_pop($product->variants);
+    reset($product->variants);
+    $variant = current($product->variants);
     $product->price = $variant->price;
     $product->compare_at_price = $variant->compare_at_price;
   }
+
   return $product;
 }

@@ -213,6 +213,8 @@ function _shopify_enhancements_format_product($product) {
     $product->price = $variant->price;
     $product->compare_at_price = $variant->compare_at_price;
   }
+  $path = entity_uri('shopify_product', $product);
+  $product->url = drupal_get_path_alias($path['path']);
 
   return $product;
 }

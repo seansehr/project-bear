@@ -23,18 +23,8 @@
             });
           }
         };
-        var $symbol = $('.currency__symbol'),
-            $name = $('.currency__name'),
-        headerStore = {
-          dispatch: function(action) {
-            if ($symbol.length && $name.length) {
-              $symbol.html(action.currency.symbol);
-              $name.text(action.currency.key);
-            }
-          }
-        }
+
         Drupal.shopify_enhancements.stores.add('product', productStore);
-        Drupal.shopify_enhancements.stores.add('header', headerStore);
       }
 
       self.changeCurrency(self.currency);
@@ -72,11 +62,21 @@
       self.getRates().then(function (fx) {
         self.currency = currency;
         localStorage.setItem('currency', currency);
+        var symbol = currency == 'CAD' ? '$' : Drupal.settings.shopify_enhancements.currencies[currency],
+            $symbol = $('.currency__symbol'),
+            $name = $('.currency__name');
+
+        if ($symbol.length && $name.length) {
+          // Ignore the CAD symbol change.
+          $symbol.html(Drupal.settings.shopify_enhancements.currencies[currency]);
+          $name.text(currency);
+        }
+
         Drupal.shopify_enhancements.stores.dispatchAll({
           type: 'SET_CURRENCY',
           currency: {
             key: currency,
-            symbol: Drupal.settings.shopify_enhancements.currencies[currency],
+            symbol: symbol,
             converter: function (amount) {
               return accounting.toFixed(fx.convert(amount, {to: currency}), 2);
             }
@@ -90,6 +90,13 @@
       self = this;
       if (context == document) {
         self.getRates().then(self.init);
+        $(document).on('click', function(event) {
+          if(!$(event.target).closest('.currency').length) {
+            if($('.currency').hasClass("active")) {
+              $('.currency').removeClass('active');
+            }
+          }
+        });
         $('body').on('click', '.currency__active', function (event) {
           $(this).parents('.currency').toggleClass('active');
         });

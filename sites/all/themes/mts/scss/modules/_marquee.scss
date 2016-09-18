@@ -14,10 +14,6 @@ $marquee-gutter: ($column-gutter / 3);
   display: block;
   position: relative;
   will-change: transform;
-
-  & + .slide__section {
-    margin-left: $marquee-gutter;
-  }
 }
 
 .section__title {

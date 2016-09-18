@@ -1,5 +1,6 @@
 .cart-button {
   cursor: pointer;
+  display: block;
   font-size: rem-calc(21);
   line-height: 1;
   position: relative;
@@ -14,10 +15,11 @@
 
 .cart-count {
   color: $white;
-  font-size: 0.6em;
-  left: 4px;
+  font-size: rem-calc(11);
   position: absolute;
+  text-align: center;
   top: 8px;
+  width: 100%;
 }
 
 .cart-wrapper {

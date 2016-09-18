@@ -70,7 +70,11 @@
 
       sessionStorage.setItem('cartid', shopifyCart.id);
       self.cartUi = Drupal.shopify_enhancements.createCart(shopifyCart.lineItems, currency, 'cart');
-      self.$cartCount.text(self.cartUi.props.lineItems.length);
+      console.log(shopifyCart);
+      var quantity = shopifyCart.lineItems.reduce(function (pre, cur) {
+        return pre + cur.quantity;
+      }, 0);
+      self.$cartCount.text(quantity);
       return shopifyCart;
     },
 

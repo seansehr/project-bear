@@ -14,12 +14,20 @@ class CartItem extends React.Component {
 
     return (
       <div className="cart__product">
-        <div className="cart__product-image ">
-          <img src={product.image.src} />
+        <div className="cart__col--left">
+          <div className="cart__image">
+            <img src={product.image.src} />
+          </div>
         </div>
         <div className="cart__col--mid">
-          <div className="cart__product-title">
+          <div className="cart__brand">
+            {product.brand}
+          </div>
+          <div className="cart__title">
             {product.title}
+          </div>
+          <div className="cart__scale">
+            Scale: {product.scale}
           </div>
           <div className="cart__quantity">
             <span>Quantity: </span>
@@ -29,13 +37,13 @@ class CartItem extends React.Component {
           </div>
         </div>
         <div className="cart__col--right">
+          <span className="cart__price">
+            {format(this.props.currency.converter(product.price), this.props.currency)}
+          </span>
           <Link active={false} className="cart__remove" onClick={() => removeItem(this.props.lineItem.id)}>
             <i className="icon icon-close" aria-hidden="true"></i>
             <span className="show-for-sr">close</span>
           </Link>
-          <div className="cart__product-price">
-            {format(this.props.currency.converter(product.price), this.props.currency)}
-          </div>
         </div>
       </div>
     )

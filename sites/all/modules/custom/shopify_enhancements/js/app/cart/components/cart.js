@@ -15,8 +15,8 @@ class Cart extends React.Component {
     }, 0);
 
     return (
-      <div>
-        <div>
+      <div className="cart__inner">
+        <div className="cart__products">
           {this.props.lineItems.map(item => {
             return <CartItem key={item.id} lineItem={item} currency={this.props.currency}/>;
           })}

@@ -1,0 +1,12 @@
+.product-list__filter--tags {
+  font-weight: $font-weight-bold;
+  text-align: right;
+
+  h3 {
+    display: none;
+  }
+
+  .product-list__filter {
+    display: block;
+  }
+}

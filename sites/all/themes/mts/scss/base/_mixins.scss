@@ -13,6 +13,16 @@
   display: flex;
 }
 
+@mixin flex-container {
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
 // Flex prefix shortcut
 %space-between {
   @extend %flex-container;

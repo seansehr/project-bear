@@ -1114,11 +1114,11 @@ $reveal-modal-padding: ($column-gutter/4);
 $reveal-box-shadow: none;
 
 // We use these to style the reveal close button
-// $reveal-close-font-size: rem-calc(40);
-// $reveal-close-top: rem-calc(8);
-// $reveal-close-side: rem-calc(11);
-// $reveal-close-color: $base;
-// $reveal-close-weight: $font-weight-bold;
+$reveal-close-font-size: rem-calc(14);
+$reveal-close-top: rem-calc(10);
+$reveal-close-side: rem-calc(20);
+$reveal-close-color: $primary-color;
+$reveal-close-weight: $font-weight-normal;
 
 // We use this to set the default radius used throughout the core.
 $reveal-radius: 0;

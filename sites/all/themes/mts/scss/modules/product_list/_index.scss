@@ -2,8 +2,9 @@
   font-size: rem-calc(15);
 }
 
-@import "active-filters";
+@import "active_filters";
 @import "categories";
 @import "filters";
 @import "header";
 @import "sort";
+@import "tag_filters";

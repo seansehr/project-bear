@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
       let product = ownProps.data
-      let variant = product.variants[0]
+      let variant = product.variants[Object.keys(product.variants)[0]]
       Drupal.behaviors.shopify_enhancements_cart.addToCart(product.product_id, variant.variant_id);
     }
   }

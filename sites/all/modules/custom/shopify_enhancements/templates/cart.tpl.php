@@ -21,9 +21,9 @@
   <div class="cart__wrapper">
     <div id="cart" class="cart"></div>
     <div class="cart__buttons">
-      <button id="continue_shopping" class="cart__close js_cart_close">Continue Shopping</button>
-      <button id="checkout" class="cart__checkout">Checkout</button>
+      <button id="continue_shopping" class="cart__close js_cart_close"><?php print t('Continue Shopping'); ?></button>
+      <button id="checkout" class="cart__checkout"><?php print t('Checkout'); ?></button>
     </div>
   </div>
-  <a class="close-reveal-modal">close</a>
+  <a class="close-reveal-modal"><?php print t('Close'); ?></a>
 </div>

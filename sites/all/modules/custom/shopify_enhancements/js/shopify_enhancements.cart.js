@@ -21,10 +21,12 @@
       if (!pid || !vid) {
         return;
       }
-      fetchVariant(pid, vid).then(function (variant) {
+      Drupal.shopify_enhancements.client.fetchProduct(pid).then(function(product) {
+        var variant = product.variants.filter(function(n) {
+          return n.id == vid
+        })[0];
         self.cart.addVariants({variant: variant, quantity: 1}).then(function (c) {
           self.cart = self.updateCart(c);
-          self.cartUi = Drupal.shopify_enhancements.createCart(c.lineItems, self.cartUi.props.currency, 'cart');
           self.tooltip(Drupal.t('@product added to cart', {'@product': variant.productTitle}));
         });;
       });
@@ -49,13 +51,8 @@
         Drupal.behaviors.shopify_enhancements_cart.addToCart(pid, vid);
       });
 
-      $(context).on('click', '.js_cart_toggle', function (event) {
-        if (self.cart.lineItems.length) {
-          self.cart.dom.toggle();
-        }
-        else {
-          self.tooltip(Drupal.t('Cart is empty'));
-        }
+      $(context).on('click', '.js_cart_close', function (event) {
+        $('#cartModal').foundation('reveal', 'close');
       });
     },
 
@@ -137,8 +134,13 @@
       }
       else {
         $.get('/shopify_product.json?variant_id=0&product_id=' + pid).then(function(data) {
-          var product = self.cacheProduct(data.list[0]);
-          deferred.resolve(product);
+          if (data.list.length) {
+            var product = self.cacheProduct(data.list[0]);
+            deferred.resolve(product);
+          }
+          else {
+            deferred.reject('No product found.')
+          }
         });
       }
       return deferred;

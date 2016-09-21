@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import ActiveFiltersComp from '../components/activeFilters'
-import { productIsVisible } from '../../helpers/products'
 import { objectMap } from '../../helpers/object'
 import { clearAllFilters } from '../actions'
 

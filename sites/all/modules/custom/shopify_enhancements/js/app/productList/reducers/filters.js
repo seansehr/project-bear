@@ -4,7 +4,8 @@ const filters = (state = [], action) => {
     case 'SET_FILTER':
       nextState.push({
         key: action.key,
-        value: action.value
+        value: action.value,
+        func: action.func
       })
       return nextState;
     case 'CLEAR_FILTER':

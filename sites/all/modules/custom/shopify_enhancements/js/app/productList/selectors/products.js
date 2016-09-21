@@ -12,6 +12,7 @@ export const productIsVisible = (product, filters, excludeKeys = []) => {
     }
     else {
       filtersObj[filter.key] = {
+        func: filter.func,
         values: [filter.value]
       }
     }
@@ -19,15 +20,17 @@ export const productIsVisible = (product, filters, excludeKeys = []) => {
 
   let filterReturns = []
   for (let filterKey in filtersObj) {
-    filterReturns.push(excludeKeys.indexOf(filterKey) !== -1 || filtersObj[filterKey].values.indexOf(product[filterKey]) !== -1)
+    if (typeof filtersObj[filterKey].func === 'function') {
+      filterReturns.push(filtersObj[filterKey].func(product, filtersObj[filterKey], excludeKeys))
+    }
+    else {
+      filterReturns.push(excludeKeys.indexOf(filterKey) !== -1 || filtersObj[filterKey].values.indexOf(product[filterKey]) !== -1)
+    }
   }
 
   return (filterReturns.length == filterReturns.filter(v => { return v }).length)
 }
 
-export const getVisibleProducts = (products, filter) => {
-  let filteredProducts = products.filter(product => {
-    return productIsVisible(product, filter)
-  });
-  return filteredProducts;
+export const getVisibleProducts = (products, filters) => {
+  return products.filter(product => productIsVisible(product, filters))
 };

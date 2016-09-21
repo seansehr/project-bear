@@ -13,11 +13,12 @@ export const clearFilter = (key, value) => {
   }
 }
 
-export const setFilter = (key, value) => {
+export const setFilter = (key, value, func) => {
   return {
     type: 'SET_FILTER',
     key,
-    value
+    value,
+    func
   }
 }
 

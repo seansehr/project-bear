@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import ProductList from '../components/products'
-import { getVisibleProducts } from '../../helpers/products'
+import { getFilteredProducts } from '../selectors'
 
 const mapStateToProps = (state) => {
-  let products = getVisibleProducts(state.products, state.filters)
+  let products = getFilteredProducts(state)
   let sortKey = state.sort.key
   let sortOrder = state.sort.sortOrders[sortKey]
 

@@ -5,29 +5,6 @@ import Link from '../../helpers/components/link'
 import { format } from '../../helpers/price'
 
 class Product extends React.Component {
-  constructor(props) {
-    super(props)
-    let data = this.props.data;
-    let variantProps = ['compare_at_price', 'price'];
-
-    if (data.variants.constructor === Array && typeof data.variants[0] === 'object') {
-      let primaryVariant = data.variants[0];
-      variantProps.forEach(function (prop, index) {
-        if (!data[prop] && primaryVariant[prop]) {
-          data[prop] = primaryVariant[prop];
-        }
-      });
-    }
-
-    let images = data.shopify_product_images;
-    data.image = images[0] ? images[0] : '';
-    data.hover_image = images[1] ? images[1] : '';
-    data.tags = data.shopify_product_tags.filter(tag => {
-      return !!parseInt(fieldValue(tag.field_status_marker), 10)
-    })
-    data.url = "/" + data.url
-  }
-
   render() {
     let priceBtnClass = classNames({
       'price__price': true,

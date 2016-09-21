@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(clearFilter(ownProps.filterKey, ownProps.value));
       }
       else {
-        dispatch(setFilter(ownProps.filterKey, ownProps.value));
+        dispatch(setFilter(ownProps.filterKey, ownProps.value, ownProps.filterFunction));
       }
     }
   }

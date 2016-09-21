@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Link from '../../helpers/components/link'
+import TagFilters from '../containers/tagFilters'
 import { objectMap } from '../../helpers/object'
 import classNames from 'classnames'
 
@@ -9,6 +10,7 @@ class Sort extends React.Component {
       'product-list__sorts': true,
       'closed': !this.props.open
     });
+
     return (
       <div className={sortClassName}>
         {this.props.options.map(sortBy => {
@@ -24,6 +26,9 @@ class Sort extends React.Component {
             </div>
           );
         })}
+        <div className="product-list__filter--tags">
+          <TagFilters />
+        </div>
       </div>
     )
   }

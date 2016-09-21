@@ -13,7 +13,7 @@ class FilterList extends React.Component {
       <div className={filterClassName}>
         {this.props.options.map((option, index) => {
           return (
-            <Filter key={option.key} values={option.values} activeCategory={this.props.activeCategory}>
+            <Filter key={option.key} values={option.values} filterKey={this.props.activeCategory}>
               {option.key}
             </Filter>
           )

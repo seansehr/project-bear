@@ -8,7 +8,7 @@ class Link extends React.Component {
       [this.props.className]: true
     });
     return (
-      <a href="#" className={linkClassNames} title={this.props.title} onClick={(e) => {
+      <a href="#" className={linkClassNames} style={this.props.style} title={this.props.title} onClick={(e) => {
            e.preventDefault()
            this.props.onClick(this.props.active)
          }}>

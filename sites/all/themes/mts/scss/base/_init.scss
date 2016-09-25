@@ -74,6 +74,7 @@
 $row-width: rem-calc(1600);
 // $total-columns: 16;
 $column-gutter: rem-calc(20);
+$page-gutter: rem-calc(15);
 
 // c. Global
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -406,7 +407,7 @@ $hr-border-color: $border-color;
 $crumb-bg: $white;
 
 // We use these to set the padding around the breadcrumbs.
-$crumb-padding: rem-calc(9 0 9);
+$crumb-padding: rem-calc(5 0 10);
 // $crumb-side-padding: rem-calc(12);
 
 // We use these to control border styles.

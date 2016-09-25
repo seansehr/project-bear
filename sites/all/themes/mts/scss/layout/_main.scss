@@ -1,9 +1,8 @@
 // Non-modular or client styles for the .l-content region.
 .l-main {
-  padding: 0 15px;
+  padding: 0 $page-gutter;
 }
 
 .breadcrumbs {
   margin-bottom: 0;
-  padding: 0;
 }

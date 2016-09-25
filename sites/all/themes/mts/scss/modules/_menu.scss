@@ -1,57 +1,62 @@
 .top-bar {
-  margin-bottom: 1px;
+  .logo {
+    max-height: 40px;
+  }
 }
 
 .top-bar-section {
-  border-bottom: $border;
-  float: none;
+  .main-nav {
+    .red {
+      color: $sale-red;
+    }
+  }
+}
 
-  // Direct decendent to prevent dropdown issues.
-  > .main-nav {
-    @extend %space-between;
+@media #{$topbar-media-query} {
+  .top-bar-section {
+    border-bottom: $border;
+    float: none;
 
-    padding: 0 15px;
-    margin: 0;
-    list-style: none;
+    // Direct decendent to prevent dropdown issues.
+    > .main-nav {
+      @include space-between;
 
-    > li {
-      &:first-child > a {
-        padding-left: 0;
-        padding-right: ($topbar-link-padding*2);
+      .red {
+        color: $sale-red;
       }
+    }
 
-      &:last-child > a {
-        padding-left: ($topbar-link-padding*2);
-        padding-right: 0;
+    a.main-menu__home {
+      background-image: url(../logo.png) !important;
+      background-size: contain !important;
+      font-size: 0;
+      height: 40px;
+      width: 89px;
+      padding: 0 !important;
+      margin-top: 7px;
+    }
+
+    ul.dropdown li {
+      > a {
+        font-size: rem-calc(13);
       }
     }
   }
 
-  .red {
-    color: $sale-red;
+  .top-bar {
+    .title-area {
+      display: none;
+    }
   }
-
-  a.main-menu__home {
-    background-image: url(../logo.png) !important;
-    background-size: contain !important;
-    font-size: 0;
-    height: 50px;
-    width: 111px;
-    padding: 0 !important;
-    margin-top: 7px;
-  }
-
-  // Add nolink support.
-  label {
-    @extend a;
-  }
-}
-
-.top-bar-section ul li {
-  background: transparent;
 }
 
 .l-header-region {
   background: $white;
-  padding: 10px 15px 5px;
+  border-bottom: $border;
+  margin-bottom: 5px;
+  padding: 5px 0;
+
+  section {
+    line-height: rem-calc(26);
+  }
 }

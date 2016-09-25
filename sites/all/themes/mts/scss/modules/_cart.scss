@@ -2,7 +2,7 @@
   cursor: pointer;
   display: block;
   font-size: rem-calc(21);
-  line-height: 1;
+  margin-top: 1px;
   position: relative;
 
   .tooltip {
@@ -16,6 +16,7 @@
 .cart-count {
   color: $white;
   font-size: rem-calc(11);
+  line-height: 1.1;
   position: absolute;
   text-align: center;
   top: 8px;

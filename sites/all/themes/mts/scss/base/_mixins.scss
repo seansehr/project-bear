@@ -30,6 +30,12 @@
   justify-content: space-between;
 }
 
+@mixin space-between {
+  @include flex-container;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
 %space-around {
   @extend %flex-container;
 

@@ -170,7 +170,7 @@ $border: $border-width $border-style $border-color;
 // $xlarge-range: (90.063em, 120em);
 // $xxlarge-range: (120.063em, 99999999em);
 
-// $screen: "only screen";
+$screen: "only screen";
 
 // $landscape: "#{$screen} and (orientation: landscape)";
 // $portrait: "#{$screen} and (orientation: portrait)";
@@ -1381,7 +1381,7 @@ $topbar-bg-color: $silver;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: rem-calc(65);
+$topbar-height: rem-calc(50);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1392,11 +1392,12 @@ $topbar-height: rem-calc(65);
 $topbar-dropdown-bg: $topbar-bg-color;
 $topbar-dropdown-link-color: $monsoon;
 $topbar-dropdown-link-bg: $topbar-bg-color;
-$topbar-dropdown-link-bg-hover: $topbar-bg-color;
+$topbar-dropdown-link-bg-hover: $monsoon;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
-// $topbar-dropdown-toggle-color: $white;
+$topbar-dropdown-toggle-color: $topbar-dropdown-link-color;
 // $topbar-dropdown-toggle-alpha: 0.4;
+$topbar-dropdown-link-color-hover: $white;
 
 // Set the link colors and styles for top-level nav
 $topbar-link-color: $monsoon;
@@ -1404,7 +1405,7 @@ $topbar-link-color-hover: $black;
 $topbar-link-color-active: $topbar-link-color-hover;
 // $topbar-link-color-active-hover: $white;
 $topbar-link-weight: $font-weight-normal;
-$topbar-link-font-size: rem-calc(18);
+$topbar-link-font-size: rem-calc(15);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 $topbar-link-bg: $topbar-bg;
 $topbar-link-bg-color-hover: $topbar-link-bg;
@@ -1430,16 +1431,16 @@ $topbar-link-bg-hover: $topbar-link-bg;
 // $topbar-menu-link-transform: uppercase;
 // $topbar-menu-link-font-size: rem-calc(13);
 // $topbar-menu-link-weight: $font-weight-bold;
-// $topbar-menu-link-color: $white;
-// $topbar-menu-icon-color: $white;
+$topbar-menu-link-color: $monsoon;
+$topbar-menu-icon-color: $topbar-menu-link-color;
 // $topbar-menu-link-color-toggled: $jumbo;
 // $topbar-menu-icon-color-toggled: $jumbo;
 
 // Transitions and breakpoint styles
 // $topbar-transition-speed: 300ms;
 // Using rem-calc for the below breakpoint causes issues with top bar
-// $topbar-breakpoint: #{lower-bound($medium-range)}; // Change to 9999px for always mobile layout
-// $topbar-media-query: $medium-up;
+$topbar-breakpoint: 900px; // Change to 9999px for always mobile layout
+$topbar-media-query: "#{$screen} and (min-width:#{$topbar-breakpoint})";
 
 // Divider Styles
 // $topbar-divider-border-bottom: solid 1px  scale-color($topbar-bg-color, $lightness: 13%);

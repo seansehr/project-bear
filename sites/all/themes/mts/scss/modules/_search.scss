@@ -21,14 +21,16 @@
   }
 
   .button--search {
+    border-left: $border;
     cursor: pointer;
     float: right;
     font-size: rem-calc(20);
+    padding-left: 15px;
   }
 
   .opened {
     .form-item-term {
-      width: 90%;
+      width: calc(100% - 50px);
     }
   }
 }

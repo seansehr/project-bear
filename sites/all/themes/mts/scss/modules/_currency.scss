@@ -1,11 +1,26 @@
 .currency {
   cursor: pointer;
   height: 26px;
-  line-height: rem-calc(18);
+  line-height: rem-calc(29);
   overflow: hidden;
   position: relative;
   text-transform: uppercase;
-  width: 240px;
+}
+
+.currency__label {
+  display: inline-block;
+  float: left;
+  position: relative;
+}
+
+.currency__current {
+  background: $white;
+  position: absolute;
+  width: 100%;
+
+  .active & {
+    display: none;
+  }
 }
 
 .currency__symbol {
@@ -18,33 +33,44 @@
 
 .currency__name {
   display: inline-block;
+  margin-left: 5px;
+}
+
+.currency__active-label {
+  font-size: rem-calc(13);
 }
 
 .currency__selection {
   background: $white;
+  border-left: $border;
+  display: inline-block;
+  margin-left: 10px;
+  padding-left: 10px;
   overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
   transition: width .5s;
+  width: 0;
 
   .active & {
-    width: 240px;
+    width: calc(100% - 100px);
   }
 
   a {
-    color: #9c9da0;
+    color: $aluminum;
     display: inline-block;
     font-size: rem-calc(18);
     font-weight: $font-weight-bold;
+    line-height: rem-calc(18);
     margin-right: 5px;
     border: 2px solid transparent;
     border-radius: 3px;
     padding: 2px 5px;
 
     &.active {
-      border-color: #9c9da0;
+      border-color: $aluminum;
     }
   }
+}
+
+.block-shopify-enhancements-currency.active {
+  width: calc(100% - 100px);
 }

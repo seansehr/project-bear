@@ -9,22 +9,21 @@
       <?php if ($top_bar_classes): ?>
         <div class="<?php print $top_bar_classes; ?>">
       <?php endif; ?>
-      <nav class="top-bar row" data-topbar <?php print $top_bar_options; ?>>
-        <section class="top-bar-section column">
+      <nav class="top-bar" data-topbar <?php print $top_bar_options; ?>>
+        <ul class="title-area">
+          <li class="name"><h1><?php if ($linked_logo): print $linked_logo; endif; ?></h1></li>
+          <li class="toggle-topbar menu-icon">
+            <a href="#"><span><?php print $top_bar_menu_text; ?></span></a></li>
+        </ul>
+        <section class="top-bar-section">
           <?php if ($top_bar_main_menu) : ?>
             <?php print $top_bar_main_menu; ?>
           <?php endif; ?>
+          <?php if ($top_bar_secondary_menu) : ?>
+            <?php print $top_bar_secondary_menu; ?>
+          <?php endif; ?>
         </section>
       </nav>
-      <?php if (!empty($page['header'])): ?>
-        <!--.l-header-region -->
-        <section class="l-header-region row">
-          <div class="columns">
-            <?php print render($page['header']); ?>
-          </div>
-        </section>
-        <!--/.l-header-region -->
-      <?php endif; ?>
       <?php if ($top_bar_classes): ?>
         </div>
       <?php endif; ?>
@@ -34,9 +33,7 @@
     <!-- Title, slogan and menu -->
     <?php if ($alt_header): ?>
       <section class="row <?php print $alt_header_classes; ?>">
-        <?php if ($top_bar_secondary_menu) : ?>
-          <?php print $top_bar_secondary_menu; ?>
-        <?php endif; ?>
+
         <?php if ($linked_logo): print $linked_logo; endif; ?>
 
         <?php if ($site_name): ?>
@@ -72,6 +69,16 @@
       </section>
     <?php endif; ?>
     <!-- End title, slogan and menu -->
+
+    <?php if (!empty($page['header'])): ?>
+      <!--.l-header-region -->
+      <section class="l-header-region row" data-magellan-expedition="fixed">
+        <div class="columns">
+          <?php print render($page['header']); ?>
+        </div>
+      </section>
+      <!--/.l-header-region -->
+    <?php endif; ?>
 
   </header>
   <!--/.l-header -->
@@ -177,26 +184,26 @@
       <!--.footer-columns -->
       <section class="row l-footer-columns">
         <?php if (!empty($page['footer_firstcolumn']) && empty($page['footer_secondcolumn'])): ?>
-          <div class="footer-first medium-6 columns">
+          <div class="footer-first large-6 columns">
             <?php print render($page['footer_firstcolumn']); ?>
           </div>
         <?php else: ?>
-          <div class="footer-first medium-3 columns">
+          <div class="footer-first medium-6 large-3 columns">
             <?php print render($page['footer_firstcolumn']); ?>
           </div>
         <?php endif; ?>
         <?php if (!empty($page['footer_secondcolumn'])): ?>
-          <div class="footer-second medium-3 columns">
+          <div class="footer-second medium-6 large-3 columns">
             <?php print render($page['footer_secondcolumn']); ?>
           </div>
         <?php endif; ?>
         <?php if (!empty($page['footer_thirdcolumn'])): ?>
-          <div class="footer-third medium-3 columns">
+          <div class="footer-third medium-6 large-3 columns">
             <?php print render($page['footer_thirdcolumn']); ?>
           </div>
         <?php endif; ?>
         <?php if (!empty($page['footer_fourthcolumn'])): ?>
-          <div class="footer-fourth medium-3 columns">
+          <div class="footer-fourth medium-6 large-3 columns">
             <?php print render($page['footer_fourthcolumn']); ?>
           </div>
         <?php endif; ?>

@@ -1,8 +1,12 @@
+.page-product {
+  #page-title {
+    display: none;
+  }
+}
+
 .entity-shopify-product {
   .content {
     position: relative;
-    // @extend %flex-container;
-    // align-items: stretch;
   }
 }
 

@@ -82,8 +82,12 @@
             }
           }
         }, true);
-        $('.currency__selection a[data-code="' + this.currency + '"]').addClass('active');
+        $('a[data-code="' + this.currency + '"]').addClass('active');
       })
+    },
+
+    getParent() {
+      return $('.js-currency').parents('.block-shopify-enhancements-currency');
     },
 
     attach: function (context, settings) {
@@ -91,19 +95,19 @@
       if (context == document) {
         self.getRates().then(self.init);
         $(document).on('click', function(event) {
-          if(!$(event.target).closest('.currency').length) {
-            if($('.currency').hasClass("active")) {
-              $('.currency').removeClass('active');
+          if(!$(event.target).closest('.js-currency').length) {
+            if(self.getParent().hasClass('active')) {
+              self.getParent().removeClass('active');
             }
           }
         });
-        $('body').on('click', '.currency__active', function (event) {
-          $(this).parents('.currency').toggleClass('active');
+        $('body').on('click', '.js-currency', function (event) {
+          self.getParent().toggleClass('active');
         });
         $('.currency__selection').on('click', 'a', function (event) {
           event.preventDefault();
           $('.currency__selection a').removeClass('active');
-          $('.currency').removeClass('active');
+          self.getParent().removeClass('active');
           var code = $(this).data('code');
           if (code) {
             self.changeCurrency(code);

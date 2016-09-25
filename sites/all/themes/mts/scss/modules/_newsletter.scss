@@ -1,7 +1,4 @@
 .newsletter {
-  // Move up compared to other footer blocks.
-  margin-top: -7px;
-
   .form {
     position: relative;
   }
@@ -14,8 +11,14 @@
 
     & + input {
       margin-left: 58px;
-      min-width: 230px;
-      width: auto;
+      width: calc(100% - 60px);
     }
+  }
+}
+
+@media #{$large-up} {
+  .newsletter {
+    // Move up compared to other footer blocks.
+    margin-top: -7px;
   }
 }

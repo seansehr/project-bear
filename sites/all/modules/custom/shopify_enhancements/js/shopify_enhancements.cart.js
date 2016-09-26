@@ -72,7 +72,7 @@
       var $container = $('.cart-wrapper'),
           lineItems = shopifyCart.lineItems;
 
-      currency = currency || self.cartUi.props.currency;
+      currency = currency || Drupal.settings.shopify_enhancements.activeCurrency;
 
       sessionStorage.setItem('cartid', shopifyCart.id);
       var defers = shopifyCart.lineItems.map(function (lineItem) {

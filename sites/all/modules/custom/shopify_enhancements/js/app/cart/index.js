@@ -8,11 +8,19 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import Cart from './components/cart'
+import CartComp from './components/cart'
+import CartItemComp from './components/cartItem'
 
-export default (lineItems, currency, container) => {
+export const Cart = (lineItems, currency, container) => {
   return render(
-    <Cart lineItems={lineItems} currency={currency} />,
+    <div><CartComp lineItems={lineItems} currency={currency} /></div>,
+    document.getElementById(container)
+  );
+}
+
+export const CartItem = (lineItem, currency, container) => {
+  render(
+    <CartItemComp lineItem={lineItem} currency={currency} />,
     document.getElementById(container)
   );
 }

@@ -9,7 +9,7 @@ import { fieldValue } from './helpers/fields'
 
 import ProductList from './productList/components'
 import ProductReducers from './productList/reducers'
-import Cart from './cart'
+import { Cart, CartItem } from './cart'
 
 const formatProduct = function (product) {
   let variantProps = ['compare_at_price', 'price'];
@@ -38,6 +38,7 @@ const formatProduct = function (product) {
 
 window.Drupal.shopify_enhancements = window.Drupal.shopify_enhancements || {};
 window.Drupal.shopify_enhancements.createCart = Cart;
+window.Drupal.shopify_enhancements.createCartItem = CartItem;
 window.Drupal.shopify_enhancements.createFilter = (products, container, categories = {}, sortOrders = Drupal.settings.shopify_enhancements.sortOrders) => {
   if (!products) {
     console.error('No products')

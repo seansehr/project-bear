@@ -72,15 +72,17 @@
           $name.text(currency);
         }
 
+        Drupal.settings.shopify_enhancements.activeCurrency = {
+          key: currency,
+          symbol: symbol,
+          converter: function (amount) {
+            return accounting.toFixed(fx.convert(amount, {to: currency}), 2);
+          }
+        };
+
         Drupal.shopify_enhancements.stores.dispatchAll({
           type: 'SET_CURRENCY',
-          currency: {
-            key: currency,
-            symbol: symbol,
-            converter: function (amount) {
-              return accounting.toFixed(fx.convert(amount, {to: currency}), 2);
-            }
-          }
+          currency: Drupal.settings.shopify_enhancements.activeCurrency
         }, true);
         $('a[data-code="' + this.currency + '"]').addClass('active');
       })

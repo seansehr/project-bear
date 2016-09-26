@@ -14,12 +14,20 @@ class Cart extends React.Component {
       return pre + (this.props.currency.converter(cur.price) * cur.quantity);
     }, 0);
 
+    let body = this.props.lineItems.map(item => {
+      return <CartItem key={item.id} lineItem={item} currency={this.props.currency}/>;
+    });
+    let className = 'cart__products';
+
+    if (!this.props.lineItems.length) {
+      body = Drupal.t('Your cart is empty');
+      className = 'cart__empty';
+    }
+
     return (
-      <div className="cart__inner">
-        <div className="cart__products">
-          {this.props.lineItems.map(item => {
-            return <CartItem key={item.id} lineItem={item} currency={this.props.currency}/>;
-          })}
+      <div id={this.props.id} className="cart__inner">
+        <div className={className}>
+          {body}
         </div>
         <div className="cart__subtotal">
           <span className="subtotal__label">Subtotal:</span>{format(subtotal, this.props.currency)}

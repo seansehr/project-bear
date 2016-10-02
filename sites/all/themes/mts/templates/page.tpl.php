@@ -9,21 +9,25 @@
       <?php if ($top_bar_classes): ?>
         <div class="<?php print $top_bar_classes; ?>">
       <?php endif; ?>
-      <nav class="top-bar" data-topbar <?php print $top_bar_options; ?>>
-        <ul class="title-area">
-          <li class="name"><h1><?php if ($linked_logo): print $linked_logo; endif; ?></h1></li>
-          <li class="toggle-topbar menu-icon">
-            <a href="#"><span><?php print $top_bar_menu_text; ?></span></a></li>
-        </ul>
-        <section class="top-bar-section">
-          <?php if ($top_bar_main_menu) : ?>
-            <?php print $top_bar_main_menu; ?>
-          <?php endif; ?>
-          <?php if ($top_bar_secondary_menu) : ?>
-            <?php print $top_bar_secondary_menu; ?>
-          <?php endif; ?>
-        </section>
-      </nav>
+      <div class="top-bar-wrapper">
+        <div class="top-bar-fixed fixed visible">
+          <nav class="top-bar" data-topbar <?php print $top_bar_options; ?>>
+            <ul class="title-area">
+              <li class="name"><h1><?php if ($linked_logo): print $linked_logo; endif; ?></h1></li>
+              <li class="toggle-topbar menu-icon">
+                <a href="#"><span><?php print $top_bar_menu_text; ?></span></a></li>
+            </ul>
+            <section class="top-bar-section">
+              <?php if ($top_bar_main_menu) : ?>
+                <?php print $top_bar_main_menu; ?>
+              <?php endif; ?>
+              <?php if ($top_bar_secondary_menu) : ?>
+                <?php print $top_bar_secondary_menu; ?>
+              <?php endif; ?>
+            </section>
+          </nav>
+        </div>
+      </div>
       <?php if ($top_bar_classes): ?>
         </div>
       <?php endif; ?>
@@ -71,13 +75,15 @@
     <!-- End title, slogan and menu -->
 
     <?php if (!empty($page['header'])): ?>
-      <!--.l-header-region -->
-      <section class="l-header-region row" data-magellan-expedition="fixed">
-        <div class="columns">
-          <?php print render($page['header']); ?>
-        </div>
-      </section>
-      <!--/.l-header-region -->
+      <div class="l-header-region-wrapper">
+        <!--.l-header-region -->
+        <section class="l-header-region row menu-visible">
+          <div class="columns">
+            <?php print render($page['header']); ?>
+          </div>
+        </section>
+        <!--/.l-header-region -->
+      </div>
     <?php endif; ?>
 
   </header>

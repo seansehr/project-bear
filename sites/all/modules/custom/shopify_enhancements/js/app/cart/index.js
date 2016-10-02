@@ -20,7 +20,7 @@ export const Cart = (lineItems, currency, container) => {
 
 export const CartItem = (lineItem, currency, container) => {
   render(
-    <CartItemComp lineItem={lineItem} currency={currency} />,
+    <CartItemComp lineItem={lineItem} currency={currency} hideControls={true} />,
     document.getElementById(container)
   );
 }

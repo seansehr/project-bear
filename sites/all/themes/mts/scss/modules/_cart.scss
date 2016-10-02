@@ -26,9 +26,14 @@
 .cart-modal {
   background: rgba($silver, 0.8);
   height: 100%;
-  margin: 0 0 0 50%;
-  padding: 30px 20px 20px;
-  width: 50%;
+}
+
+@media #{$large-up} {
+  .cart-modal {
+    margin: 0 0 0 50%;
+    padding: 30px 20px 20px;
+    width: 50%;
+  }
 }
 
 .cart__wrapper {
@@ -36,7 +41,7 @@
   background: $white;
   border: $border;
   flex-direction: column;
-  height: calc(100% - 50px);
+  height: 100%;
 }
 
 .cart {
@@ -47,7 +52,15 @@
 .cart__inner {
   @include flex-container;
   flex-direction: column;
+  height: 100%;
   width: 100%;
+}
+
+.cart__empty {
+  @include flex-container;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
 }
 
 .cart__products {
@@ -120,4 +133,70 @@
   background: $dark-grey;
   color: $white;
   margin-left: 10px;
+}
+
+// Add to cart popup
+.cart-add {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  right: -2px;
+  top: 30px;
+  transition: opacity 0.5s;
+  width: 50vw;
+  z-index: 100;
+
+  &:before {
+    border-color: transparent transparent $border-color transparent;
+    border-style: solid;
+    border-width: 0 7px 6px 7px;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 2px;
+    top: -5px;
+    width: 0;
+  }
+
+  &:after {
+    border-color: transparent transparent $silver transparent;
+    border-style: solid;
+    border-width: 0 5px 5px 5px;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 4px;
+    top: -4px;
+    width: 0;
+  }
+
+  &:hover,
+  &.opened {
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+  }
+
+  &__inner {
+    background: $silver;
+    border: $border;
+    padding: 20px;
+  }
+
+  .cart__product {
+    background: $white;
+    border: $border;
+  }
+
+  &__message {
+    background: $white;
+    border-bottom: $border;
+    border-left: $border;
+    border-right: $border;
+    padding: 5px 10px 10px;
+    text-align: center;
+  }
 }

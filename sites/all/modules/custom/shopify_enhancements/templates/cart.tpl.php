@@ -14,9 +14,13 @@
   <i class="icon icon-cart" aria-hidden="true"></i>
   <span class="show-for-sr"><?php print $cart ?></span>
   <span class="cart-count" id="cart-count"></span>
-  <span class="tooltip"></span>
 </a>
-</span>
+<div class="js-cart-add cart-add">
+  <div class="cart-add__inner">
+    <div id="cart-add"></div>
+    <div class="cart-add__message"><?php print t('The following item was added to your cart.'); ?></div>
+  </div>
+</div>
 <div id="cartModal" class="reveal-modal cart-modal" data-css-top="0" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
   <div class="cart__wrapper">
     <div id="cart" class="cart"></div>

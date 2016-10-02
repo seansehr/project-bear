@@ -9,8 +9,12 @@ class CartItem extends React.Component {
     product.image = product.image || {src: ''};
 
     // Send updates back to the Shopify Cart.
-    let updateItem = Drupal.shopifyEnhancements.cartUi.updateItem
-    let removeItem = Drupal.shopifyEnhancements.cartUi.removeItem
+    let addItem, removeItem, substractItem;
+    if (!this.props.hideControls) {
+      addItem = <Link active={false} className="cart__quantity--add" onClick={() => Drupal.shopifyEnhancements.cartUi.updateItem(this.props.lineItem.id, this.props.lineItem.quantity+1)}><i className="fa fa-caret-right" aria-hidden="true"></i></Link>;
+      removeItem = <Link active={false} className="cart__remove" onClick={() => Drupal.shopifyEnhancements.cartUi.removeItem(this.props.lineItem.id)}><i className="icon icon-close" aria-hidden="true"></i><span className="show-for-sr">close</span></Link>;
+      substractItem = <Link active={false} className="cart__quantity--subtract" onClick={() => Drupal.shopifyEnhancements.cartUi.updateItem(this.props.lineItem.id, this.props.lineItem.quantity-1)}><i className="fa fa-caret-left" aria-hidden="true"></i></Link>;
+    }
 
     return (
       <div className="cart__product">
@@ -31,19 +35,16 @@ class CartItem extends React.Component {
           </div>
           <div className="cart__quantity">
             <span>Quantity: </span>
-            <Link active={false} className="cart__quantity--subtract" onClick={() => updateItem(this.props.lineItem.id, this.props.lineItem.quantity-1)}><i className="fa fa-caret-left" aria-hidden="true"></i></Link>
+            {substractItem}
             {product.quantity}
-            <Link active={false} className="cart__quantity--add" onClick={() => updateItem(this.props.lineItem.id, this.props.lineItem.quantity+1)}><i className="fa fa-caret-right" aria-hidden="true"></i></Link>
+            {addItem}
           </div>
         </div>
         <div className="cart__col--right">
           <span className="cart__price">
             {format(this.props.currency.converter(product.price), this.props.currency)}
           </span>
-          <Link active={false} className="cart__remove" onClick={() => removeItem(this.props.lineItem.id)}>
-            <i className="icon icon-close" aria-hidden="true"></i>
-            <span className="show-for-sr">close</span>
-          </Link>
+          {removeItem}
         </div>
       </div>
     )

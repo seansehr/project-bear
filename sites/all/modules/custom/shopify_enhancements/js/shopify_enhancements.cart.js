@@ -21,14 +21,24 @@
       if (!pid || !vid) {
         return;
       }
-      Drupal.shopify_enhancements.client.fetchProduct(pid).then(function(product) {
-        var variant = product.variants.filter(function(n) {
+      var shopifyPromise = Drupal.shopify_enhancements.client.fetchProduct(pid);
+      var sitePromise = self.fetchProduct(pid);
+
+      // $.when doesn't work with Shopify promises, which are real promises
+      // so we might aswell use them too.
+      Promise.all([shopifyPromise, sitePromise]).then(function(values) {
+        shopifyProduct = values[0];
+        siteProduct = values[1];
+        var variant = shopifyProduct.variants.filter(function(n) {
           return n.id == vid
         })[0];
         self.cart.addVariants({variant: variant, quantity: 1}).then(function (c) {
           self.cart = self.updateCart(c);
-          self.tooltip(Drupal.t('@product added to cart', {'@product': variant.productTitle}));
-        });;
+          var lineItem = self.cart.lineItems.filter(function (item) {
+            return item.variant_id == variant.id;
+          })[0];
+          self.cartAddPopup($.extend({}, siteProduct, lineItem));
+        });
       });
     },
 
@@ -54,6 +64,25 @@
       $(context).on('click', '.js_cart_close', function (event) {
         $('#cartModal').foundation('reveal', 'close');
       });
+    },
+
+    /**
+      * Give a popup letting the user know they added item to cart.
+      *
+      * @param object lineItem
+      *   The merged lineItem and site processed product item.
+      */
+    cartAddPopup: function(lineItem) {
+      Drupal.shopify_enhancements.createCartItem(lineItem, Drupal.settings.shopify_enhancements.activeCurrency, 'cart-add');
+      $cartAdd = $('.js-cart-add');
+      $cartAdd.addClass('opened');
+      window.setTimeout(function () {
+        $cartAdd.css('height', 'auto').removeClass('opened');
+        // Time the height with the fadeout.
+        window.setTimeout(function () {
+          $cartAdd.css('height', '');
+        }, 500);
+      }, 3000);
     },
 
     /**

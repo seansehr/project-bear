@@ -5,6 +5,7 @@
 .top-bar-fixed {
   top: -($topbar-height);
   transition: top 0.3s;
+  z-index: 100;
 
   &.visible {
     top: 0;
@@ -33,7 +34,7 @@
   transition: top 0.3s;
 
   &.menu-visible {
-    top: $topbar-height;
+    top: $topbar-height + rem-calc(1);
   }
 
   section {

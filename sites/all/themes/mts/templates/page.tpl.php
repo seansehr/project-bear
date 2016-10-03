@@ -235,5 +235,6 @@
   </div>
 
   <?php if ($messages && $zurb_foundation_messages_modal): print $messages; endif; ?>
+  <div class="js-back-to-top back-to-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
 </div>
 <!--/.page -->

@@ -1,0 +1,15 @@
+.back-to-top {
+  background: rgba($silver, 0.75);
+  bottom: 10px;
+  cursor: pointer;
+  font-size: rem-calc(20);
+  padding: 15px;
+  position: fixed;
+  right: -50px;
+  transition: right 0.5s;
+  z-index: 1;
+
+  &.visible {
+    right: 10px;
+  }
+}

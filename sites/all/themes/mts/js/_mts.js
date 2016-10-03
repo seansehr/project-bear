@@ -43,6 +43,7 @@ function debounce(func, wait, immediate) {
         var topBarHide = false;
         var $topBar = $('.top-bar-fixed');
         var $header = $('.l-header-region');
+        var $backToTop = $('.js-back-to-top');
         $('.l-header-region-wrapper').height($header.outerHeight());
 
         var topbarWaypoint = new Waypoint({
@@ -55,6 +56,7 @@ function debounce(func, wait, immediate) {
               topBarHide = true;
             }
             else {
+              $backToTop.removeClass('visible');
               topBarHide = false;
             }
           }
@@ -66,10 +68,12 @@ function debounce(func, wait, immediate) {
             var st = $(this).scrollTop();
             if (topBarHide) {
               if (st > lastScrollTop) {
+                $backToTop.removeClass('visible');
                 $topBar.removeClass('visible');
                 $header.removeClass('menu-visible');
               }
               else {
+                $backToTop.addClass('visible');
                 $topBar.addClass('visible');
                 $header.addClass('menu-visible');
               }
@@ -77,6 +81,10 @@ function debounce(func, wait, immediate) {
             lastScrollTop = st;
           }, 10)
         );
+
+        $backToTop.on('click', function (event) {
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
+        });
 
         // var $brandInfo = $('.js-brand-sticky');
         // if ($brandInfo.length) {

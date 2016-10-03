@@ -43,6 +43,12 @@
   justify-content: space-around;
 }
 
+@mixin space-around {
+  @include flex-container;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
 // Adds borders that appear that only corners are outlined.
 @mixin corner-outline($color, $length: 30px) {
   border: 1px solid $color;

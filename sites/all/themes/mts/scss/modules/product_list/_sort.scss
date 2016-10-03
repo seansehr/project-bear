@@ -7,9 +7,22 @@
   &.closed {
     display: none;
   }
+
+  .product-list__filter {
+    margin-left: 26px;
+
+    &.active {
+      margin-left: 0;
+    }
+  }
 }
 
 .sorts__category {
+  @include space-around;
+  flex-direction: column;
+}
+
+.sorts__button {
   display: block;
 
   & + & {

@@ -7,3 +7,12 @@
 .block-shopify-cart {
   float: right;
 }
+
+// Site message
+.block-block-4 {
+  position: absolute;
+  text-align: center;
+  width: 80%;
+  margin: 0 10%;
+  z-index: -1;
+}

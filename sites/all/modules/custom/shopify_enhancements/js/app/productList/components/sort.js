@@ -15,10 +15,10 @@ class Sort extends React.Component {
       <div className={sortClassName}>
         {this.props.options.map(sortBy => {
           return (
-            <div key={sortBy.key}>
+            <div className="sorts__category" key={sortBy.key}>
               {objectMap(sortBy.options, (dir, index) => {
                 return (
-                  <Link key={sortBy.key + '-' + dir} order={dir} className="sorts__category" active={false} onClick={() => {this.props.sortClick(sortBy.key, dir)}}>
+                  <Link key={sortBy.key + '-' + dir} order={dir} className="sorts__button" active={false} onClick={() => {this.props.sortClick(sortBy.key, dir)}}>
                     {sortBy.options[dir]}
                   </Link>
                 );

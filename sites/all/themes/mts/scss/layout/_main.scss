@@ -6,3 +6,9 @@
 .breadcrumbs {
   margin-bottom: 0;
 }
+
+.node-title {
+  .front & {
+    display: none;
+  }
+}

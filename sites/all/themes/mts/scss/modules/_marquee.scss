@@ -1,13 +1,14 @@
-$marquee-gutter: ($column-gutter / 3);
+.flexslider {
+  border: none;
+}
 
 .panel-pane .node-marquee {
-  margin: 0 -30px;
+  margin: 0 (-$page-gutter - ($column-gutter/2));
 }
 
 .slide__wrapper {
   @include display(flex);
   @include flex-direction(row);
-  padding-top: $marquee-gutter;
 }
 
 .slide__section {
@@ -19,14 +20,13 @@ $marquee-gutter: ($column-gutter / 3);
 .section__title {
   font-size: rem-calc(30);
   font-weight: $font-weight-light;
+  left: 5px;
   line-height: 1;
   position: absolute;
-  left: $marquee-gutter;
-  bottom: $marquee-gutter;
+  top: 5px;
 
   .sections--small & {
     bottom: auto;
-    top: $marquee-gutter;
   }
 }
 

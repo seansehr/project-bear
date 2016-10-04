@@ -1,6 +1,4 @@
-.top-bar-wrapper {
-  // height: $topbar-height;
-}
+$admin-menu-height: 29px;
 
 .top-bar-fixed {
   top: -($topbar-height);
@@ -9,6 +7,14 @@
 
   &.visible {
     top: 0;
+
+    body.admin-menu & {
+      top: $admin-menu-height;
+    }
+  }
+
+  body.admin-menu & {
+    top: -($topbar-height);
   }
 }
 
@@ -35,6 +41,10 @@
 
   &.menu-visible {
     top: $topbar-height + rem-calc(1);
+
+    body.admin-menu & {
+      top: rem-calc($admin-menu-height) + $topbar-height + rem-calc(1);
+    }
   }
 
   section {
@@ -87,5 +97,9 @@
     position: fixed;
     top: 0;
     z-index: 99;
+
+    body.admin-menu & {
+      top: $admin-menu-height;
+    }
   }
 }

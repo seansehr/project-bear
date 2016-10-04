@@ -1,20 +1,19 @@
-.js-brand-sticky.sticked {
-  .brand-info {
-    background: $white;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
+.section-brands .title {
+  display: none;
+}
+
+.brand-info__title {
+  @include filter-status(44);
+
+  cursor: pointer;
+  text-align: center;
+
+  &:after {
+    line-height: 0.5;
   }
 
-  .taxonomy-term-description {
-    display: none;
-  }
-
-  img {
-    height: 60px;
-    width: auto;
+  .field {
+    display: inline-block;
   }
 }
 
@@ -24,11 +23,12 @@
     $offset: 1
   );
 
-  .js-brand-sticky.sticked & {
-    @include grid-column(
-      $columns: 12,
-      $offset: 0
-    );
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s;
+
+  &.active {
+    max-height: 1000px;
   }
 }
 
@@ -37,7 +37,7 @@
     padding: 5px;
   }
 
-  .field-name-field-brand-logo {
+  .field-name-field-brand-image {
     @include grid-column(
       $columns: 4,
       $collapse: true
@@ -53,5 +53,7 @@
       $columns: 8,
       $collapse: true
     );
+
+    margin-top: 0;
   }
 }

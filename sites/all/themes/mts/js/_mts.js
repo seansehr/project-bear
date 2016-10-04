@@ -64,7 +64,7 @@ function debounce(func, wait, immediate) {
 
         var lastScrollTop = 0;
         $(window).scroll(
-          debounce(function () {
+          function () {
             var st = $(this).scrollTop();
             if (topBarHide) {
               if (st > lastScrollTop) {
@@ -79,39 +79,26 @@ function debounce(func, wait, immediate) {
               }
             }
             lastScrollTop = st;
-          }, 10)
+          }
         );
 
         $backToTop.on('click', function (event) {
           document.body.scrollTop = document.documentElement.scrollTop = 0;
         });
 
-        // var $brandInfo = $('.js-brand-sticky');
-        // if ($brandInfo.length) {
-        //   var stickiedClass = 'sticked',
-        //       $topbar = $('.top-bar'),
-        //   waypoint = new Waypoint({
-        //     element: $brandInfo[0],
-        //     handler: function(direction) {
-        //       switch(direction) {
-        //         case 'down':
-        //           $brandInfo.height($brandInfo.height());
-        //           console.log($topbar.offset().top +'+'+ $topbar.height());
-        //           $brandInfo.css('top', $topbar.height());
-        //           $brandInfo.addClass(stickiedClass);
-        //           break;
-        //         case 'up':
-        //           $brandInfo.height('auto');
-        //           $brandInfo.removeClass(stickiedClass);
-        //           break;
-        //         default:
-        //       }
-        //     },
-        //     offset: function () {
-        //       return -this.element.clientHeight;
-        //     }
-        //   });
-        // }
+        var $brandInfo = $('.js-brand-info', context);
+        var $brandToggle = $('.js-brand-toggle', context);
+
+        $brandToggle.on('click', function (event) {
+          if ($brandInfo.hasClass('active') !== $brandToggle.hasClass('active')) {
+            $brandInfo.removeClass('active');
+            $brandToggle.removeClass('active');
+          }
+          else {
+            $brandInfo.toggleClass('active');
+            $brandToggle.toggleClass('active');
+          }
+        });
       }
 
       if (typeof Drupal.settings.flexslider !== 'undefined') {

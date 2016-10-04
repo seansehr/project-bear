@@ -41,23 +41,23 @@
  * @ingroup themeable
  */
 ?>
-<div class="js-brand-sticky">
-  <div id="taxonomy-term-<?php print $term->tid; ?>" class="<?php print $classes; ?> row brand-info">
+<div id="taxonomy-term-<?php print $term->tid; ?>" class="<?php print $classes; ?> row brand-info">
 
-    <?php if (!$page): ?>
-      <h2><a href="<?php print $term_url; ?>"><?php print $term_name; ?></a></h2>
-    <?php endif; ?>
+  <?php if (!$page): ?>
+    <h2><a href="<?php print $term_url; ?>"><?php print $term_name; ?></a></h2>
+  <?php else: ?>
+    <h1 class="js-brand-toggle brand-info__title"><?php print render($content['field_brand_logo']) ?> <?php print $term_name; ?></h1>
+  <?php endif; ?>
 
-    <?php if ($content): ?>
-      <div class="content brand-info__inner">
-        <div class="row">
-          <div class="corner-outline">
-            <?php print render($content); ?>
-            <div class="clearfix"></div>
-          </div>
+  <?php if ($content): ?>
+    <div class="js-brand-info content brand-info__inner">
+      <div class="row">
+        <div class="corner-outline">
+          <?php print render($content); ?>
+          <div class="clearfix"></div>
         </div>
       </div>
-    <?php endif; ?>
+    </div>
+  <?php endif; ?>
 
-  </div>
 </div>

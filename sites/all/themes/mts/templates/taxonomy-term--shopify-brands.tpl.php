@@ -64,5 +64,4 @@
       </div>
     </div>
   <?php endif; ?>
-  <?php dpm($content); ?>
 </div>

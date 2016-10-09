@@ -3,13 +3,16 @@
 }
 
 .brand-info__title {
-  @include filter-status(44);
-
-  cursor: pointer;
   text-align: center;
 
   &:after {
     line-height: 0.5;
+  }
+
+  &.expandable {
+    @include filter-status(44);
+
+    cursor: pointer;
   }
 
   .field {

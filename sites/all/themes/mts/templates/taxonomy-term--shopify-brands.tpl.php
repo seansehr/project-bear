@@ -40,24 +40,29 @@
  *
  * @ingroup themeable
  */
+
+  hide($content['field_brand_logo']);
+  $rendered_content = render($content);
 ?>
 <div id="taxonomy-term-<?php print $term->tid; ?>" class="<?php print $classes; ?> row brand-info">
 
   <?php if (!$page): ?>
     <h2><a href="<?php print $term_url; ?>"><?php print $term_name; ?></a></h2>
   <?php else: ?>
-    <h1 class="js-brand-toggle brand-info__title"><?php print render($content['field_brand_logo']) ?> <?php print $term_name; ?></h1>
+    <h1 class="js-brand-toggle brand-info__title<?php if ($rendered_content) print ' expandable'; ?>">
+      <?php print render($content['field_brand_logo']) ?> <?php print $term_name; ?>
+    </h1>
   <?php endif; ?>
 
-  <?php if ($content): ?>
+  <?php if ($rendered_content): ?>
     <div class="js-brand-info content brand-info__inner">
       <div class="row">
         <div class="corner-outline">
-          <?php print render($content); ?>
+          <?php print $rendered_content; ?>
           <div class="clearfix"></div>
         </div>
       </div>
     </div>
   <?php endif; ?>
-
+  <?php dpm($content); ?>
 </div>

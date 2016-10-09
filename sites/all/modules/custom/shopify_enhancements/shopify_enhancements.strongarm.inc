@@ -328,6 +328,81 @@ function shopify_enhancements_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'rr_config';
+  $strongarm->value = array(
+    'field_collection_item' => array(
+      'enable' => 0,
+      'max_record' => '10',
+      'view_mode' => array(
+        'full' => 'full',
+        'token' => 0,
+      ),
+    ),
+    'node' => array(
+      'enable' => 0,
+      'max_record' => '10',
+      'view_mode' => array(
+        'full' => 'full',
+        'teaser' => 0,
+        'rss' => 0,
+        'search_index' => 0,
+        'search_result' => 0,
+        'token' => 0,
+      ),
+    ),
+    'shopify_product' => array(
+      'enable' => 1,
+      'max_record' => '10',
+      'view_mode' => array(
+        'full' => 'full',
+        'teaser' => 0,
+        'search_index' => 0,
+        'search_result' => 0,
+        'token' => 0,
+      ),
+    ),
+    'shopify_metafield' => array(
+      'enable' => 0,
+      'max_record' => '10',
+      'view_mode' => array(
+        'full' => 'full',
+      ),
+    ),
+    'file' => array(
+      'enable' => 0,
+      'max_record' => '10',
+      'view_mode' => array(
+        'full' => 'full',
+        'teaser' => 0,
+        'preview' => 0,
+        'rss' => 0,
+        'search_index' => 0,
+        'search_result' => 0,
+        'token' => 0,
+      ),
+    ),
+    'taxonomy_term' => array(
+      'enable' => 0,
+      'max_record' => '10',
+      'view_mode' => array(
+        'full' => 'full',
+        'token' => 0,
+      ),
+    ),
+    'user' => array(
+      'enable' => 0,
+      'max_record' => '10',
+      'view_mode' => array(
+        'full' => 'full',
+        'token' => 0,
+      ),
+    ),
+  );
+  $export['rr_config'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'shopify_enhancements_returns';
   $strongarm->value = array(
     'value' => '<p>Returns or Exchanges may be done within 14 days from purchase date. We kindly ask that all valid returns must be in unworn condition with attached tags and packaging. HAVEN will not accept any returned merchandise without prior written communication and valid Return Authorization Number&sup1;. Upon inspection and approval, Exchange or Store Credit will be provided, No Refunds. All sale items, discounted and promotional merchandise, including any discount/promo codes used are FINAL SALE and are ineligible to be returned or exchanged. HAVEN does not accept or assume any responsibility for loss of or damage to returned goods whilst in transit from the customer. It is therefore strongly recommended customers use an appropriate carrier with a tracking or trace system.</p><p>All charges incurred as the result of an exchange or return (ie. shipping, duties, and taxes) are the customer&rsquo;s responsibility. In the case of an exchange the customer will be required to pay an additional re-shipping fee.</p><p>It is the customer&rsquo;s responsibility to ensure the accuracy and correctness of the shipment, as well as the responsibility to oversee the product(s) are packaged and delivered in tact, unworn and in original purchased condition (with all tags still attached). If any matters of liability arise, the matter will be dealt with and settled between the seller and the customer directly. The terms and conditions of the respective seller will apply.</p>',

@@ -47,6 +47,7 @@ features[variable][] = pathauto_taxonomy_term_shopify_brands_pattern
 features[variable][] = pathauto_taxonomy_term_shopify_categories_pattern
 features[variable][] = pathauto_taxonomy_term_shopify_licences_pattern
 features[variable][] = pathauto_taxonomy_term_shopify_scales_pattern
+features[variable][] = rr_config
 features[variable][] = shopify_enhancements_returns
 features[variable][] = shopify_enhancements_shipping
 features[views_view][] = preorder_products

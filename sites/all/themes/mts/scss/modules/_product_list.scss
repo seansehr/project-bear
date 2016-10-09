@@ -2,9 +2,6 @@ $info-gutter: 3px;
 
 .products_list {
   @include clearfix;
-  font-size: rem-calc(13);
-  font-weight: $font-weight-light;
-  line-height: 1.7rem;
   margin-left: -($column-gutter / 2);
   margin-top: 15px;
 }
@@ -12,6 +9,9 @@ $info-gutter: 3px;
 .product_thumb {
   display: block;
   float: left;
+  font-size: rem-calc(13);
+  font-weight: $font-weight-light;
+  line-height: 1.7rem;
   margin-bottom: 5px;
   padding-left: $column-gutter / 2;
   width: 25%;

@@ -174,6 +174,63 @@ function shopify_enhancements_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'shopify_product-shopify_product-shopify_product_images'.
+  $field_instances['shopify_product-shopify_product-shopify_product_images'] = array(
+    'bundle' => 'shopify_product',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'flexslider_fields',
+        'settings' => array(
+          'caption' => 0,
+          'image_style' => '',
+          'optionset' => 'product',
+        ),
+        'type' => 'flexslider',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => 'product_list',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'shopify_product',
+    'field_name' => 'shopify_product_images',
+    'label' => 'Shopify Product Images',
+    'required' => FALSE,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'image',
+      'settings' => array(
+        'image_link' => '',
+        'image_style' => 'thumbnail',
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 0,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-shopify_brands-field_brand_image'.
   $field_instances['taxonomy_term-shopify_brands-field_brand_image'] = array(
     'bundle' => 'shopify_brands',
@@ -293,6 +350,7 @@ function shopify_enhancements_field_default_field_instances() {
   t('Shopify Brand Reference');
   t('Shopify Category Reference');
   t('Shopify Licence Reference');
+  t('Shopify Product Images');
   t('Shopify Scale Reference');
 
   return $field_instances;

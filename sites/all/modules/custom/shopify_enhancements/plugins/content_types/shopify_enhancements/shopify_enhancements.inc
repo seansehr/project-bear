@@ -197,7 +197,7 @@ function _shopify_enhancements_format_product($product) {
           'path'=> $image['uri'],
           'alt'=> $image['alt'],
           'title'=> $image['title'],
-          'style_name' => 'large',
+          'style_name' => 'product_list',
           )
         );
       }

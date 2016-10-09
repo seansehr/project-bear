@@ -115,7 +115,7 @@
           var product = products.filter(function (product) {
             return product.product_id == shopifyCart.lineItems[index].product_id;
           })[0];
-          var lineItem = $.extend({}, product, shopifyCart.lineItems[index]);
+          var lineItem = $.extend({}, shopifyCart.lineItems[index], product);
           lineItems.push(lineItem);
         }
         self.cartUi = Drupal.shopify_enhancements.createCart(lineItems, currency, 'cart');
@@ -162,7 +162,7 @@
         deferred.resolve(cache);
       }
       else {
-        $.get('/shopify_product.json?variant_id=0&product_id=' + pid).then(function(data) {
+        $.get('/shopify_product.json?image_style=product_list&variant_id=0&product_id=' + pid).then(function(data) {
           if (data.list.length) {
             var product = self.cacheProduct(data.list[0]);
             deferred.resolve(product);

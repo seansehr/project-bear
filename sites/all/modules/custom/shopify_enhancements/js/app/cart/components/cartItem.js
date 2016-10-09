@@ -19,8 +19,7 @@ class CartItem extends React.Component {
     return (
       <div className="cart__product">
         <div className="cart__col--left">
-          <div className="cart__image">
-            <img src={product.image.src} />
+          <div className="cart__image" dangerouslySetInnerHTML={{__html: product.image}}>
           </div>
         </div>
         <div className="cart__col--mid">

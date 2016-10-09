@@ -423,6 +423,16 @@ function shopify_enhancements_update_taxonomy($vocab, $tax_name) {
 }
 
 /**
+ * Implements hook_restws_meta_controls_alter.
+ *
+ * @param array $controls
+ *   A list of allowed meta controlers
+ */
+function shopify_enhancements_restws_meta_controls_alter(&$controls) {
+  $controls['image_style'] = 'image_style';
+}
+
+/**
  * Alter the outgoing response.
  *
  * related support issue https://drupal.org/node/2024603
@@ -471,8 +481,9 @@ function shopify_enhancements_restsw_process_entity(&$entity) {
 
   if (isset($entity['variant_id']) && $entity['variant_id'] == 0) {
     $product = shopify_product_load_single($entity['product_id']);
-    $alias = drupal_get_path_alias(entity_uri('shopify_product', $product));
-    $entity['url'] = $alias['path'];
+    $path = entity_uri('shopify_product', $product);
+    $alias = drupal_get_path_alias($path['path']);
+    $entity['url'] = $alias;
     foreach ($product->variants as $variant) {
       if (entity_access('view', 'shopify_product', $variant)) {
         // create a meta wrapper to act on for entity
@@ -517,12 +528,13 @@ function shopify_enhancements_attach_field_reference(&$field) {
     if ($field['resource'] == 'file') {
       $query = drupal_get_query_parameters();
       $image_style = isset($query['image_style']) ? $query['image_style'] : 'medium';
-      $eary['url'] = theme('image', array(
+      $eary['url'] = theme('image_style', array(
         'path' => $entity->uri,
         'height' => $entity->height,
         'width' => $entity->width,
         'alt' => $wrapper->field_file_image_alt_text->value(),
         'title' => $wrapper->field_file_image_title_text->value(),
+        'style_name' => $image_style,
       ));
     }
     // add values based on wrapper passing correctly

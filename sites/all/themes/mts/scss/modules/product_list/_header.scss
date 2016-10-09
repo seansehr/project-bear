@@ -4,11 +4,23 @@
 }
 
 .product-list__categories {
-  @extend %space-around;
-  float: left;
+  @include space-around;
+  display: inline-flex;
   // Corisponds to the value in .product-list__sort
   padding: 8px 0 12px;
-  width: calc(100% - 100px);
+  width: calc(100% - 200px);
+}
+
+.product-list__category--size {
+  @extend .product-list__category;
+  @include filter-status;
+  border-right: $border;
+  display: inline-block;
+  margin-top: 2px;
+  // Corisponds to the value in .product-list__categories
+  padding: 6px 0 10px;
+  text-align: center;
+  width: 100px;
 }
 
 .product-list__sort {

@@ -7,13 +7,18 @@ class FilterList extends React.Component {
   render() {
     return (
       <div className="product-list__header clearfix">
-        <div  className="product-list__categories">
+        <Category key='size' value='size' className="product-list__category--size">
+          <span>{this.props.categories['size'].name}</span>
+        </Category>
+        <div className="product-list__categories">
           {objectMap(this.props.categories, (key, index) => {
-            return (
-              <Category key={key} value={key} className="product-list__category">
-                <span>{this.props.categories[key].name}</span>
-              </Category>
-            );
+            if (key !== 'size') {
+              return (
+                <Category key={key} value={key} className="product-list__category">
+                  <span>{this.props.categories[key].name}</span>
+                </Category>
+              );
+            }
           })}
         </div>
         <Link className="product-list__sort" active={this.props.sortOpened} onClick={this.props.sortOnClick}>

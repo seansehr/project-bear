@@ -103,7 +103,7 @@
 
       currency = currency || Drupal.settings.shopify_enhancements.activeCurrency;
 
-      sessionStorage.setItem('cartid', shopifyCart.id);
+      localStorage.setItem('cartid', shopifyCart.id);
       var defers = shopifyCart.lineItems.map(function (lineItem) {
         return self.fetchProduct(lineItem.product_id);
       });
@@ -221,7 +221,7 @@
       if (context == document) {
         self = this;
         self.$cartCount = $('#cart-count');
-        self.cartID = sessionStorage.getItem('cartid');
+        self.cartID = localStorage.getItem('cartid');
 
         if (self.cartID) {
           cartPromise = Drupal.shopify_enhancements.client.fetchCart(self.cartID);

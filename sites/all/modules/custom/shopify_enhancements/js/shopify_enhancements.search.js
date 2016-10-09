@@ -6,20 +6,21 @@
   Drupal.behaviors.shopify_enhancements_search = {
     attach: function (context, settings) {
       if (context == document) {
-        var $form = $('.block-shopify-enhancements-product-search form'),
+        var $block = $('.block-shopify-enhancements-product-search'),
+            $form = $('form', $block),
             $submit = $('#search-button', $form),
             $input = $('.form-item-term input');
 
         $submit.on('click', function (event) {
-          if (!$form.hasClass('opened')) {
-            $form.addClass('opened');
+          if (!$block.hasClass('opened')) {
+            $block.addClass('opened');
             $input.focus();
           }
           else if ($input.val().length) {
             $form.submit();
           }
           else {
-            $form.removeClass('opened');
+            $block.removeClass('opened');
           }
         });
       }

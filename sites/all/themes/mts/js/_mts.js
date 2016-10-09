@@ -54,6 +54,7 @@ function debounce(func, wait, immediate) {
           handler: function (direction) {
             if (direction === 'down') {
               topBarHide = true;
+              $backToTop.addClass('visible');
             }
             else {
               $backToTop.removeClass('visible');
@@ -68,12 +69,10 @@ function debounce(func, wait, immediate) {
             var st = $(this).scrollTop();
             if (topBarHide) {
               if (st > lastScrollTop) {
-                $backToTop.removeClass('visible');
                 $topBar.removeClass('visible');
                 $header.removeClass('menu-visible');
               }
               else {
-                $backToTop.addClass('visible');
                 $topBar.addClass('visible');
                 $header.addClass('menu-visible');
               }

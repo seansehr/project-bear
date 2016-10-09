@@ -1,4 +1,5 @@
 .block-shopify-enhancements-product-search {
+  background: $white;
   float: right;
   line-height: 1;
   margin-right: 20px;
@@ -28,9 +29,12 @@
     padding-left: 15px;
   }
 
-  .opened {
+  &.opened {
+    width: calc(100% - 160px);
+
     .form-item-term {
-      width: calc(100% - 50px);
+      max-width: 75%;
+      width: 300px;
     }
   }
 }

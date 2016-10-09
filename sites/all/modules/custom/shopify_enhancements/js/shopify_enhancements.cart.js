@@ -37,7 +37,7 @@
           var lineItem = self.cart.lineItems.filter(function (item) {
             return item.variant_id == variant.id;
           })[0];
-          self.cartAddPopup($.extend({}, siteProduct, lineItem));
+          self.cartAddPopup($.extend({}, lineItem, siteProduct));
         });
       });
     },

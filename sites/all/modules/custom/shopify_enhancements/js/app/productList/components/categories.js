@@ -5,11 +5,13 @@ import Link from '../../helpers/components/link'
 
 class FilterList extends React.Component {
   render() {
+    let size = false
+    if (typeof this.props.categories['size'] === 'object') {
+      size = <Category key='size' value='size' className="product-list__category--size"><span>{this.props.categories['size'].name}</span></Category>
+    }
     return (
       <div className="product-list__header clearfix">
-        <Category key='size' value='size' className="product-list__category--size">
-          <span>{this.props.categories['size'].name}</span>
-        </Category>
+      {size}
         <div className="product-list__categories">
           {objectMap(this.props.categories, (key, index) => {
             if (key !== 'size') {

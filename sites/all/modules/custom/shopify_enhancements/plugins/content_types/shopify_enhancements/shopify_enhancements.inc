@@ -204,7 +204,10 @@ function _shopify_enhancements_format_product($product) {
       $product->{$key} = $images;
     }
     else {
-      $product->{$key} = $wrapper->{$key}->value();
+      $value = $wrapper->{$key}->value(array('decode' => TRUE));
+      // TODO: Figure out a better way of handling recursion
+      unset($value->panelizer);
+      $product->{$key} = $value;
     }
   }
   if (!$product->variant_id && !empty($product->variants)) {

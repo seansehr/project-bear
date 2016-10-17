@@ -2,6 +2,10 @@
   font-weight: $font-weight-bold;
   text-align: right;
 
+  &.empty {
+    display: none;
+  }
+
   h3 {
     display: none;
   }

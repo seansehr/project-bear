@@ -3,6 +3,7 @@ import FilterComp from '../components/filter'
 import { getTagFilters } from '../selectors'
 
 const mapStateToProps = (state) => {
+  let filters = getTagFilters(state);
   return {
     filterFunction: (product, filter, excludes) => {
       if (excludes.indexOf('tag') !== -1) return true

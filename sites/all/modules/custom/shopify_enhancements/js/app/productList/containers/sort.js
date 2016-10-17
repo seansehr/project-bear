@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import { setSort } from '../actions'
 import SortComp from '../components/sort'
+import { getStatusFilters } from '../selectors'
+import TagFilters from '../containers/tagFilters'
+import { getTagFilters } from '../selectors'
 
 const mapStateToProps = (state) => {
   return {
@@ -34,7 +37,8 @@ const mapStateToProps = (state) => {
           'desc': 'Z to A',
         }
       }
-    ]
+    ],
+    tagFilters: getTagFilters(state)
   }
 }
 

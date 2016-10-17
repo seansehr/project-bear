@@ -26,6 +26,16 @@
 .cart-modal {
   background: rgba($silver, 0.8);
   height: 100%;
+  left: 50%;
+  right: -50%;
+  opacity: 1 !important;
+  top: 0;
+  transition: all .5s;
+
+  &.open {
+    left: 0;
+    right: 0;
+  }
 }
 
 @media #{$large-up} {
@@ -63,8 +73,9 @@
 .cart__empty {
   @include flex-container;
   align-items: center;
+  border-bottom: $border;
   flex-grow: 1;
-  font-size: rem-calc(30);
+  font-size: rem-calc(28);
   justify-content: center;
 }
 
@@ -152,7 +163,7 @@
   overflow: hidden;
   position: absolute;
   right: -15px;
-  top: 30px;
+  top: 32px;
   transition: opacity 0.5s;
   width: 38vw;
   z-index: 100;

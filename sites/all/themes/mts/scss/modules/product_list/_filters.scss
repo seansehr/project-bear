@@ -7,7 +7,16 @@
 
 .product-list__filter {
   position: relative;
-  @include filter-active
+  @include filter-active;
+  padding: 0 10px;
+
+  &:first-of-type {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
 }
 
 .product-list__filter-group {
@@ -19,6 +28,7 @@
 
   &.overflow {
     @extend %space-around;
+    flex-wrap: wrap;
     width: 100%;
 
     h3 {

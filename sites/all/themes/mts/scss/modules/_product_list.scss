@@ -14,7 +14,7 @@ $info-gutter: 3px;
   line-height: 1.7rem;
   margin-bottom: 5px;
   padding-left: $column-gutter / 2;
-  width: 25%;
+  width: 50%;
 
   &__vendor,
   &__status,
@@ -120,4 +120,10 @@ $info-gutter: 3px;
 .price--compare {
   color: $sale-red;
   display: inline;
+}
+
+@media #{$medium-up} {
+  .product_thumb {
+    width: 25%;
+  }
 }

@@ -78,7 +78,7 @@
       </a>
       <div class="product_thumb__actions">
         <a role="button" href="#" class="js-preview-atc specs" data-variant-id="<?php print $primary_variant; ?>" data-product-id="<?php print $elements['#entity']->product_id; ?>">
-          <i class="fa fa-cart-plus" aria-hidden="true"></i>
+          <i class="icon icon-cart-add" aria-hidden="true"></i>
           <span class="show-for-sr">Add <?php print $title ?> to Cart</span>
         </a>
       </div>

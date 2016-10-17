@@ -10,6 +10,10 @@ class Sort extends React.Component {
       'product-list__sorts': true,
       'closed': !this.props.open
     });
+    let tagFilterClassName = classNames({
+      'product-list__filter--tags': true,
+      'empty': !this.props.tagFilters.length
+    });
 
     return (
       <div className={sortClassName}>
@@ -26,9 +30,7 @@ class Sort extends React.Component {
             </div>
           );
         })}
-        <div className="product-list__filter--tags">
-          <TagFilters />
-        </div>
+        <div className={tagFilterClassName}><TagFilters /></div>
       </div>
     )
   }

@@ -1,35 +1,80 @@
 // Product List Header
 .product-list__header {
   border: $border;
+  padding: 5px 10px;
+
+  a {
+    clear: left;
+    display: block;
+    padding-bottom: 5px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  > a {
+    float: left;
+    width: 50%;
+  }
+
+  > div {
+    float: right;
+    width: 50%;
+  }
 }
 
-.product-list__categories {
-  @include space-around;
-  display: inline-flex;
-  // Corisponds to the value in .product-list__sort
-  padding: 8px 0 12px;
-  width: calc(100% - 200px);
-}
-
-.product-list__category--size {
-  @extend .product-list__category;
-  @include filter-status;
-  border-right: $border;
-  display: inline-block;
-  margin-top: 2px;
-  // Corisponds to the value in .product-list__categories
-  padding: 6px 0 10px;
-  text-align: center;
-  width: 100px;
-}
-
+.product-list__category--size,
 .product-list__sort {
   @include filter-status;
-  border-left: $border;
-  display: inline-block;
-  margin-top: 2px;
-  // Corisponds to the value in .product-list__categories
-  padding: 6px 0 10px;
-  text-align: center;
-  width: 100px;
+}
+
+@media #{$medium-up} {
+  .product-list__header {
+    padding: 0;
+
+    a {
+      clear: none;
+      float: none;
+      padding-bottom: 0;
+      width: auto;
+    }
+
+    > div {
+      float: none;
+      width: 50%;
+    }
+
+    .product-list__category--size {
+      border-right: $border;
+      display: inline-block;
+      margin-top: 2px;
+      // Corisponds to the value in .product-list__categories
+      padding: 6px 0 10px;
+      text-align: center;
+      width: 100px;
+    }
+
+    .product-list__sort {
+      border-left: $border;
+      display: inline-block;
+      margin-top: 2px;
+      // Corisponds to the value in .product-list__categories
+      padding: 6px 0 10px !important; // Override :list-child above.
+      text-align: center;
+      width: 100px;
+    }
+
+    .product-list__categories {
+      @include space-around;
+      display: inline-flex;
+      // Corisponds to the value in .product-list__sort
+      padding: 8px 0 12px;
+      width: calc(100% - 100px);
+
+      .product-list__category--size + & {
+        width: calc(100% - 200px);
+      }
+    }
+  }
 }

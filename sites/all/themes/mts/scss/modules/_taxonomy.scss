@@ -47,22 +47,10 @@
   }
 
   .field-name-field-brand-image {
-    @include grid-column(
-      $columns: 4,
-      $collapse: true
-    );
+    float: left;
 
     img {
       padding-right: $column-gutter;
     }
-  }
-
-  .taxonomy-term-description {
-    @include grid-column(
-      $columns: 8,
-      $collapse: true
-    );
-
-    margin-top: 0;
   }
 }

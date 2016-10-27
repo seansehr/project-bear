@@ -71,10 +71,10 @@
       // Corisponds to the value in .product-list__sort
       padding: 8px 0 12px;
       width: calc(100% - 100px);
+    }
 
-      .product-list__category--size + & {
-        width: calc(100% - 200px);
-      }
+    .product-list__category--size + .product-list__categories {
+      width: calc(100% - 200px);
     }
   }
 }

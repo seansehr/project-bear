@@ -5,9 +5,14 @@
 
 .active-filter__option {
   @include filter-active;
-  margin-left: 10px;
+  margin-left: 5px;
+
+  & + & {
+    margin-left: 15px;
+  }
 }
 
 .active-filter__clear-filter {
+  margin-right: 5px;
   text-decoration: underline;
 }

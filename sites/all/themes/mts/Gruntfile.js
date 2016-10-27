@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
+  grunt.loadNpmTasks('grunt-postcss');
 
   var theme_name = 'mts';
   var base_theme_path = '../zurb_foundation';
@@ -48,6 +49,15 @@ module.exports = function(grunt) {
   grunt.config('env', grunt.option('env') || process.env.GRUNT_ENV || 'development');
   grunt.config('compress', grunt.config('env') === 'production');
 
+  var postCssPropcessors = [
+    require('pixrem')(), // add fallbacks for rem units
+    require('autoprefixer')({browsers: 'last 2 versions'}) // add vendor prefixes
+  ];
+
+  if (grunt.config('compress')) {
+    postCssPropcessors.push(require('cssnano')()); // minify the result
+  }
+
   grunt.initConfig({
     global_vars: global_vars,
     pkg: grunt.file.readJSON('package.json'),
@@ -62,6 +72,16 @@ module.exports = function(grunt) {
         files: {
           '<%= global_vars.theme_css %>/<%= global_vars.theme_name %>.css': '<%= global_vars.theme_scss %>/<%= global_vars.theme_name %>.scss'
         }
+      }
+    },
+
+    postcss: {
+      options: {
+        map: true, // inline sourcemaps
+        processors: postCssPropcessors
+      },
+      dist: {
+        src: '<%= global_vars.theme_css %>/<%= global_vars.theme_name %>.css'
       }
     },
 
@@ -93,7 +113,7 @@ module.exports = function(grunt) {
 
       sass: {
         files: '<%= global_vars.theme_scss %>/**/*.scss',
-        tasks: ['sass'],
+        tasks: ['sass', 'postcss'],
         options: {
           livereload: 35728
         }

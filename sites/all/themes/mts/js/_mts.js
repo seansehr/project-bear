@@ -44,7 +44,7 @@ function debounce(func, wait, immediate) {
         var $topBar = $('.top-bar-fixed');
         var $header = $('.l-header-region');
         var $backToTop = $('.js-back-to-top');
-        $('.l-header-region-wrapper').height($header.outerHeight());
+        // $('.l-header-region-wrapper').height($header.outerHeight());
 
         var topbarWaypoint = new Waypoint({
           element: $('.top-bar-wrapper')[0],
@@ -75,6 +75,7 @@ function debounce(func, wait, immediate) {
               else {
                 $topBar.addClass('visible');
                 $header.addClass('menu-visible');
+                $backToTop.removeClass('visible');
               }
             }
             lastScrollTop = st;
@@ -98,7 +99,47 @@ function debounce(func, wait, immediate) {
             $brandToggle.toggleClass('active');
           }
         });
-      }
+
+        var interval = false;
+        var timeout = false;
+        var marquee = function() {
+          if ($('body').width() > 641) {
+            var $siteMessage = $('.block-block-4', context);
+            var $siteMessageChildren = $siteMessage.children();
+            var siteMessageWidth = 0;
+            $siteMessage.off();
+            $siteMessageChildren.each(function () {
+              siteMessageWidth += $(this).width();
+            });
+            if (siteMessageWidth > $siteMessage.width()) {
+              var $firstChild = $siteMessageChildren.first();
+              if (!interval && !timeout) {
+                timeout = window.setTimeout(function () {
+                  interval = window.setInterval(function () {
+                    $firstChild.css('margin-left', '-=1');
+                    if (parseInt($firstChild.css('margin-left'), 10) < (siteMessageWidth * -1)) {
+                      console.log(siteMessageWidth);
+                      $firstChild.css('margin-left', $siteMessage.width());
+                    }
+                  }, 22);
+                }, 3000);
+              }
+            }
+          }
+          else {
+            clearInterval(interval);
+            clearTimeout(timeout);
+            interval = false;
+            timeout = false;
+            $('.block-block-4', context).children().first().css('margin-left', '0');
+            $('.block-block-4', context).off().on('click', function (event) {
+              $(this).toggleClass('hide-message');
+            });
+          }
+        };
+        $(window).on('resize', marquee);
+        marquee();
+      } // end context === document
 
       if (typeof Drupal.settings.flexslider !== 'undefined') {
         var start = function(event) {

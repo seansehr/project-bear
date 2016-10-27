@@ -81,7 +81,7 @@
 
 // Filter status.
 // Some filters only use the active state.
-@mixin filter-active($size: 27, $active-class: '.active') {
+@mixin filter-active($size: 23, $active-class: '.active') {
   line-height: rem-calc($size);
 
   "&#{$active-class}:after" {
@@ -95,7 +95,7 @@
   }
 }
 
-@mixin filter-status($size: 27) {
+@mixin filter-status($size: 23) {
   @include filter-active($size, '');
 
   &:after {

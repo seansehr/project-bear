@@ -8,11 +8,49 @@
   float: right;
 }
 
-// Site message
 .block-block-4 {
-  position: absolute;
-  text-align: center;
-  width: 80%;
-  margin: 0 10%;
-  z-index: -1;
+  clear: both;
+  cursor: pointer;
+  max-height: 1000px;
+  overflow: hidden;
+  transition: 1s max-height;
+
+  &:before {
+    content: 'Hide Message';
+    display: 'block';
+    left: calc(50% - 48px);
+    position: absolute;
+    top: 0;
+  }
+
+  &.hide-message {
+    max-height: 0;
+
+    &:before {
+      content: 'Show Message';
+    }
+  }
+}
+
+@media #{$medium-up} {
+  // Site message
+  .block-block-4 {
+    cursor: normal;
+    position: absolute;
+    text-align: center;
+    height: 30px;
+    width: 80%;
+    overflow: hidden;
+    margin: 0 10%;
+    white-space: nowrap;
+    z-index: -1;
+
+    &:before {
+      display: none;
+    }
+
+    > * {
+      display: inline;
+    }
+  }
 }

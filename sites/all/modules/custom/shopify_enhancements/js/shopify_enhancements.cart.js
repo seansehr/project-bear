@@ -188,13 +188,13 @@
       if (product.mapped === true) {
         return product;
       }
-      var price = product.variants[0].price;
+      var price = product.price;
       var size = product.shopify_product_metafields.filter(function (metafield) {
-        return metafield.shopify_metafield.metafield_key == 'size';
+        return metafield.metafield_key == 'size';
       }).map(function (metafield) {
-        return metafield.shopify_metafield.value;
+        return metafield.value;
       });
-      var image = product.shopify_product_images.length ? product.shopify_product_images[0].file.url : null;
+      var image = product.shopify_product_images.length ? product.shopify_product_images[0] : null;
       return {
         brand: product.vendor,
         image: image,

@@ -7,6 +7,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { fieldValue } from './helpers/fields'
 
+import Product from './productList/components/product'
 import ProductList from './productList/components'
 import ProductReducers from './productList/reducers'
 import { Cart, CartItem } from './cart'
@@ -14,14 +15,14 @@ import { Cart, CartItem } from './cart'
 const formatProduct = function (product) {
   let variantProps = ['compare_at_price', 'price'];
 
-  if (product.variants.constructor === Array && typeof product.variants[0] === 'object') {
-    let primaryVariant = product.variants[0];
-    variantProps.forEach(function (prop, index) {
-      if (!product[prop] && primaryVariant[prop]) {
-        product[prop] = primaryVariant[prop];
-      }
-    });
-  }
+  // if (product.variants.constructor === Array && typeof product.variants[0] === 'object') {
+  //   let primaryVariant = product.variants[0];
+  //   variantProps.forEach(function (prop, index) {
+  //     if (!product[prop] && primaryVariant[prop]) {
+  //       product[prop] = primaryVariant[prop];
+  //     }
+  //   });
+  // }
 
   let images = product.shopify_product_images;
   product.image = images[0] ? images[0] : '';
@@ -39,6 +40,15 @@ const formatProduct = function (product) {
 window.Drupal.shopify_enhancements = window.Drupal.shopify_enhancements || {};
 window.Drupal.shopify_enhancements.createCart = Cart;
 window.Drupal.shopify_enhancements.createCartItem = CartItem;
+
+window.Drupal.shopify_enhancements.createProduct = (product, currency, container) => {
+  formatProduct(product);
+  render(
+    <Product data={product} currency={currency} />,
+    container
+  );
+}
+
 window.Drupal.shopify_enhancements.createFilter = (products, container, categories = {}, sortOrders = Drupal.settings.shopify_enhancements.sortOrders) => {
   if (!products) {
     console.error('No products')

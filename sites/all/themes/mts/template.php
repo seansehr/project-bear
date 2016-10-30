@@ -25,9 +25,129 @@
 function mts_links__topbar_main_menu($variables) {
   // We need to fetch the links ourselves because we need the entire tree.
   $links = menu_tree_output(menu_tree_all_data(variable_get('menu_main_links_source', 'main-menu')));
-  $output = _zurb_foundation_links($links);
+  $output = _mts_links($links);
 
   return '<ul' . drupal_attributes($variables['attributes']) . '>' . $output . '</ul>';
+}
+
+/**
+ * Helper function to output a Drupal menu as a Foundation Top Bar.
+ *
+ * @links array
+ *   An array of menu links.
+ *
+ * @return string
+ *   A rendered list of links, with no <ul> or <ol> wrapper.
+ *
+ * @see zurb_foundation_links__system_main_menu()
+ * @see zurb_foundation_links__system_secondary_menu()
+ */
+function _mts_links($links) {
+  $output = '';
+
+  foreach (element_children($links) as $key) {
+    $output .= _mts_render_link($links[$key]);
+  }
+
+  return $output;
+}
+
+/**
+ * Helper function to recursively render sub-menus.
+ *
+ * @link array
+ *   An array of menu links.
+ *
+ * @return string
+ *   A rendered list of links, with no <ul> or <ol> wrapper.
+ *
+ * @see _mts_links()
+ */
+function _mts_render_link($link) {
+  $output = '';
+
+  if ($link['#original_link']['module'] == 'taxonomy_menu') {
+    $term = menu_get_object('taxonomy_term', 2, $link['#original_link']['link_path']);
+    $fields = array(
+      'shopify_categories' => 'field_shopify_category_reference',
+      'shopify_brands' => 'field_shopify_brand_reference',
+      'shopify_licences' => 'field_shopify_licence_reference',
+      'shopify_scales' => 'field_shopify_scale_reference',
+    );
+    if ($field = $fields[$term->vocabulary_machine_name]) {
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', 'shopify_product')
+        // get only nodes that are 'published'
+        ->propertyCondition('variant_id', 0)
+        // replace field_food_menu with field_TAXONOMY_NAME
+        // replace 2 with the taxonomy ID (tid) you're wanting
+        ->fieldCondition($field, 'tid', $term->tid)
+        ->propertyOrderBy('updated_at', 'DESC')
+        ->range(0, 3);
+      $result = $query->execute();
+      // dpm($result, '$result');
+      if (!empty($result['shopify_product'])) {
+        $ids = array_keys($result['shopify_product']);
+        $settings = array(
+          'mts' => array(
+            'ids' => $ids,
+          ),
+        );
+        drupal_add_js($settings, 'setting');
+        $link['#attributes']['data-products'] = implode($ids, ',');
+        $link['#attributes']['class'][] = 'product-dropdown';
+      }
+    }
+  }
+
+  // This is a duplicate link that won't get the dropdown class and will only
+  // show up in small-screen.
+  $small_link = $link;
+
+  if (!empty($link['#below'])) {
+    $link['#attributes']['class'][] = 'has-dropdown';
+  }
+
+  // Render top level and make sure we have an actual link.
+  if (!empty($link['#href'])) {
+    $rendered_link = NULL;
+
+    if (!isset($rendered_link)) {
+      $rendered_link = theme('zurb_foundation_menu_link', array('link' => $link));
+    }
+
+    // Test for localization options and apply them if they exist.
+    if (isset($link['#localized_options']['attributes']) && is_array($link['#localized_options']['attributes'])) {
+      $link['#attributes'] = array_merge_recursive($link['#attributes'], $link['#localized_options']['attributes']);
+    }
+    $output .= '<li' . drupal_attributes($link['#attributes']) . '>' . $rendered_link;
+
+    if (!empty($link['#below'])) {
+      $output .= '<div class="dropdown">';
+      $sub_menu = '';
+      // Build sub nav recursively.
+      foreach ($link['#below'] as $sub_link) {
+        if (!empty($sub_link['#href'])) {
+          $sub_menu .= _mts_render_link($sub_link);
+        }
+      }
+
+      $output .= '<ul class="dropdown-inner clearfix">' . $sub_menu . '</ul>';
+
+      if ($link['#original_link']['plid'] == 0) {
+        $container = '<div class="product-container"></div>';
+        $output .= "<div class='js-dropdown-products'>$container $container $container</div>";
+      }
+      $output .= '</div>';
+    }
+    else {
+
+    }
+
+    $output .= '</li>';
+  }
+
+  return $output;
 }
 
 /**

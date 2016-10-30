@@ -139,7 +139,25 @@ function debounce(func, wait, immediate) {
         };
         $(window).on('resize', marquee);
         marquee();
+
+        getMenuProducts();
       } // end context === document
+
+      $(context).on('mouseenter', '.product-dropdown', function () {
+        var $this = $(this);
+        var $productContainers = $this.parents('.dropdown').find('.js-dropdown-products .product-container');
+        var productIds = $this.attr('data-products').split(',');
+        $productContainers.each(function (i) {
+          var productId = productIds[i];
+          if (productId && Drupal.settings.mts.products && Drupal.settings.mts.products[productId]) {
+            var product = Drupal.settings.mts.products[productId];
+            Drupal.shopify_enhancements.createProduct(Drupal.settings.mts.products[productId], Drupal.settings.shopify_enhancements.activeCurrency, $productContainers.get(i));
+          }
+          else {
+            $productContainers.get(i).innerHTML = '';
+          }
+        });
+      });
 
       if (typeof Drupal.settings.flexslider !== 'undefined') {
         var start = function(event) {

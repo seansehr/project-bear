@@ -53,6 +53,8 @@ $admin-menu-height: 29px;
   }
 }
 
+
+
 @media #{$topbar-media-query} {
   .top-bar-section {
     border-bottom: $border;
@@ -68,6 +70,10 @@ $admin-menu-height: 29px;
       }
     }
 
+    li.main-menu__home {
+      background: $topbar-bg;
+    }
+
     a.main-menu__home {
       background-image: url(../logo.png) !important;
       background-position: center !important;
@@ -81,12 +87,75 @@ $admin-menu-height: 29px;
       margin-top: 7px;
     }
 
-    ul.dropdown li {
-      > a {
-        font-size: rem-calc(13);
+    .js-dropdown-products {
+      background: $topbar-dropdown-bg;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: -1;
+    }
+
+    .product_thumb {
+      float: right;
+      padding: 15px 30px 15px 0;
+      width: 24%;
+
+      & + & {
+        margin-left: 0;
+      }
+
+      a {
+        background: none !important;
+        line-height: inherit;
+        padding: 0 !important;
       }
     }
   }
+
+  // Things specific to the first level dropdown.
+  .main-nav > .has-dropdown > .dropdown {
+    border-top: $border;
+    background: $topbar-dropdown-bg;
+    width: 100vw;
+  }
+
+  .top-bar-section .has-dropdown {
+    position: inherit;
+
+    > a {
+      position: relative;
+    }
+  }
+
+  // Override the Foundation settings.
+  .top-bar-section .has-dropdown.hover > .dropdown,
+  .top-bar-section .has-dropdown.not-click:hover > .dropdown {
+    .dropdown-inner {
+      background: $topbar-dropdown-bg;
+      border-right: $border;
+      display: block;
+      height: 100% !important;
+      margin: 5px 0;
+      width: 25vw;
+    }
+  }
+
+  .top-bar-section .has-dropdown.hover > .dropdown .dropdown,
+  .top-bar-section .has-dropdown.not-click:hover > .dropdown .dropdown {
+    height: calc(100% - 10px);
+    left: 25vw !important;
+    top: 0;
+  }
+
+  .top-bar-section .has-dropdown .dropdown li.has-dropdown > a:after {
+    content: '\f054';
+    font: normal normal normal 14px / 1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  // End override.
 
   .top-bar {
     .title-area {

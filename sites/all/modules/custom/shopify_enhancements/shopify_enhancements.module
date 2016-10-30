@@ -463,83 +463,54 @@ function shopify_enhancements_restws_response_alter(&$response, $function, $form
 }
 
 function shopify_enhancements_restsw_process_entity(&$entity) {
-  // allow for deep loading of resources
-  foreach ($entity as $key => &$val) {
-    // check for a single resource verses many
-    if (is_array($val)) {
-      if (isset($val[0])) {
-        // loop through items loading them in
-        foreach ($val as &$item) {
-          shopify_enhancements_attach_field_reference($item);
-        }
-      }
-      elseif (isset($val['id'])) {
-        shopify_enhancements_attach_field_reference($val);
-      }
-    }
-  }
-
   if (isset($entity['variant_id']) && $entity['variant_id'] == 0) {
-    $product = shopify_product_load_single($entity['product_id']);
-    $path = entity_uri('shopify_product', $product);
-    $alias = drupal_get_path_alias($path['path']);
-    $entity['url'] = $alias;
-    foreach ($product->variants as $variant) {
-      if (entity_access('view', 'shopify_product', $variant)) {
-        // create a meta wrapper to act on for entity
-        $wrapper = entity_metadata_wrapper('shopify_product', $variant);
-        // filter out these values
-        $wrap = restws_property_access_filter($wrapper);
-        $eary = (array) $variant;
-        foreach ($eary as $property => $value) {
-          // value needs to be removed as it didn't pass wrapper validation
-          if (!isset($wrap[$property])) {
-            unset($eary[$property]);
-          }
-        }
-        // add values based on wrapper passing correctly
-        $entity['variants'][] = $eary;
-      }
-    }
+    $ent_obj = entity_load('shopify_product', array($entity['id']));
+    $entity = _shopify_enhancements_format_product(array_shift(array_values($ent_obj)));
   }
 }
 
-function shopify_enhancements_attach_field_reference(&$field) {
-  if (isset($field['file'])) {
-    $field = $field['file'];
-  }
-  elseif (empty($field['id'])) {
-    return FALSE;
-  }
-  $entity = entity_load_single($field['resource'], $field['id']);
-  // ensure they can view this specific item
-  if (entity_access('view', $field['resource'], $entity)) {
-    // create a meta wrapper to act on for entity
-    $wrapper = entity_metadata_wrapper($field['resource'], $entity);
-    // filter out these values
-    $wrap = restws_property_access_filter($wrapper);
-    $eary = (array) $entity;
-    foreach ($eary as $property => $value) {
-      // value needs to be removed as it didn't pass wrapper validation
-      if (!isset($wrap[$property])) {
-        unset($eary[$property]);
+/**
+ * Get reference field values and embed them for React to consume.
+ *
+ * @param ShopifyProduct $product
+ *   The product to modify.
+ *
+ * @return ShopifyPorudct
+ */
+function _shopify_enhancements_format_product($product) {
+  $wrapper = entity_metadata_wrapper('shopify_product', $product);
+  $fields = field_info_instances('shopify_product', 'shopify_product');
+  foreach ($fields as $key => $settings) {
+    if (isset($settings['widget']['module']) && $settings['widget']['module'] == 'image') {
+      $images = array();
+      foreach ($wrapper->{$key}->value() as $index => $image) {
+        $images[$index] = theme('image_style', array(
+          'path'=> $image['uri'],
+          'alt'=> $image['alt'],
+          'title'=> $image['title'],
+          'style_name' => 'product_list',
+          )
+        );
       }
+      $product->{$key} = $images;
     }
-    if ($field['resource'] == 'file') {
-      $query = drupal_get_query_parameters();
-      $image_style = isset($query['image_style']) ? $query['image_style'] : 'medium';
-      $eary['url'] = theme('image_style', array(
-        'path' => $entity->uri,
-        'height' => $entity->height,
-        'width' => $entity->width,
-        'alt' => $wrapper->field_file_image_alt_text->value(),
-        'title' => $wrapper->field_file_image_title_text->value(),
-        'style_name' => $image_style,
-      ));
+    else {
+      $value = $wrapper->{$key}->value(array('decode' => TRUE));
+      // TODO: Figure out a better way of handling recursion
+      unset($value->panelizer);
+      $product->{$key} = $value;
     }
-    // add values based on wrapper passing correctly
-    $field[$field['resource']] = $eary;
   }
+  if (!$product->variant_id && !empty($product->variants)) {
+    reset($product->variants);
+    $variant = current($product->variants);
+    $product->price = $variant->price;
+    $product->compare_at_price = $variant->compare_at_price;
+  }
+  $path = entity_uri('shopify_product', $product);
+  $product->url = drupal_get_path_alias($path['path']);
+
+  return $product;
 }
 
 /**

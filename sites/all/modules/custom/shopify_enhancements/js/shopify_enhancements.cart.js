@@ -202,6 +202,7 @@
         price: price,
         product_id: product.product_id,
         scale: size.length ? size[0] : null,
+        tags: product.shopify_product_tags,
         title: product.title
       }
     },

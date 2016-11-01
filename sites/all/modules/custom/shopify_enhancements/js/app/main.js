@@ -15,15 +15,6 @@ import { Cart, CartItem } from './cart'
 const formatProduct = function (product) {
   let variantProps = ['compare_at_price', 'price'];
 
-  // if (product.variants.constructor === Array && typeof product.variants[0] === 'object') {
-  //   let primaryVariant = product.variants[0];
-  //   variantProps.forEach(function (prop, index) {
-  //     if (!product[prop] && primaryVariant[prop]) {
-  //       product[prop] = primaryVariant[prop];
-  //     }
-  //   });
-  // }
-
   let images = product.shopify_product_images;
   product.image = images[0] ? images[0] : '';
   product.hover_image = images[1] ? images[1] : '';

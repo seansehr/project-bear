@@ -208,15 +208,15 @@ function _zurb_foundation_render_link($link) {
     // ie: Dividers and Labels in the top bar. So let's make sure that we
     // render them the Foundation way.
     if (module_exists('special_menu_items')) {
-      // if ($link['#href'] === '<nolink>') {
-      //   $rendered_link = '<label>' . $link['#title'] . '</label>';
-      // }
-      // else {
-      //   if ($link['#href'] === '<separator>') {
-      //     $link['#attributes']['class'][] = 'divider';
-      //     $rendered_link = '';
-      //   }
-      // }
+      if ($link['#href'] === '<nolink>') {
+        $rendered_link = '<label>' . $link['#title'] . '</label>';
+      }
+      else {
+        if ($link['#href'] === '<separator>') {
+          $link['#attributes']['class'][] = 'divider';
+          $rendered_link = '';
+        }
+      }
     }
 
     if (!isset($rendered_link)) {

@@ -11,23 +11,23 @@
 .block-block-4 {
   clear: both;
   cursor: pointer;
-  max-height: 1000px;
+  max-height: 0;
   overflow: hidden;
   transition: 1s max-height;
 
   &:before {
-    content: 'Hide Message';
+    content: 'Show Message';
     display: 'block';
     left: calc(50% - 48px);
     position: absolute;
     top: 0;
   }
 
-  &.hide-message {
-    max-height: 0;
+  &.show-message {
+    max-height: 1000px;
 
     &:before {
-      content: 'Show Message';
+      content: 'Hide Message';
     }
   }
 }

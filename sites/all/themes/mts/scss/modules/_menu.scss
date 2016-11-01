@@ -31,20 +31,24 @@ $admin-menu-height: 29px;
       color: $sale-red;
     }
   }
+
+  // Nested to override Foundation.
+  .dropdown li.parent-link a {
+    display: none;
+  }
 }
 
 .l-header-region {
   background: $white;
-  border-bottom: $border;
   margin-bottom: 5px;
   padding: 5px $page-gutter;
   transition: top 0.3s;
 
   &.menu-visible {
-    top: $topbar-height + rem-calc(1);
+    top: $topbar-height;
 
     body.admin-menu & {
-      top: rem-calc($admin-menu-height) + $topbar-height + rem-calc(1);
+      top: rem-calc($admin-menu-height) + $topbar-height;
     }
   }
 
@@ -53,11 +57,8 @@ $admin-menu-height: 29px;
   }
 }
 
-
-
 @media #{$topbar-media-query} {
   .top-bar-section {
-    border-bottom: $border;
     float: none;
     padding: 0 (($column-gutter/2) + $page-gutter - $topbar-link-padding);
 
@@ -79,8 +80,6 @@ $admin-menu-height: 29px;
       background-position: center !important;
       background-repeat: no-repeat !important;
       background-size: contain !important;
-      border-left: $border;
-      border-right: $border;
       font-size: 0;
       height: 40px;
       width: 135px;
@@ -107,7 +106,7 @@ $admin-menu-height: 29px;
 
       a {
         background: none !important;
-        line-height: inherit;
+        line-height: 1.7rem !important;
         padding: 0 !important;
       }
     }
@@ -174,5 +173,9 @@ $admin-menu-height: 29px;
     body.admin-menu & {
       top: $admin-menu-height;
     }
+  }
+
+  .top-bar-section .has-dropdown > a {
+    padding-right: $topbar-link-padding !important;
   }
 }

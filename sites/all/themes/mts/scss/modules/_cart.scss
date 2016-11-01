@@ -104,9 +104,21 @@
 }
 
 .cart__col--right {
+  display: flex;
+  flex-direction: row;
   text-align: right;
   padding-right: ($column-gutter/2);
   flex-grow: 1;
+  width: 25%;
+
+  &__left {
+    flex-grow: 1;
+  }
+
+  &__right {
+    align-items: center;
+    display: flex;
+  }
 }
 
 .cart__remove {

@@ -133,12 +133,16 @@ function debounce(func, wait, immediate) {
             timeout = false;
             $('.block-block-4', context).children().first().css('margin-left', '0');
             $('.block-block-4', context).off().on('click', function (event) {
-              $(this).toggleClass('hide-message');
+              $(this).toggleClass('show-message');
             });
           }
         };
         $(window).on('resize', marquee);
         marquee();
+        if (!sessionStorage.getItem('siteMessage')) {
+          $('.block-block-4', context).toggleClass('show-message');
+          sessionStorage.setItem('siteMessage', 'true');
+        }
 
         getMenuProducts();
       } // end context === document

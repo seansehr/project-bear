@@ -88,17 +88,14 @@ $admin-menu-height: 29px;
 
     .js-dropdown-products {
       background: $topbar-dropdown-bg;
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
+      position: relative;
       z-index: -1;
     }
 
     .product_thumb {
       float: right;
       padding: 15px 30px 15px 0;
-      width: 24%;
+      width: 49%;
 
       & + & {
         margin-left: 0;
@@ -127,16 +124,37 @@ $admin-menu-height: 29px;
     }
   }
 
-  // Override the Foundation settings.
-  .top-bar-section .has-dropdown.hover > .dropdown,
-  .top-bar-section .has-dropdown.not-click:hover > .dropdown {
+
+  .has-dropdown {
     .dropdown-inner {
       background: $topbar-dropdown-bg;
       border-right: $border;
+      column-count: 2;
       display: block;
-      height: 100% !important;
+      flex-shrink: 0;
       margin: 5px 0;
-      width: 25vw;
+      width: 50vw;
+    }
+
+    &.has-grandchild .dropdown-inner {
+      column-count: 1;
+
+      > li {
+        border-right: $border;
+        float: none;
+        width: 50%;
+      }
+    }
+  }
+
+  // Override the Foundation settings.
+  .top-bar-section .has-dropdown.hover > .dropdown,
+  .top-bar-section .has-dropdown.not-click:hover > .dropdown {
+    display: flex;
+    flex-direction: row;
+
+    a {
+      line-height: 2.4;
     }
   }
 
@@ -144,13 +162,26 @@ $admin-menu-height: 29px;
   .top-bar-section .has-dropdown.not-click:hover > .dropdown .dropdown {
     height: calc(100% - 10px);
     left: 25vw !important;
+    min-width: 25vw;
     top: 0;
+
+    .dropdown-inner {
+      height: 100% !important;
+      column-count: 1;
+      width: 100%;
+
+      > li {
+        border: none;
+        width: 100%;
+      }
+    }
   }
 
   .top-bar-section .has-dropdown .dropdown li.has-dropdown > a:after {
     content: '\f054';
     font: normal normal normal 14px / 1 FontAwesome;
     font-size: inherit;
+    margin-top: -4px;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
   }
@@ -177,5 +208,13 @@ $admin-menu-height: 29px;
 
   .top-bar-section .has-dropdown > a {
     padding-right: $topbar-link-padding !important;
+  }
+}
+
+@media #{$large-up} {
+  .has-dropdown {
+    .dropdown-inner {
+      column-count: 3;
+    }
   }
 }

@@ -83,7 +83,7 @@ function _mts_render_link($link) {
         // replace 2 with the taxonomy ID (tid) you're wanting
         ->fieldCondition($field, 'tid', $term->tid)
         ->propertyOrderBy('updated_at', 'DESC')
-        ->range(0, 3);
+        ->range(0, 2);
       $result = $query->execute();
       // dpm($result, '$result');
       if (!empty($result['shopify_product'])) {
@@ -106,6 +106,14 @@ function _mts_render_link($link) {
 
   if (!empty($link['#below'])) {
     $link['#attributes']['class'][] = 'has-dropdown';
+
+    if ($link['#original_link']['plid'] == 0) {
+      foreach ($link['#below'] as $child) {
+        if (!empty($child['#below'])) {
+          $link['#attributes']['class'][] = 'has-grandchild';
+        }
+      }
+    }
   }
 
   // Render top level and make sure we have an actual link.
@@ -136,7 +144,7 @@ function _mts_render_link($link) {
 
       if ($link['#original_link']['plid'] == 0) {
         $container = '<div class="product-container"></div>';
-        $output .= "<div class='js-dropdown-products'>$container $container $container</div>";
+        $output .= "<div class='js-dropdown-products'>$container $container</div>";
       }
       $output .= '</div>';
     }

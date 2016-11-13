@@ -1,43 +1,119 @@
-.filters.opened {
-  @include corner-outline($border-color);
-  @extend %space-between;
-  margin-top: 10px;
-  padding: 15px 20px;
+.filters {
+  background: $white;
+  border-right: $border;
+  left: 0;
+  right: 45px;
+  bottom: 0;
+  top: $topbar-height;
+  position: fixed;
+  transform: translate(-100%, 0);
+  transition: transform .4s;
+  transition-timing-function: ease;
+  z-index: 1;
+
+  &.opened {
+    transform: translate(0);
+
+    @include filter-active(40, ' .modal__close');
+    .modal__close {
+      background: $silver;
+      font-weight: $font-weight-bold;
+      right: -46px;
+      position: absolute;
+      height: 45px;
+      width: 45px;
+
+      &:after {
+        margin-left: 13px !important;
+      }
+    }
+  }
 }
 
 .product-list__filter {
-  position: relative;
-  @include filter-active;
-  padding: 0 10px;
-
-  &:first-of-type {
-    padding-left: 0;
-  }
-
-  &:last-child {
-    padding-right: 0;
-  }
-}
-
-.product-list__filter-group {
+  border: $border;
+  display: block;
+  margin: 10px 30px;
+  padding: 5px;
+  text-align: center;
 
   & + & {
-    border-left: $border;
-    padding-left: 12px;
+    margin-top: 0;
   }
 
-  &.overflow {
-    @extend %space-around;
-    flex-wrap: wrap;
-    width: 100%;
-
-    h3 {
-      display: none;
-    }
+  &.active {
+    background: $monsoon;
+    color: $white;
   }
 }
 
 .filter__count {
   font-size: rem-calc(11);
   vertical-align: super;
+}
+
+@media #{$topbar-media-query} {
+  .filters {
+    border-right: none;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    top: auto;
+    position: relative;
+    transform: translate(0);
+  }
+
+  .modal__close {
+    display: none;
+  }
+
+  .filters.opened {
+    @include corner-outline($border-color);
+    @include space-between;
+    margin-top: 10px;
+    padding: 15px 20px;
+    left: auto;
+    right: auto;
+    top: auto;
+  }
+
+  .product-list__filter {
+    border: none;
+    margin: 0;
+    position: relative;
+    @include filter-active;
+    padding: 0 10px;
+    width: auto;
+
+    &:first-of-type {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &.active {
+      background: none;
+      color: $body-font-color;
+    }
+  }
+
+  .product-list__filter-group {
+
+    & + & {
+      border-left: $border;
+      padding-left: 12px;
+    }
+
+    &.overflow {
+      @include space-around;
+      flex-wrap: wrap;
+      width: 100%;
+
+      h3 {
+        display: none;
+      }
+    }
+  }
 }

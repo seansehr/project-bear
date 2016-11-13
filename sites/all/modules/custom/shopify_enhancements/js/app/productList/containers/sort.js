@@ -4,6 +4,7 @@ import SortComp from '../components/sort'
 import { getStatusFilters } from '../selectors'
 import TagFilters from '../containers/tagFilters'
 import { getTagFilters } from '../selectors'
+import { toggleSortVisibility } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -38,12 +39,17 @@ const mapStateToProps = (state) => {
         }
       }
     ],
+    sortKey: state.sort.key,
+    sortOrder: state.sort.order,
     tagFilters: getTagFilters(state)
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    close: () => {
+      dispatch(toggleSortVisibility())
+    },
     sortClick: (key, dir) => {
       dispatch(setSort(key, dir))
     }

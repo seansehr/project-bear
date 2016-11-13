@@ -105,6 +105,7 @@
         });
         $('body').on('click', '.js-currency', function (event) {
           self.getParent().toggleClass('active');
+          self.getParent().siblings('.opened').removeClass('opened');
         });
         $('.currency__selection').on('click', 'a', function (event) {
           event.preventDefault();

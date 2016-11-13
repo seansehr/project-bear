@@ -103,30 +103,7 @@ function debounce(func, wait, immediate) {
         var interval = false;
         var timeout = false;
         var marquee = function() {
-          if ($('body').width() > 641) {
-            var $siteMessage = $('.block-block-4', context);
-            var $siteMessageChildren = $siteMessage.children();
-            var siteMessageWidth = 0;
-            $siteMessage.off();
-            $siteMessageChildren.each(function () {
-              siteMessageWidth += $(this).width();
-            });
-            if (siteMessageWidth > $siteMessage.width()) {
-              var $firstChild = $siteMessageChildren.first();
-              if (!interval && !timeout) {
-                timeout = window.setTimeout(function () {
-                  interval = window.setInterval(function () {
-                    $firstChild.css('margin-left', '-=1');
-                    if (parseInt($firstChild.css('margin-left'), 10) < (siteMessageWidth * -1)) {
-                      console.log(siteMessageWidth);
-                      $firstChild.css('margin-left', $siteMessage.width());
-                    }
-                  }, 22);
-                }, 3000);
-              }
-            }
-          }
-          else {
+          if ($('body').width() < 641) {
             clearInterval(interval);
             clearTimeout(timeout);
             interval = false;

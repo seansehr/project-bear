@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import FilterListComp from '../components/filters'
 import { getFilterOptions } from '../selectors'
+import { loadFilterOptions } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -10,7 +11,12 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    close: () => {
+      console.log('close');
+      dispatch(loadFilterOptions(''));
+    }
+  }
 }
 
 const FilterList = connect(

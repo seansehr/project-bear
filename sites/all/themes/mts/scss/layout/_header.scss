@@ -38,12 +38,13 @@
     cursor: normal;
     position: absolute;
     text-align: center;
-    height: 30px;
+    max-height: none;
+    height: 35px;
     width: 80%;
-    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
     margin: 0 10%;
     white-space: nowrap;
-    z-index: -1;
 
     &:before {
       display: none;

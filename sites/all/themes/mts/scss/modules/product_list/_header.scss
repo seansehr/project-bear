@@ -1,51 +1,44 @@
 // Product List Header
 .product-list__header {
   border: $border;
-  padding: 5px 10px;
+  display: flex;
+  text-align: center;
+
 
   a {
-    clear: left;
-    display: block;
-    padding-bottom: 5px;
-
-    &:last-child {
-      padding-bottom: 0;
-    }
+    flex-grow: 1;
+    border-left: $border;
+    padding: 10px 0;
   }
 
-  > a {
-    float: left;
-    width: 50%;
+  > a:first-child {
+    border-left: none;
   }
 
   > div {
-    float: right;
-    width: 50%;
+    display: flex;
+    flex-grow: 2;
   }
-}
-
-.product-list__category--size,
-.product-list__sort {
-  @include filter-status;
 }
 
 @media #{$medium-up} {
   .product-list__header {
+    display: block;
     padding: 0;
+    text-align: left;
 
     a {
-      clear: none;
-      float: none;
-      padding-bottom: 0;
-      width: auto;
+      border-left: none;
+      flex-grow: 0;
+      padding: 0;
     }
 
     > div {
-      float: none;
-      width: 50%;
+      display: block;
     }
 
     .product-list__category--size {
+      @include filter-status;
       border-right: $border;
       display: inline-block;
       margin-top: 2px;
@@ -56,6 +49,7 @@
     }
 
     .product-list__sort {
+      @include filter-status;
       border-left: $border;
       display: inline-block;
       margin-top: 2px;

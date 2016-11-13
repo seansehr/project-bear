@@ -297,6 +297,9 @@ function shopify_enhancements_product_search_form($form, &$form_state) {
     '#type' => 'textfield',
     '#required' => TRUE,
     '#maxlength' => 128,
+    '#attributes' => array(
+      'placeholder' => 'Search Products',
+    ),
   );
 
   // Needs a submit button to work.

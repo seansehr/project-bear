@@ -47,7 +47,7 @@
         <?php print render($content['shopify_product_images']); ?>
       </div>
     </div>
-    <div class="small-12 medium-3 medium-pull-9 columns">
+    <div class="small-12 medium-3 medium-pull-9 columns product__sidebar">
       <div>
         <div class="product__product_type">
           <?php print $shopify_product->vendor; ?>
@@ -128,7 +128,7 @@
         <div class="flex-control-nav-container"></div>
       </div>
     </div>
-    <div class="small-12 medium-3 medium-pull-9 columns">
+    <div class="small-12 medium-3 medium-pull-9 columns product__sidebar">
       <div class="product__add-to-cart">
         <?php print render($content['add_to_cart']); ?>
       </div>

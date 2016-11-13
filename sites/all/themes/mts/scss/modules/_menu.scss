@@ -89,7 +89,7 @@ $admin-menu-height: 29px;
     .js-dropdown-products {
       background: $topbar-dropdown-bg;
       position: relative;
-      z-index: -1;
+      z-index: 1;
     }
 
     .product_thumb {
@@ -162,13 +162,13 @@ $admin-menu-height: 29px;
   .top-bar-section .has-dropdown.not-click:hover > .dropdown .dropdown {
     height: calc(100% - 10px);
     left: 25vw !important;
-    min-width: 25vw;
     top: 0;
+    z-index: 0;
 
     .dropdown-inner {
       height: 100% !important;
       column-count: 1;
-      width: 100%;
+      width: 25vw;
 
       > li {
         border: none;

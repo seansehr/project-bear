@@ -1,3 +1,5 @@
-.product-list__category {
-  @include filter-status;
+@media #{$topbar-media-query} {
+  .product-list__category {
+    @include filter-status;
+  }
 }

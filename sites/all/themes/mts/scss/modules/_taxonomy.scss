@@ -44,21 +44,32 @@
 
 .vocabulary-shopify-brands {
   .corner-outline {
-    display: flex;
-    flex-direction: row;
     padding: 5px;
   }
 
   .field-name-field-brand-image {
-    flex-shrink: 0;
-    float: left;
-  }
-
-  .taxonomy-term-description {
-    margin: 0 0 0 ($column-gutter/2);
+    text-align: center;
   }
 }
 
 .pane-taxonomy-term + .panel-separator {
   margin: 0;
+}
+
+@media #{$medium-up} {
+  .vocabulary-shopify-brands {
+    .corner-outline {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .field-name-field-brand-image {
+      flex-shrink: 0;
+      float: left;
+    }
+
+    .taxonomy-term-description {
+      margin: 0 0 0 ($column-gutter/2);
+    }
+  }
 }

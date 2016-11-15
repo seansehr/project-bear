@@ -71,6 +71,7 @@ function debounce(func, wait, immediate) {
               if (st > lastScrollTop) {
                 $topBar.removeClass('visible');
                 $header.removeClass('menu-visible');
+                $backToTop.addClass('visible');
               }
               else {
                 $topBar.addClass('visible');
@@ -83,7 +84,7 @@ function debounce(func, wait, immediate) {
         );
 
         $backToTop.on('click', function (event) {
-          document.body.scrollTop = document.documentElement.scrollTop = 0;
+          $('html, body').animate({scrollTop: 0}, 500);
         });
 
         var $brandInfo = $('.js-brand-info', context);

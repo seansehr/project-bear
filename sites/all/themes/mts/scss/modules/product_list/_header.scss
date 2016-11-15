@@ -21,7 +21,7 @@
   }
 }
 
-@media #{$medium-up} {
+@media #{$topbar-media-query} {
   .product-list__header {
     display: block;
     padding: 0;

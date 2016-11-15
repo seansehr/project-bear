@@ -69,6 +69,11 @@ $admin-menu-height: 29px;
       .red {
         color: $sale-red;
       }
+
+      > li {
+        flex-grow: 1;
+        text-align: center;
+      }
     }
 
     li.main-menu__home {
@@ -80,10 +85,11 @@ $admin-menu-height: 29px;
       background-position: center !important;
       background-repeat: no-repeat !important;
       background-size: contain !important;
+      background-color: transparent !important;
       font-size: 0;
       height: 40px;
       width: 135px;
-      margin-top: 7px;
+      margin: 7px auto 0;
     }
 
     .js-dropdown-products {
@@ -195,6 +201,8 @@ $admin-menu-height: 29px;
 
   .l-header-region {
     // Fixed class settings.
+    border-bottom: $border;
+    border-top: $border;
     width: 100%;
     left: 0;
     position: fixed;
@@ -208,6 +216,17 @@ $admin-menu-height: 29px;
 
   .top-bar-section .has-dropdown > a {
     padding-right: $topbar-link-padding !important;
+  }
+
+  .dropdown--scale .dropdown {
+    display: flex;
+    flex-direction: row;
+
+    .dropdown {
+      display: block;
+      position: relative;
+      left: 0 !important;
+    }
   }
 }
 

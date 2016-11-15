@@ -113,16 +113,26 @@ $info-gutter: 3px;
 }
 
 .price__compare_at {
+  display: none;
   padding-right: 8px;
   text-decoration: line-through;
 }
 
 .price--compare {
   color: $sale-red;
-  display: inline;
 }
 
 @media #{$medium-up} {
+  .product_thumb {
+    width: 33%;
+  }
+
+  .price__compare_at {
+    display: inline;
+  }
+}
+
+@media #{$large-up} {
   .product_thumb {
     width: 25%;
   }

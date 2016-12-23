@@ -11,6 +11,14 @@
             $submit = $('#search-button', $form),
             $input = $('.form-item-term input');
 
+        $(document).on('click', function(event) {
+          if(!$(event.target).closest($block).length) {
+            if($block.hasClass('opened')) {
+              $block.removeClass('opened');
+            }
+          }
+        });
+
         $submit.on('click', function (event) {
           if (!$block.hasClass('opened')) {
             $block.addClass('opened');

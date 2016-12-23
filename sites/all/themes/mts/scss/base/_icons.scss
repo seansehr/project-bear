@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cart-added:before {
+  content: "\e906";
+}
 .icon-cart:before {
   content: "\e903";
 }

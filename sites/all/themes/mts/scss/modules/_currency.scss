@@ -1,6 +1,6 @@
 .currency {
   cursor: pointer;
-  height: 26px;
+  height: 37px;
   line-height: rem-calc(29);
   overflow: hidden;
   position: relative;
@@ -52,7 +52,7 @@
   width: 0;
 
   .active & {
-    width: calc(100% - 100px);
+    width: calc(100% - 80px);
   }
 
   a {
@@ -73,5 +73,5 @@
 }
 
 .block-shopify-enhancements-currency.active {
-  width: calc(100% - 120px);
+  width: calc(100% - 90px);
 }

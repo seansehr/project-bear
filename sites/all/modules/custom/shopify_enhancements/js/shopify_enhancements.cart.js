@@ -42,6 +42,15 @@
       });
     },
 
+    icon_active: function(container) {
+      var $container = $(container),
+          $icon = $('.icon', $container);
+      $icon.addClass('icon-cart-added').removeClass('icon-cart-add');
+      window.setTimeout(function () {
+        $icon.addClass('icon-cart-add').removeClass('icon-cart-added');
+      }, 3000);
+    },
+
     attachEvents: function(context) {
       context = context || 'body';
 
@@ -50,7 +59,12 @@
         var pid = $(this).data('product-id'),
             vid = $(this).data('variant-id');
 
+        Drupal.behaviors.shopify_enhancements_cart.icon_active(this);
         Drupal.behaviors.shopify_enhancements_cart.addToCart(pid, vid);
+      });
+
+      $(context).on('click', '.add_to_cart', function (event) {
+        Drupal.behaviors.shopify_enhancements_cart.icon_active(this);
       });
 
       $(context).on('click', '.shopify-add-to-cart-button', function (event) {

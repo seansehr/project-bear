@@ -83,7 +83,7 @@ function _mts_render_link($link) {
         // replace 2 with the taxonomy ID (tid) you're wanting
         ->fieldCondition($field, 'tid', $term->tid)
         ->propertyOrderBy('updated_at', 'DESC')
-        ->range(0, 2);
+        ->range(0, 3);
       $result = $query->execute();
       // dpm($result, '$result');
       if (!empty($result['shopify_product'])) {
@@ -103,7 +103,7 @@ function _mts_render_link($link) {
   // This is a duplicate link that won't get the dropdown class and will only
   // show up in small-screen.
   $small_link = $link;
-
+  $grandchildren = FALSE;
   if (!empty($link['#below'])) {
     $link['#attributes']['class'][] = 'has-dropdown';
 
@@ -111,6 +111,7 @@ function _mts_render_link($link) {
       foreach ($link['#below'] as $child) {
         if (!empty($child['#below'])) {
           $link['#attributes']['class'][] = 'has-grandchild';
+          $grandchildren = TRUE;
         }
       }
     }
@@ -123,11 +124,14 @@ function _mts_render_link($link) {
     if (!isset($rendered_link)) {
       $rendered_link = theme('zurb_foundation_menu_link', array('link' => $link));
     }
-
     // Test for localization options and apply them if they exist.
     if (isset($link['#localized_options']['attributes']) && is_array($link['#localized_options']['attributes'])) {
       $link['#attributes'] = array_merge_recursive($link['#attributes'], $link['#localized_options']['attributes']);
+      if (isset($link['#localized_options']['item_attributes'])) {
+        $link['#attributes'] = array_merge_recursive($link['#attributes'], $link['#localized_options']['item_attributes']);
+      }
     }
+
     $output .= '<li' . drupal_attributes($link['#attributes']) . '>' . $rendered_link;
 
     if (!empty($link['#below'])) {
@@ -140,11 +144,16 @@ function _mts_render_link($link) {
         }
       }
 
-      $output .= '<ul class="dropdown-inner clearfix">' . $sub_menu . '</ul>';
+      $output .= '<ul class="dropdown-inner">' . $sub_menu . '</ul>';
 
       if ($link['#original_link']['plid'] == 0) {
         $container = '<div class="product-container"></div>';
-        $output .= "<div class='js-dropdown-products'>$container $container</div>";
+        if ($grandchildren) {
+          $output .= "<div class='js-dropdown-products'>$container $container</div>";
+        }
+        else {
+          $output .= "<div class='js-dropdown-products'>$container $container $container</div>";
+        }
       }
       $output .= '</div>';
     }

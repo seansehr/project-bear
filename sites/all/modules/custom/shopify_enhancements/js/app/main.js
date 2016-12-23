@@ -21,7 +21,6 @@ const formatProduct = function (product) {
   product.tags = product.shopify_product_tags.filter(tag => {
     return !!parseInt(fieldValue(tag.field_status_marker), 10)
   })
-  product.url = "/" + product.url
 
   product.shopify_product_metafields.forEach(metafield => {
     product[metafield.metafield_key] = metafield.value
@@ -33,9 +32,14 @@ window.Drupal.shopify_enhancements.createCart = Cart;
 window.Drupal.shopify_enhancements.createCartItem = CartItem;
 
 window.Drupal.shopify_enhancements.createProduct = (product, currency, container) => {
+  let onClick = () => {
+    let variant = product.variants[Object.keys(product.variants)[0]];
+    Drupal.behaviors.shopify_enhancements_cart.addToCart(product.product_id, variant.variant_id);
+  }
+
   formatProduct(product);
   render(
-    <Product data={product} currency={currency} />,
+    <Product data={product} currency={currency} onClick={onClick} />,
     container
   );
 }

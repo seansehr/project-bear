@@ -1,11 +1,16 @@
 // Non-modular or client styles for the .l-content region.
-.l-main {
-  margin-top: 42px;
-  padding: 0 $page-gutter;
-}
-
 .breadcrumbs {
   margin-bottom: 0;
+  white-space: nowrap;
+
+  li {
+    display: inline;
+    float: none;
+
+    &:before {
+      margin: 0 0.5rem;
+    }
+  }
 }
 
 .node-title {
@@ -16,4 +21,11 @@
 
 .page-product-search #page-title {
   text-align: center;
+}
+
+@media #{$large-up} {
+  .l-main {
+    margin-top: 39px;
+    padding: 0 $page-gutter;
+  }
 }

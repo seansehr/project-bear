@@ -3,13 +3,18 @@
   float: right;
   line-height: 1;
   margin-right: 20px;
+  position: absolute;
+  right: 26px;
+  transition: all 1s;
+  width: 34px;
   z-index: 1;
 
   .form-item-term {
     display: inline-block;
     float: right;
-    margin: 0 10px 0 0;
     overflow: hidden;
+    position: absolute;
+    margin: 5px 25%;
     width: 0;
 
     input {
@@ -30,15 +35,15 @@
     cursor: pointer;
     float: right;
     font-size: rem-calc(20);
-    height: 26px;
+    height: 37px;
+    min-width: 46px;
     padding-left: 15px;
+    text-align: right;
   }
   @include filter-active(31, '.opened .button--search');
 
   &.opened {
-    position: absolute;
-    right: 26px;
-    width: calc(100% - 160px);
+    width: calc(100% - 140px);
 
     .button--search {
       padding-left: 8px;
@@ -49,8 +54,6 @@
     }
 
     .form-item-term {
-      position: absolute;
-      margin: 0 25%;
       width: 50%;
 
       &:before {

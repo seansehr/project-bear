@@ -20,6 +20,8 @@ function debounce(func, wait, immediate) {
 }
 
 (function($) {
+  Foundation.libs.reveal.settings.animation_speed = 0;
+
   Drupal.behaviors.mts = {
     attach: function(context, settings) {
       if (context === document) {

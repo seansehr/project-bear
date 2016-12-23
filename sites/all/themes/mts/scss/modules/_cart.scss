@@ -27,10 +27,11 @@
   background: rgba($silver, 0.8);
   height: 100%;
   left: 50%;
+  padding: 30px 10px 10px;
   right: -50%;
   opacity: 1 !important;
   top: 0;
-  transition: all .5s;
+  transition: left .5s;
 
   &.open {
     left: 0;
@@ -81,6 +82,7 @@
 
 .cart__products {
   border-bottom: $border;
+  font-size: rem-calc(14);
   flex-grow: 1;
   overflow: auto;
 }
@@ -90,6 +92,7 @@
   align-items: center;
   border-bottom: $border;
   padding: ($column-gutter/4);
+  position: relative;
 }
 
 .cart__col--left {
@@ -97,19 +100,20 @@
     $columns: 3,
     $collapse: true
   );
+  display: none;
+  flex-grow: 1;
 }
 
 .cart__col--mid {
-  @include grid-column(9);
+  flex-grow: 2;
 }
 
 .cart__col--right {
   display: flex;
   flex-direction: row;
   text-align: right;
-  padding-right: ($column-gutter/2);
   flex-grow: 1;
-  width: 25%;
+  // width: 25%;
 
   &__left {
     flex-grow: 1;
@@ -123,6 +127,25 @@
 
 .cart__remove {
   padding-left: ($column-gutter/2);
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+@media #{$medium-up} {
+  .cart__col--left {
+    display: block;
+  }
+
+  .cart__col--mid {
+    @include grid-column(9);
+  }
+
+  .cart__remove {
+    position: relative;
+    right: 0;
+    top: 0;
+  }
 }
 
 .cart__quantity--add,
@@ -157,8 +180,7 @@
 
 .cart__buttons {
   align-self: flex-end;
-  margin-right: $column-gutter;
-  margin-top: 15px;
+  margin: 15px auto 0;
   text-align: right;
 }
 
@@ -177,7 +199,7 @@
   right: -15px;
   top: 32px;
   transition: opacity 0.5s;
-  width: 38vw;
+  width: 100vw;
   z-index: 100;
 
   &:before {
@@ -232,5 +254,15 @@
     font-size: rem-calc(14);
     padding: 5px 10px 10px;
     text-align: center;
+  }
+}
+
+@media #{$large-up} {
+  .cart__buttons {
+    margin: 15px 20px 0 0;
+  }
+
+  .cart-add {
+    width: 38vw;
   }
 }

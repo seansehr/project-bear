@@ -298,7 +298,7 @@ function shopify_enhancements_product_search_form($form, &$form_state) {
     '#required' => TRUE,
     '#maxlength' => 128,
     '#attributes' => array(
-      'placeholder' => 'Search Products',
+      'placeholder' => t('What can I help you find?'),
     ),
   );
 
@@ -512,7 +512,9 @@ function _shopify_enhancements_format_product($product) {
   }
   $path = entity_uri('shopify_product', $product);
   $product->url = drupal_get_path_alias($path['path']);
-
+  if (substr($product->url, 0, 1) !== '/') {
+    $product->url = '/' . $product->url;
+  }
   return $product;
 }
 

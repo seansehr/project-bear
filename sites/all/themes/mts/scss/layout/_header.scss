@@ -1,11 +1,23 @@
 // Non-modular or client styles for .l-header region.
+$block-padding: 5px;
 
 .block-shopify-enhancements-currency {
   float: left;
+
+  .currency > div {
+    padding: $block-padding 0;
+  }
 }
 
 .block-shopify-cart {
   float: right;
+  padding: $block-padding 0;
+}
+
+.block-shopify-enhancements-product-search {
+  .button--search {
+    padding: $block-padding 0;
+  }
 }
 
 .block-block-4 {
@@ -20,7 +32,7 @@
     display: 'block';
     left: calc(50% - 48px);
     position: absolute;
-    top: 0;
+    top: 5px;
   }
 
   &.show-message {
@@ -35,19 +47,39 @@
 @media #{$medium-up} {
   // Site message
   .block-block-4 {
-    cursor: normal;
+    cursor: auto;
     position: absolute;
     text-align: center;
     max-height: none;
     height: 35px;
-    width: 80%;
-    overflow-x: scroll;
+    padding: $block-padding 0;
+    width: calc(100% - 200px);
+    overflow-x: auto;
     overflow-y: hidden;
-    margin: 0 10%;
+    margin: 0 90px;
     white-space: nowrap;
 
     &:before {
       display: none;
+    }
+
+    &::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: $monsoon;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+    &::-webkit-scrollbar-thumb:window-inactive {
+      background: rgba(0, 0, 0, 0.4);
     }
 
     > * {

@@ -3,7 +3,7 @@
 }
 
 .panel-pane .node-marquee {
-  margin: 0 (-$page-gutter - ($column-gutter/2));
+  margin: 0 -10px;
 }
 
 .slide__wrapper {
@@ -47,5 +47,11 @@
         background: rgba(255, 255, 255, .9);
       }
     }
+  }
+}
+
+@media #{$large-up} {
+  .panel-pane .node-marquee {
+    margin: 0 (-$page-gutter - ($column-gutter/2));
   }
 }

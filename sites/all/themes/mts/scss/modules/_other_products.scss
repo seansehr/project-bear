@@ -38,13 +38,4 @@
     border-left: 2px solid $primary-color;
     padding: 0 10px;
   }
-
-  // Needs specificity to override Foundation's classes.
-  a.tab__view-all {
-    font-size: rem-calc(12);
-    float: right;
-    line-height: 1;
-    margin-top: 8px;
-    text-align: right;
-  }
 }
